@@ -1,0 +1,22 @@
+BEFORE
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS 
+574556c9d910   spark-worker   0.16%     403.8MiB / 15.62GiB   2.53%     3.76GB / 379MB    823kB / 3.55B     45 
+cde593a9630d   spark-master   0.20%     298.9MiB / 15.62GiB   1.87%     494MB / 2.59GB    65.9MB / 998MB    46 
+d2f218d84b3c   kafka          1.11%     1022MiB / 15.62GiB    6.39%     167MB / 755MB     5.41MB / 229MB    82 
+e4c3cedc4af8   zookeeper      0.16%     120.5MiB / 15.62GiB   0.75%     2.54MB / 1.55MB   3.62MB / 44.3MB   47 
+
+
+DURING
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS 
+574556c9d910   spark-worker   221.32%   1.304GiB / 15.62GiB   8.35%     4.18GB / 391MB    827kB / 3.85GB    226 
+cde593a9630d   spark-master   129.00%   1.233GiB / 15.62GiB   7.90%     505MB / 2.73GB    65.9MB / 1.06GB   334 
+d2f218d84b3c   kafka          14.14%    1024MiB / 15.62GiB    6.40%     195MB / 1.03GB    5.41MB / 254MB    82 
+e4c3cedc4af8   zookeeper      0.10%     120.5MiB / 15.62GiB   0.75%     2.54MB / 1.55MB   3.62MB / 44.3MB   47 
+ 
+
+AFTER
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS 
+574556c9d910   spark-worker   156.48%   1.328GiB / 15.62GiB   8.50%     4.31GB / 399MB    827kB / 3.9GB     199 
+cde593a9630d   spark-master   97.79%    1.247GiB / 15.62GiB   7.99%     512MB / 2.75GB    65.9MB / 1.06GB   334 
+d2f218d84b3c   kafka          8.48%     1024MiB / 15.62GiB    6.40%     204MB / 1.14GB    5.41MB / 262MB    82 
+e4c3cedc4af8   zookeeper      0.11%     120.5MiB / 15.62GiB   0.75%     2.54MB / 1.55MB   3.62MB / 44.3MB   47 

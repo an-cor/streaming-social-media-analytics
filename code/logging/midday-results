@@ -1,0 +1,2461 @@
+Slow speed with logs
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ mkdir -p logs
+docker exec -it spark-master bash -lc '
+export ENTITIES_PATH=/project/config/entities.yml
+export PYTHONPATH=/project
+cd /project &&
+/opt/spark/bin/spark-submit \
+  --master spark://spark-master:7077 \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+  --conf spark.jars.ivy=/tmp/ivy \
+  --py-files /project/streaming.zip \
+  /project/streaming/stream_job.py
+' |& tee logs/slow_stream.log
+:: loading settings :: url = jar:file:/opt/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /tmp/ivy/cache
+The jars for the packages stored in: /tmp/ivy/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-5816bfa2-a05e-4749-818f-5193151335f8;1.0
+        confs: [default]
+        found org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.kafka#kafka-clients;3.4.1 in central
+        found org.lz4#lz4-java;1.8.0 in central
+        found org.xerial.snappy#snappy-java;1.1.10.3 in central
+        found org.slf4j#slf4j-api;2.0.7 in central
+        found org.apache.hadoop#hadoop-client-runtime;3.3.4 in central
+        found org.apache.hadoop#hadoop-client-api;3.3.4 in central
+        found commons-logging#commons-logging;1.1.3 in central
+        found com.google.code.findbugs#jsr305;3.0.0 in central
+        found org.apache.commons#commons-pool2;2.11.1 in central
+:: resolution report :: resolve 737ms :: artifacts dl 23ms
+        :: modules in use:
+        com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+        commons-logging#commons-logging;1.1.3 from central in [default]
+        org.apache.commons#commons-pool2;2.11.1 from central in [default]
+        org.apache.hadoop#hadoop-client-api;3.3.4 from central in [default]
+        org.apache.hadoop#hadoop-client-runtime;3.3.4 from central in [default]
+        org.apache.kafka#kafka-clients;3.4.1 from central in [default]
+        org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.lz4#lz4-java;1.8.0 from central in [default]
+        org.slf4j#slf4j-api;2.0.7 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.10.3 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   11  |   0   |   0   |   0   ||   11  |   0   |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-5816bfa2-a05e-4749-818f-5193151335f8
+        confs: [default]
+        0 artifacts copied, 11 already retrieved (0kB/16ms)
+25/12/30 08:06:54 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+STREAM_JOB_VERSION=2025-12-30_0527
+25/12/30 08:06:56 INFO SparkContext: Running Spark version 3.5.1
+25/12/30 08:06:56 INFO SparkContext: OS info Linux, 6.8.0-1044-gcp, amd64
+25/12/30 08:06:56 INFO SparkContext: Java version 11.0.22
+25/12/30 08:06:56 INFO ResourceUtils: ==============================================================
+25/12/30 08:06:56 INFO ResourceUtils: No custom resources configured for spark.driver.
+25/12/30 08:06:56 INFO ResourceUtils: ==============================================================
+25/12/30 08:06:56 INFO SparkContext: Submitted application: TwitterGraphStream
+25/12/30 08:06:56 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+25/12/30 08:06:56 INFO ResourceProfile: Limiting resource is cpu
+25/12/30 08:06:56 INFO ResourceProfileManager: Added ResourceProfile id: 0
+25/12/30 08:06:56 INFO SecurityManager: Changing view acls to: spark
+25/12/30 08:06:56 INFO SecurityManager: Changing modify acls to: spark
+25/12/30 08:06:56 INFO SecurityManager: Changing view acls groups to: 
+25/12/30 08:06:56 INFO SecurityManager: Changing modify acls groups to: 
+25/12/30 08:06:56 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark; groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY
+25/12/30 08:06:56 INFO Utils: Successfully started service 'sparkDriver' on port 36411.
+25/12/30 08:06:56 INFO SparkEnv: Registering MapOutputTracker
+25/12/30 08:06:56 INFO SparkEnv: Registering BlockManagerMaster
+25/12/30 08:06:56 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+25/12/30 08:06:56 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+25/12/30 08:06:56 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+25/12/30 08:06:56 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-3a597d5b-563a-47f0-85c6-799b22d0fb43
+25/12/30 08:06:56 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+25/12/30 08:06:56 INFO SparkEnv: Registering OutputCommitCoordinator
+25/12/30 08:06:57 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+25/12/30 08:06:57 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36411/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36411/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:36411/jars/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:36411/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:36411/jars/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:36411/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:36411/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:36411/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:36411/jars/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:36411/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added JAR file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:36411/jars/commons-logging_commons-logging-1.1.3.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO SparkContext: Added file file:///project/streaming.zip at spark://cde593a9630d:36411/files/streaming.zip with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /project/streaming.zip to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/streaming.zip
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36411/files/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36411/files/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:36411/files/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.apache.kafka_kafka-clients-3.4.1.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:36411/files/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/com.google.code.findbugs_jsr305-3.0.0.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:36411/files/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.apache.commons_commons-pool2-2.11.1.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:36411/files/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:36411/files/org.lz4_lz4-java-1.8.0.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.lz4_lz4-java-1.8.0.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:36411/files/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.xerial.snappy_snappy-java-1.1.10.3.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:36411/files/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.slf4j_slf4j-api-2.0.7.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:36411/files/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/org.apache.hadoop_hadoop-client-api-3.3.4.jar
+25/12/30 08:06:57 INFO SparkContext: Added file file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:36411/files/commons-logging_commons-logging-1.1.3.jar with timestamp 1767082016121
+25/12/30 08:06:57 INFO Utils: Copying /tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar to /tmp/spark-a4aecbcf-b002-45ed-bfa4-a89e722cf9e9/userFiles-0070586d-0ee2-4efa-afd5-f4df4075e18a/commons-logging_commons-logging-1.1.3.jar
+25/12/30 08:06:57 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+25/12/30 08:06:57 INFO TransportClientFactory: Successfully created connection to spark-master/172.18.0.4:7077 after 39 ms (0 ms spent in bootstraps)
+25/12/30 08:06:57 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20251230080657-0012
+25/12/30 08:06:57 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20251230080657-0012/0 on worker-20251229050300-172.18.0.5-33597 (172.18.0.5:33597) with 2 core(s)
+25/12/30 08:06:57 INFO StandaloneSchedulerBackend: Granted executor ID app-20251230080657-0012/0 on hostPort 172.18.0.5:33597 with 2 core(s), 1024.0 MiB RAM
+25/12/30 08:06:57 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 33573.
+25/12/30 08:06:57 INFO NettyBlockTransferService: Server created on cde593a9630d:33573
+25/12/30 08:06:57 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+25/12/30 08:06:57 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, cde593a9630d, 33573, None)
+25/12/30 08:06:57 INFO BlockManagerMasterEndpoint: Registering block manager cde593a9630d:33573 with 434.4 MiB RAM, BlockManagerId(driver, cde593a9630d, 33573, None)
+25/12/30 08:06:57 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, cde593a9630d, 33573, None)
+25/12/30 08:06:57 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, cde593a9630d, 33573, None)
+25/12/30 08:06:57 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20251230080657-0012/0 is now RUNNING
+25/12/30 08:06:58 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+25/12/30 08:07:04 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+25/12/30 08:07:04 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+Streaming query started. Writing edges to: /data/raw_parquet
+[metrics] writing streaming progress to /data/metrics/stream_progress.jsonl
+25/12/30 08:07:05 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+25/12/30 08:07:05 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+[edges] batch=0 rows=0
+[with_figs] batch=0 total=0 nonnull=0 ge1=0 ge2=0
+[mentions] batch=0 ge1=0 ge2=0
+batchId= 0 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+batchId= 1 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+[with_figs] batch=1 total=1 nonnull=1 ge1=1 ge2=0
+[mentions] batch=1 ge1=1 ge2=0
+[with_figs] batch=2 total=9 nonnull=9 ge1=6 ge2=0
+[mentions] batch=2 ge1=6 ge2=0
+[with_figs] batch=3 total=4 nonnull=4 ge1=2 ge2=0
+[mentions] batch=3 ge1=2 ge2=0
+[edges] batch=1 rows=11
+[with_figs] batch=4 total=3 nonnull=3 ge1=2 ge2=1
+[mentions] batch=4 ge1=2 ge2=1
+batchId= 1 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |4    |
+|neg            |3    |
+|neu            |4    |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|switchfoot     |__ANY__|-0.0173        |neu            |2009-04-06T22:19:45Z|
+|Kenichan       |__ANY__|0.4939         |pos            |2009-04-06T22:19:53Z|
+|nationwideclass|__ANY__|-0.4939        |neg            |2009-04-06T22:19:57Z|
+|Kwesidei       |__ANY__|0.0            |neu            |2009-04-06T22:20:00Z|
+|LOLTrish       |__ANY__|0.6208         |pos            |2009-04-06T22:20:03Z|
+|Tatiana_K      |__ANY__|0.0            |neu            |2009-04-06T22:20:05Z|
+|twittera       |__ANY__|0.0            |neu            |2009-04-06T22:20:09Z|
+|caregiving     |__ANY__|-0.5994        |neg            |2009-04-06T22:20:19Z|
+|octolinz16     |__ANY__|-0.1027        |neg            |2009-04-06T22:20:19Z|
+|smarrison      |__ANY__|0.3724         |pos            |2009-04-06T22:20:20Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=5 total=5 nonnull=5 ge1=3 ge2=0
+[mentions] batch=5 ge1=3 ge2=0
+[with_figs] batch=6 total=9 nonnull=9 ge1=1 ge2=0
+[mentions] batch=6 ge1=1 ge2=0
+[with_figs] batch=7 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=7 ge1=2 ge2=0
+[edges] batch=2 rows=9
+[with_figs] batch=8 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=8 ge1=2 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |3    |
+|neg            |4    |
+|neu            |2    |
++---------------+-----+
+
+batchId= 1 numInputRows= 72 inputRowsPerSecond= 3.6 processedRowsPerSecond= 5.272021673866881
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|LettyA         |__ANY__|0.6988         |pos            |2009-04-06T22:20:31Z|
+|FakerPattyPattz|__ANY__|0.1779         |pos            |2009-04-06T22:20:34Z|
+|alydesigns     |__ANY__|0.0            |neu            |2009-04-06T22:20:37Z|
+|angry_barista  |__ANY__|0.0            |neu            |2009-04-06T22:20:40Z|
+|alielayus      |__ANY__|-0.2144        |neg            |2009-04-06T22:21:07Z|
+|julieebaby     |__ANY__|0.6973         |pos            |2009-04-06T22:21:11Z|
+|HumpNinja      |__ANY__|-0.4767        |neg            |2009-04-06T22:21:21Z|
+|cocomix04      |__ANY__|-0.6711        |neg            |2009-04-06T22:21:27Z|
+|MissXu         |__ANY__|-0.1511        |neg            |2009-04-06T22:21:30Z|
++---------------+-------+---------------+---------------+--------------------+
+
+[with_figs] batch=9 total=5 nonnull=5 ge1=2 ge2=0
+[mentions] batch=9 ge1=2 ge2=0
+[with_figs] batch=10 total=4 nonnull=4 ge1=2 ge2=0
+[mentions] batch=10 ge1=2 ge2=0
+[with_figs] batch=11 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=11 ge1=1 ge2=0
+[with_figs] batch=12 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=12 ge1=2 ge2=0
+[with_figs] batch=13 total=3 nonnull=3 ge1=0 ge2=0
+[mentions] batch=13 ge1=0 ge2=0
+[edges] batch=3 rows=8
+[with_figs] batch=14 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=14 ge1=2 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |5    |
+|neg            |3    |
++---------------+-----+
+
+batchId= 2 numInputRows= 80 inputRowsPerSecond= 4.0 processedRowsPerSecond= 12.150668286755772
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|fleurylis      |__ANY__|0.3578         |pos            |2009-04-06T22:21:32Z|
+|JonathanRKnight|__ANY__|0.2481         |pos            |2009-04-06T22:21:53Z|
+|Viennah        |__ANY__|0.629          |pos            |2009-04-06T22:22:05Z|
+|jeancjumbe's   |__ANY__|0.5719         |pos            |2009-04-06T22:22:07Z|
+|tea            |__ANY__|-0.2578        |neg            |2009-04-06T22:22:25Z|
+|localtweeps    |__ANY__|0.7845         |pos            |2009-04-06T22:22:24Z|
+|andywana       |__ANY__|-0.2134        |neg            |2009-04-06T22:22:37Z|
+|oanhLove       |__ANY__|-0.5719        |neg            |2009-04-06T22:22:47Z|
++---------------+-------+---------------+---------------+--------------------+
+
+[with_figs] batch=15 total=4 nonnull=4 ge1=1 ge2=0
+[mentions] batch=15 ge1=1 ge2=0
+[with_figs] batch=16 total=4 nonnull=4 ge1=1 ge2=0
+[mentions] batch=16 ge1=1 ge2=0
+[with_figs] batch=17 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=17 ge1=1 ge2=0
+[with_figs] batch=18 total=3 nonnull=3 ge1=3 ge2=0
+[mentions] batch=18 ge1=3 ge2=0
+[with_figs] batch=19 total=3 nonnull=3 ge1=0 ge2=0
+[mentions] batch=19 ge1=0 ge2=0
+[edges] batch=4 rows=7
+[with_figs] batch=20 total=3 nonnull=3 ge1=1 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |4    |
+|neg            |2    |
+|neu            |1    |
++---------------+-----+
+
+[mentions] batch=20 ge1=1 ge2=0
++------------+-------+---------------+---------------+--------------------+
+|src         |dst    |sentiment_score|sentiment_label|timestamp           |
++------------+-------+---------------+---------------+--------------------+
+|BatManYNG   |__ANY__|0.1431         |pos            |2009-04-06T22:22:52Z|
+|Starrbby    |__ANY__|-0.1541        |neg            |2009-04-06T22:23:15Z|
+|katortiz    |__ANY__|0.0            |neu            |2009-04-06T22:23:28Z|
+|Lt_Algonquin|__ANY__|0.2732         |pos            |2009-04-06T22:23:30Z|
+|jdarter     |__ANY__|-0.3131        |neg            |2009-04-06T22:23:35Z|
+|ninjen      |__ANY__|0.3802         |pos            |2009-04-06T22:23:39Z|
+|ashleyac    |__ANY__|0.1779         |pos            |2009-04-06T22:25:44Z|
++------------+-------+---------------+---------------+--------------------+
+
+batchId= 3 numInputRows= 80 inputRowsPerSecond= 4.0002000100005 processedRowsPerSecond= 13.183915622940013
+[with_figs] batch=21 total=5 nonnull=5 ge1=1 ge2=0
+[mentions] batch=21 ge1=1 ge2=0
+[with_figs] batch=22 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=22 ge1=1 ge2=0
+[with_figs] batch=23 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=23 ge1=1 ge2=0
+[with_figs] batch=24 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=24 ge1=2 ge2=0
+[with_figs] batch=25 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=25 ge1=1 ge2=0
+[edges] batch=5 rows=6
+[with_figs] batch=26 total=3 nonnull=3 ge1=0 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1    |
+|neg            |3    |
+|neu            |2    |
++---------------+-----+
+
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|statravelAU   |__ANY__|-0.315         |neg            |2009-04-06T22:25:53Z|
+|markhardy1974 |__ANY__|0.0            |neu            |2009-04-06T22:25:54Z|
+|msdrama       |__ANY__|-0.296         |neg            |2009-04-06T22:26:02Z|
+|januarycrimson|__ANY__|-0.3987        |neg            |2009-04-06T22:26:10Z|
+|Hollywoodheat |__ANY__|0.0            |neu            |2009-04-06T22:26:10Z|
+|makeherfamous |__ANY__|0.2006         |pos            |2009-04-06T22:26:22Z|
++--------------+-------+---------------+---------------+--------------------+
+
+[mentions] batch=26 ge1=0 ge2=0
+batchId= 5 numInputRows= 80 inputRowsPerSecond= 4.0 processedRowsPerSecond= 16.329863237395386
+[with_figs] batch=27 total=4 nonnull=4 ge1=2 ge2=0
+[mentions] batch=27 ge1=2 ge2=0
+[with_figs] batch=28 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=28 ge1=1 ge2=0
+[with_figs] batch=29 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=29 ge1=1 ge2=0
+[with_figs] batch=30 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=30 ge1=2 ge2=0
+[with_figs] batch=31 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=31 ge1=2 ge2=0
+[edges] batch=6 rows=11
+[with_figs] batch=32 total=3 nonnull=3 ge1=3 ge2=0
+[mentions] batch=32 ge1=3 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |3    |
+|neg            |5    |
+|neu            |3    |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|stark          |__ANY__|0.0            |neu            |2009-04-06T22:26:29Z|
+|mangaaa        |__ANY__|-0.3818        |neg            |2009-04-06T22:26:38Z|
+|kpreyes        |__ANY__|-0.4215        |neg            |2009-04-06T22:26:45Z|
+|paradisej      |__ANY__|-0.4588        |neg            |2009-04-06T22:26:45Z|
+|Henkuyinepu    |__ANY__|0.0            |neu            |2009-04-06T22:26:52Z|
+|marykatherine_q|__ANY__|0.0            |neu            |2009-04-06T22:26:54Z|
+|jacobsummers   |__ANY__|-0.2212        |neg            |2009-04-06T22:27:00Z|
+|Alliana07      |__ANY__|-0.7717        |neg            |2009-04-06T22:26:58Z|
+|salancaster    |__ANY__|0.4404         |pos            |2009-04-06T22:27:02Z|
+|mercedesashley |__ANY__|0.5043         |pos            |2009-04-06T22:27:08Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 6 numInputRows= 80 inputRowsPerSecond= 4.0 processedRowsPerSecond= 16.677089847821556
+[with_figs] batch=33 total=4 nonnull=4 ge1=1 ge2=0
+[mentions] batch=33 ge1=1 ge2=0
+[with_figs] batch=34 total=3 nonnull=3 ge1=0 ge2=0
+[mentions] batch=34 ge1=0 ge2=0
+[with_figs] batch=35 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=35 ge1=2 ge2=0
+[with_figs] batch=36 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=36 ge1=1 ge2=0
+[with_figs] batch=37 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=37 ge1=2 ge2=0
+[with_figs] batch=38 total=3 nonnull=3 ge1=0 ge2=0
+[edges] batch=7 rows=6
+[mentions] batch=38 ge1=0 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1    |
+|neg            |5    |
++---------------+-----+
+
++-------------+-------+---------------+---------------+--------------------+
+|src          |dst    |sentiment_score|sentiment_label|timestamp           |
++-------------+-------+---------------+---------------+--------------------+
+|eRRe_sC      |__ANY__|-0.2924        |neg            |2009-04-06T22:27:18Z|
+|allyheman    |__ANY__|-0.3491        |neg            |2009-04-06T22:27:35Z|
+|grum         |__ANY__|-0.6369        |neg            |2009-04-06T22:27:45Z|
+|thecoolestout|__ANY__|-0.5106        |neg            |2009-04-06T22:27:56Z|
+|chelserlynn  |__ANY__|0.1759         |pos            |2009-04-06T22:27:56Z|
+|Knights_     |__ANY__|-0.296         |neg            |2009-04-06T22:28:02Z|
++-------------+-------+---------------+---------------+--------------------+
+
+[with_figs] batch=39 total=3 nonnull=3 ge1=1 ge2=0
+batchId= 7 numInputRows= 76 inputRowsPerSecond= 3.7998100094995246 processedRowsPerSecond= 15.806988352745424
+[mentions] batch=39 ge1=1 ge2=0
+[with_figs] batch=40 total=4 nonnull=4 ge1=3 ge2=0
+[mentions] batch=40 ge1=3 ge2=0
+[with_figs] batch=41 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=41 ge1=1 ge2=0
+[with_figs] batch=42 total=3 nonnull=3 ge1=0 ge2=0
+[mentions] batch=42 ge1=0 ge2=0
+[with_figs] batch=43 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=43 ge1=2 ge2=0
+[with_figs] batch=44 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=44 ge1=1 ge2=0
+[edges] batch=8 rows=8
+[with_figs] batch=45 total=3 nonnull=3 ge1=0 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1    |
+|neg            |6    |
+|neu            |1    |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|BridgetsBeaches|__ANY__|-0.5267        |neg            |2009-04-06T22:28:09Z|
+|JonathanRKnight|__ANY__|-0.296         |neg            |2009-04-06T22:28:11Z|
+|ozesteph1992   |__ANY__|-0.4767        |neg            |2009-04-06T22:28:18Z|
+|mrsaintnick    |__ANY__|0.0            |neu            |2009-04-06T22:28:21Z|
+|twista202      |__ANY__|-0.0516        |neg            |2009-04-06T22:28:24Z|
+|rumblepurr     |__ANY__|0.6705         |pos            |2009-04-06T22:28:32Z|
+|onemoreproject |__ANY__|-0.4215        |neg            |2009-04-06T22:28:32Z|
+|jonathanchard  |__ANY__|-0.1625        |neg            |2009-04-06T22:28:48Z|
++---------------+-------+---------------+---------------+--------------------+
+
+[mentions] batch=45 ge1=0 ge2=0
+batchId= 8 numInputRows= 80 inputRowsPerSecond= 4.0002000100005 processedRowsPerSecond= 17.208001720800173
+[with_figs] batch=46 total=4 nonnull=4 ge1=0 ge2=0
+[mentions] batch=46 ge1=0 ge2=0
+[with_figs] batch=47 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=47 ge1=2 ge2=0
+[with_figs] batch=48 total=3 nonnull=3 ge1=0 ge2=0
+[mentions] batch=48 ge1=0 ge2=0
+[with_figs] batch=49 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=49 ge1=2 ge2=0
+[with_figs] batch=50 total=3 nonnull=3 ge1=1 ge2=0
+[mentions] batch=50 ge1=1 ge2=0
+[edges] batch=9 rows=7
+[with_figs] batch=51 total=3 nonnull=3 ge1=2 ge2=0
+[mentions] batch=51 ge1=2 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2    |
+|neg            |4    |
+|neu            |1    |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|RyanSeacrest   |__ANY__|-0.5574        |neg            |2009-04-06T22:31:05Z|
+|pinkserendipity|__ANY__|0.4019         |pos            |2009-04-06T22:31:09Z|
+|marieclr       |__ANY__|0.4995         |pos            |2009-04-06T22:31:31Z|
+|naughtyhaughty |__ANY__|-0.6093        |neg            |2009-04-06T22:31:37Z|
+|penndbad       |__ANY__|-0.6694        |neg            |2009-04-06T22:31:43Z|
+|machineplay    |__ANY__|-0.188         |neg            |2009-04-06T22:31:48Z|
+|ColinDeMar     |__ANY__|0.0            |neu            |2009-04-06T22:31:50Z|
++---------------+-------+---------------+---------------+--------------------+
+
+batchId= 9 numInputRows= 80 inputRowsPerSecond= 3.9998000099995 processedRowsPerSecond= 14.574603752960467
+[with_figs] batch=52 total=3 nonnull=3 ge1=0 ge2=0
+[mentions] batch=52 ge1=0 ge2=0
+[edges] batch=10 rows=0
+batchId= 10 numInputRows= 3 inputRowsPerSecond= 0.15000750037501875 processedRowsPerSecond= 3.9215686274509802
+batchId= 11 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+^CTraceback (most recent call last):
+  File "/project/streaming/stream_job.py", line 265, in <module>
+    main()
+  File "/project/streaming/stream_job.py", line 258, in main
+    time.sleep(20)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 382, in signal_handler
+KeyboardInterrupt
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc 'tail -n 3 /data/metrics/stream_progress.jsonl | jq .'
+bash: jq: command not found
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc 'tail -n 3 /data/metrics/stream_progress.jsonl'
+{"id": "ffa57a1c-3e3b-4743-a40c-0e529ccc9da4", "runId": "fd098f7b-907a-4f31-92ff-12e768215261", "name": null, "timestamp": "2025-12-30T08:10:40.001Z", "batchId": 9, "numInputRows": 80, "inputRowsPerSecond": 3.9998000099995, "processedRowsPerSecond": 14.574603752960467, "durationMs": {"addBatch": 5378, "commitOffsets": 36, "getBatch": 0, "latestOffset": 3, "queryPlanning": 33, "triggerExecution": 5489, "walCommit": 38}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 157}}, "endOffset": {"tweets": {"0": 177}}, "latestOffset": {"tweets": {"0": 177}}, "numInputRows": 80, "inputRowsPerSecond": 3.9998000099995, "processedRowsPerSecond": 14.574603752960467, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:10:45.495477Z"}
+{"id": "ffa57a1c-3e3b-4743-a40c-0e529ccc9da4", "runId": "fd098f7b-907a-4f31-92ff-12e768215261", "name": null, "timestamp": "2025-12-30T08:11:00.000Z", "batchId": 10, "numInputRows": 3, "inputRowsPerSecond": 0.15000750037501875, "processedRowsPerSecond": 3.9215686274509802, "durationMs": {"addBatch": 654, "commitOffsets": 46, "getBatch": 0, "latestOffset": 3, "queryPlanning": 24, "triggerExecution": 765, "walCommit": 36}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 177}}, "endOffset": {"tweets": {"0": 180}}, "latestOffset": {"tweets": {"0": 180}}, "numInputRows": 3, "inputRowsPerSecond": 0.15000750037501875, "processedRowsPerSecond": 3.9215686274509802, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:11:05.508859Z"}
+{"id": "ffa57a1c-3e3b-4743-a40c-0e529ccc9da4", "runId": "fd098f7b-907a-4f31-92ff-12e768215261", "name": null, "timestamp": "2025-12-30T08:11:20.000Z", "batchId": 11, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "durationMs": {"latestOffset": 3, "triggerExecution": 3}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 180}}, "endOffset": {"tweets": {"0": 180}}, "latestOffset": {"tweets": {"0": 180}}, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:11:25.515970Z"}
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ grep -E "batchId=|processedRowsPerSecond|falling behind" logs/slow_stream.log | tail -n 80
+batchId= 0 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+batchId= 1 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+batchId= 1 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+batchId= 1 numInputRows= 72 inputRowsPerSecond= 3.6 processedRowsPerSecond= 5.272021673866881
+batchId= 2 numInputRows= 80 inputRowsPerSecond= 4.0 processedRowsPerSecond= 12.150668286755772
+batchId= 3 numInputRows= 80 inputRowsPerSecond= 4.0002000100005 processedRowsPerSecond= 13.183915622940013
+batchId= 5 numInputRows= 80 inputRowsPerSecond= 4.0 processedRowsPerSecond= 16.329863237395386
+batchId= 6 numInputRows= 80 inputRowsPerSecond= 4.0 processedRowsPerSecond= 16.677089847821556
+batchId= 7 numInputRows= 76 inputRowsPerSecond= 3.7998100094995246 processedRowsPerSecond= 15.806988352745424
+batchId= 8 numInputRows= 80 inputRowsPerSecond= 4.0002000100005 processedRowsPerSecond= 17.208001720800173
+batchId= 9 numInputRows= 80 inputRowsPerSecond= 3.9998000099995 processedRowsPerSecond= 14.574603752960467
+batchId= 10 numInputRows= 3 inputRowsPerSecond= 0.15000750037501875 processedRowsPerSecond= 3.9215686274509802
+batchId= 11 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec spark-master bash -lc 'rm -rf /data/checkpoints/with_figs_counts /data/checkpoints/edges /data/raw_parquet/*'
+docker exec spark-master bash -lc 'mkdir -p /data/checkpoints/with_figs_counts /data/checkpoints/edges && chmod -R 777 /data/checkpoints'
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec kafka bash -lc '
+kafka-topics --bootstrap-server kafka:29092 --delete --topic tweets || true
+sleep 2
+kafka-topics --bootstrap-server kafka:29092 --create --topic tweets --partitions 1 --replication-factor 1 || true
+kafka-topics --bootstrap-server kafka:29092 --describe --topic tweets
+'
+Created topic tweets.
+Topic: tweets   TopicId: w5igZNXYSoOLbxZkLPXJrA PartitionCount: 1       ReplicationFactor: 1    Configs: 
+        Topic: tweets   Partition: 0    Leader: 1       Replicas: 1     Isr: 1
+
+
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ timeout 180 python3 ingestion/producer.py --source file --file data/kaggle_tweets/samples/sent140_100k.jsonl   --interval 1.0
+Streaming from data/kaggle_tweets/samples/sent140_100k.jsonl to Kafka topic 'tweets'...
+ Produced record to tweets partition [0] @ offset 0
+ Produced record to tweets partition [0] @ offset 1
+ Produced record to tweets partition [0] @ offset 2
+ Produced record to tweets partition [0] @ offset 3
+ Produced record to tweets partition [0] @ offset 4
+...
+ Produced record to tweets partition [0] @ offset 176
+ Produced record to tweets partition [0] @ offset 177
+ Produced record to tweets partition [0] @ offset 178
+
+
+
+
+
+Medium speed with logs
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ mkdir -p logs
+docker exec -it spark-master bash -lc '
+export ENTITIES_PATH=/project/config/entities.yml
+export PYTHONPATH=/project
+cd /project &&
+/opt/spark/bin/spark-submit \
+  --master spark://spark-master:7077 \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+  --conf spark.jars.ivy=/tmp/ivy \
+  --py-files /project/streaming.zip \
+  /project/streaming/stream_job.py
+' |& tee logs/slow_stream.log
+:: loading settings :: url = jar:file:/opt/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /tmp/ivy/cache
+The jars for the packages stored in: /tmp/ivy/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-4e9b01ab-3526-422b-9e97-9d6848e35d63;1.0
+        confs: [default]
+        found org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.kafka#kafka-clients;3.4.1 in central
+        found org.lz4#lz4-java;1.8.0 in central
+        found org.xerial.snappy#snappy-java;1.1.10.3 in central
+        found org.slf4j#slf4j-api;2.0.7 in central
+        found org.apache.hadoop#hadoop-client-runtime;3.3.4 in central
+        found org.apache.hadoop#hadoop-client-api;3.3.4 in central
+        found commons-logging#commons-logging;1.1.3 in central
+        found com.google.code.findbugs#jsr305;3.0.0 in central
+        found org.apache.commons#commons-pool2;2.11.1 in central
+:: resolution report :: resolve 732ms :: artifacts dl 26ms
+        :: modules in use:
+        com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+        commons-logging#commons-logging;1.1.3 from central in [default]
+        org.apache.commons#commons-pool2;2.11.1 from central in [default]
+        org.apache.hadoop#hadoop-client-api;3.3.4 from central in [default]
+        org.apache.hadoop#hadoop-client-runtime;3.3.4 from central in [default]
+        org.apache.kafka#kafka-clients;3.4.1 from central in [default]
+        org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.lz4#lz4-java;1.8.0 from central in [default]
+        org.slf4j#slf4j-api;2.0.7 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.10.3 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   11  |   0   |   0   |   0   ||   11  |   0   |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-4e9b01ab-3526-422b-9e97-9d6848e35d63
+        confs: [default]
+        0 artifacts copied, 11 already retrieved (0kB/14ms)
+25/12/30 08:12:42 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+STREAM_JOB_VERSION=2025-12-30_0527
+25/12/30 08:12:44 INFO SparkContext: Running Spark version 3.5.1
+25/12/30 08:12:44 INFO SparkContext: OS info Linux, 6.8.0-1044-gcp, amd64
+25/12/30 08:12:44 INFO SparkContext: Java version 11.0.22
+25/12/30 08:12:44 INFO ResourceUtils: ==============================================================
+25/12/30 08:12:44 INFO ResourceUtils: No custom resources configured for spark.driver.
+25/12/30 08:12:44 INFO ResourceUtils: ==============================================================
+25/12/30 08:12:44 INFO SparkContext: Submitted application: TwitterGraphStream
+25/12/30 08:12:44 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+25/12/30 08:12:44 INFO ResourceProfile: Limiting resource is cpu
+25/12/30 08:12:44 INFO ResourceProfileManager: Added ResourceProfile id: 0
+25/12/30 08:12:44 INFO SecurityManager: Changing view acls to: spark
+25/12/30 08:12:44 INFO SecurityManager: Changing modify acls to: spark
+25/12/30 08:12:44 INFO SecurityManager: Changing view acls groups to: 
+25/12/30 08:12:44 INFO SecurityManager: Changing modify acls groups to: 
+25/12/30 08:12:44 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark; groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY
+25/12/30 08:12:44 INFO Utils: Successfully started service 'sparkDriver' on port 44609.
+25/12/30 08:12:44 INFO SparkEnv: Registering MapOutputTracker
+25/12/30 08:12:44 INFO SparkEnv: Registering BlockManagerMaster
+25/12/30 08:12:44 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+25/12/30 08:12:44 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+25/12/30 08:12:44 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+25/12/30 08:12:44 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-4455cc0f-3528-466f-b5ff-fd74c1823a64
+25/12/30 08:12:44 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+25/12/30 08:12:44 INFO SparkEnv: Registering OutputCommitCoordinator
+25/12/30 08:12:45 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+25/12/30 08:12:45 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:44609/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:44609/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:44609/jars/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:44609/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:44609/jars/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:44609/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:44609/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:44609/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:44609/jars/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:44609/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added JAR file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:44609/jars/commons-logging_commons-logging-1.1.3.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO SparkContext: Added file file:///project/streaming.zip at spark://cde593a9630d:44609/files/streaming.zip with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /project/streaming.zip to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/streaming.zip
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:44609/files/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:44609/files/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:44609/files/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.apache.kafka_kafka-clients-3.4.1.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:44609/files/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/com.google.code.findbugs_jsr305-3.0.0.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:44609/files/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.apache.commons_commons-pool2-2.11.1.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:44609/files/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:44609/files/org.lz4_lz4-java-1.8.0.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.lz4_lz4-java-1.8.0.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:44609/files/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.xerial.snappy_snappy-java-1.1.10.3.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:44609/files/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.slf4j_slf4j-api-2.0.7.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:44609/files/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/org.apache.hadoop_hadoop-client-api-3.3.4.jar
+25/12/30 08:12:45 INFO SparkContext: Added file file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:44609/files/commons-logging_commons-logging-1.1.3.jar with timestamp 1767082364007
+25/12/30 08:12:45 INFO Utils: Copying /tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar to /tmp/spark-5f7679ec-e698-4f5f-af9a-b3262868414c/userFiles-47cc1463-9afc-4b64-b853-479ab6723fa0/commons-logging_commons-logging-1.1.3.jar
+25/12/30 08:12:45 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+25/12/30 08:12:45 INFO TransportClientFactory: Successfully created connection to spark-master/172.18.0.4:7077 after 39 ms (0 ms spent in bootstraps)
+25/12/30 08:12:45 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20251230081245-0013
+25/12/30 08:12:45 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20251230081245-0013/0 on worker-20251229050300-172.18.0.5-33597 (172.18.0.5:33597) with 2 core(s)
+25/12/30 08:12:45 INFO StandaloneSchedulerBackend: Granted executor ID app-20251230081245-0013/0 on hostPort 172.18.0.5:33597 with 2 core(s), 1024.0 MiB RAM
+25/12/30 08:12:45 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 34451.
+25/12/30 08:12:45 INFO NettyBlockTransferService: Server created on cde593a9630d:34451
+25/12/30 08:12:45 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+25/12/30 08:12:45 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, cde593a9630d, 34451, None)
+25/12/30 08:12:45 INFO BlockManagerMasterEndpoint: Registering block manager cde593a9630d:34451 with 434.4 MiB RAM, BlockManagerId(driver, cde593a9630d, 34451, None)
+25/12/30 08:12:45 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, cde593a9630d, 34451, None)
+25/12/30 08:12:45 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, cde593a9630d, 34451, None)
+25/12/30 08:12:45 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20251230081245-0013/0 is now RUNNING
+25/12/30 08:12:46 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+25/12/30 08:12:52 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+25/12/30 08:12:52 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+Streaming query started. Writing edges to: /data/raw_parquet
+[metrics] writing streaming progress to /data/metrics/stream_progress.jsonl
+25/12/30 08:12:53 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+25/12/30 08:12:53 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+[edges] batch=0 rows=12
+[with_figs] batch=0 total=19 nonnull=19 ge1=12 ge2=1
+[mentions] batch=0 ge1=12 ge2=1
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |5    |
+|neg            |3    |
+|neu            |4    |
++---------------+-----+
+
+[with_figs] batch=1 total=180 nonnull=180 ge1=67 ge2=0
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|switchfoot     |__ANY__|-0.0173        |neu            |2009-04-06T22:19:45Z|
+|Kenichan       |__ANY__|0.4939         |pos            |2009-04-06T22:19:53Z|
+|nationwideclass|__ANY__|-0.4939        |neg            |2009-04-06T22:19:57Z|
+|Kwesidei       |__ANY__|0.0            |neu            |2009-04-06T22:20:00Z|
+|LOLTrish       |__ANY__|0.6208         |pos            |2009-04-06T22:20:03Z|
+|Tatiana_K      |__ANY__|0.0            |neu            |2009-04-06T22:20:05Z|
+|twittera       |__ANY__|0.0            |neu            |2009-04-06T22:20:09Z|
+|caregiving     |__ANY__|-0.5994        |neg            |2009-04-06T22:20:19Z|
+|octolinz16     |__ANY__|-0.1027        |neg            |2009-04-06T22:20:19Z|
+|smarrison      |__ANY__|0.3724         |pos            |2009-04-06T22:20:20Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=1 ge1=67 ge2=0
+[with_figs] batch=2 total=52 nonnull=52 ge1=24 ge2=0
+25/12/30 08:13:20 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 27324 milliseconds
+[mentions] batch=2 ge1=24 ge2=0
+[edges] batch=1 rows=100
+[with_figs] batch=3 total=29 nonnull=29 ge1=10 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |33   |
+|neg            |50   |
+|neu            |17   |
++---------------+-----+
+
+[mentions] batch=3 ge1=10 ge2=0
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|FakerPattyPattz|__ANY__|0.1779         |pos            |2009-04-06T22:20:34Z|
+|alydesigns     |__ANY__|0.0            |neu            |2009-04-06T22:20:37Z|
+|angry_barista  |__ANY__|0.0            |neu            |2009-04-06T22:20:40Z|
+|alielayus      |__ANY__|-0.2144        |neg            |2009-04-06T22:21:07Z|
+|julieebaby     |__ANY__|0.6973         |pos            |2009-04-06T22:21:11Z|
+|HumpNinja      |__ANY__|-0.4767        |neg            |2009-04-06T22:21:21Z|
+|cocomix04      |__ANY__|-0.6711        |neg            |2009-04-06T22:21:27Z|
+|MissXu         |__ANY__|-0.1511        |neg            |2009-04-06T22:21:30Z|
+|fleurylis      |__ANY__|0.3578         |pos            |2009-04-06T22:21:32Z|
+|JonathanRKnight|__ANY__|0.2481         |pos            |2009-04-06T22:21:53Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=4 total=47 nonnull=47 ge1=21 ge2=0
+[mentions] batch=4 ge1=20 ge2=0
+[with_figs] batch=5 total=17 nonnull=17 ge1=9 ge2=0
+[mentions] batch=5 ge1=9 ge2=0
+[with_figs] batch=6 total=14 nonnull=14 ge1=6 ge2=1
+[mentions] batch=6 ge1=6 ge2=0
+[with_figs] batch=7 total=13 nonnull=13 ge1=6 ge2=0
+[mentions] batch=7 ge1=6 ge2=0
+[with_figs] batch=8 total=14 nonnull=14 ge1=4 ge2=0
+[mentions] batch=8 ge1=4 ge2=0
+batchId= 1 numInputRows= 1024 inputRowsPerSecond= 37.47346849154651 processedRowsPerSecond= 160.47641435511676
+[with_figs] batch=9 total=14 nonnull=14 ge1=7 ge2=0
+[mentions] batch=9 ge1=7 ge2=0
+[with_figs] batch=10 total=12 nonnull=12 ge1=4 ge2=0
+[mentions] batch=10 ge1=4 ge2=0
+[with_figs] batch=11 total=14 nonnull=14 ge1=7 ge2=1
+[mentions] batch=11 ge1=7 ge2=0
+[with_figs] batch=12 total=14 nonnull=14 ge1=7 ge2=1
+[mentions] batch=12 ge1=7 ge2=1
+[with_figs] batch=13 total=13 nonnull=13 ge1=5 ge2=0
+[mentions] batch=13 ge1=4 ge2=0
+[edges] batch=2 rows=86
+[with_figs] batch=14 total=13 nonnull=13 ge1=6 ge2=1
+[mentions] batch=14 ge1=6 ge2=1
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |28   |
+|neg            |33   |
+|neu            |25   |
++---------------+-----+
+
++------------+-------+---------------+---------------+--------------------+
+|src         |dst    |sentiment_score|sentiment_label|timestamp           |
++------------+-------+---------------+---------------+--------------------+
+|bostongarden|__ANY__|-0.1531        |neg            |2009-04-06T22:38:04Z|
+|huntermoore |__ANY__|-0.0572        |neg            |2009-04-06T22:38:20Z|
+|ITS_NEMESIS |__ANY__|0.0            |neu            |2009-04-06T22:38:20Z|
+|LoveMeagan  |__ANY__|-0.5517        |neg            |2009-04-06T22:38:24Z|
+|zaydia      |__ANY__|-0.1531        |neg            |2009-04-06T22:38:30Z|
+|ThaStevieG  |__ANY__|0.2238         |pos            |2009-04-06T22:38:37Z|
+|LevenRambin |__ANY__|0.7003         |pos            |2009-04-06T22:38:44Z|
+|riancurtis  |__ANY__|0.8126         |pos            |2009-04-06T22:40:20Z|
+|kariajay    |__ANY__|0.0            |neu            |2009-04-06T22:40:24Z|
+|aaronrva    |__ANY__|0.0            |neu            |2009-04-06T22:40:24Z|
++------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=15 total=32 nonnull=32 ge1=12 ge2=0
+[mentions] batch=15 ge1=12 ge2=0
+[with_figs] batch=16 total=22 nonnull=22 ge1=9 ge2=0
+[mentions] batch=16 ge1=9 ge2=0
+[with_figs] batch=17 total=14 nonnull=14 ge1=5 ge2=0
+[mentions] batch=17 ge1=5 ge2=0
+[with_figs] batch=18 total=13 nonnull=13 ge1=4 ge2=0
+[mentions] batch=18 ge1=3 ge2=0
+[with_figs] batch=19 total=13 nonnull=13 ge1=8 ge2=0
+[mentions] batch=19 ge1=8 ge2=0
+[with_figs] batch=20 total=14 nonnull=14 ge1=6 ge2=0
+[mentions] batch=20 ge1=6 ge2=0
+[with_figs] batch=21 total=11 nonnull=11 ge1=7 ge2=0
+[mentions] batch=21 ge1=7 ge2=0
+batchId= 2 numInputRows= 776 inputRowsPerSecond= 39.6505032956926 processedRowsPerSecond= 173.175630439634
+[with_figs] batch=22 total=12 nonnull=12 ge1=4 ge2=0
+[mentions] batch=22 ge1=4 ge2=0
+[with_figs] batch=23 total=11 nonnull=11 ge1=6 ge2=0
+[mentions] batch=23 ge1=6 ge2=0
+[with_figs] batch=24 total=12 nonnull=12 ge1=7 ge2=1
+[mentions] batch=24 ge1=7 ge2=1
+[with_figs] batch=25 total=11 nonnull=11 ge1=3 ge2=0
+[mentions] batch=25 ge1=3 ge2=0
+[with_figs] batch=26 total=12 nonnull=12 ge1=4 ge2=0
+[mentions] batch=26 ge1=4 ge2=0
+[with_figs] batch=27 total=10 nonnull=10 ge1=5 ge2=0
+[mentions] batch=27 ge1=5 ge2=0
+[with_figs] batch=28 total=11 nonnull=11 ge1=6 ge2=0
+[edges] batch=3 rows=85
+[mentions] batch=28 ge1=6 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |33   |
+|neg            |31   |
+|neu            |21   |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|jeffreecuntstar|__ANY__|0.0            |neu            |2009-04-06T22:51:59Z|
+|lauredhel      |__ANY__|0.0            |neu            |2009-04-06T22:52:07Z|
+|brian_armstrong|__ANY__|-0.5106        |neg            |2009-04-06T22:52:19Z|
+|margaretcho    |__ANY__|0.0            |neu            |2009-04-06T22:52:18Z|
+|lolitariot     |__ANY__|0.1501         |pos            |2009-04-06T22:52:38Z|
+|alejandralei   |__ANY__|0.4019         |pos            |2009-04-06T22:52:39Z|
+|RumLover       |__ANY__|0.0            |neu            |2009-04-06T22:52:51Z|
+|kaeeeep        |__ANY__|-0.858         |neg            |2009-04-06T22:53:04Z|
+|Brodhe         |__ANY__|-0.4023        |neg            |2009-04-06T22:53:06Z|
+|jyesmith       |__ANY__|0.0            |neu            |2009-04-06T22:53:15Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=29 total=13 nonnull=13 ge1=4 ge2=0
+[mentions] batch=29 ge1=4 ge2=0
+[with_figs] batch=30 total=33 nonnull=33 ge1=14 ge2=0
+[mentions] batch=30 ge1=14 ge2=0
+[with_figs] batch=31 total=11 nonnull=11 ge1=10 ge2=0
+[mentions] batch=31 ge1=10 ge2=0
+[with_figs] batch=32 total=13 nonnull=13 ge1=3 ge2=0
+[mentions] batch=32 ge1=3 ge2=0
+[with_figs] batch=33 total=11 nonnull=11 ge1=4 ge2=0
+[mentions] batch=33 ge1=4 ge2=0
+[with_figs] batch=34 total=13 nonnull=13 ge1=6 ge2=0
+[mentions] batch=34 ge1=6 ge2=0
+[with_figs] batch=35 total=10 nonnull=10 ge1=2 ge2=0
+[mentions] batch=35 ge1=2 ge2=0
+[with_figs] batch=36 total=11 nonnull=11 ge1=5 ge2=0
+[mentions] batch=36 ge1=5 ge2=0
+[with_figs] batch=37 total=12 nonnull=12 ge1=6 ge2=0
+batchId= 3 numInputRows= 796 inputRowsPerSecond= 39.8 processedRowsPerSecond= 214.49744004311506
+[mentions] batch=37 ge1=6 ge2=0
+[with_figs] batch=38 total=10 nonnull=10 ge1=1 ge2=0
+[mentions] batch=38 ge1=1 ge2=0
+[with_figs] batch=39 total=11 nonnull=11 ge1=5 ge2=0
+[mentions] batch=39 ge1=4 ge2=0
+[with_figs] batch=40 total=12 nonnull=12 ge1=5 ge2=1
+[mentions] batch=40 ge1=5 ge2=1
+[with_figs] batch=41 total=11 nonnull=11 ge1=2 ge2=0
+[mentions] batch=41 ge1=2 ge2=0
+[with_figs] batch=42 total=11 nonnull=11 ge1=2 ge2=0
+[mentions] batch=42 ge1=2 ge2=0
+[with_figs] batch=43 total=11 nonnull=11 ge1=3 ge2=0
+[mentions] batch=43 ge1=3 ge2=0
+[edges] batch=4 rows=75
+[with_figs] batch=44 total=11 nonnull=11 ge1=5 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |21   |
+|neg            |34   |
+|neu            |20   |
++---------------+-----+
+
+[mentions] batch=44 ge1=5 ge2=0
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|emitstop       |__ANY__|0.4754         |pos            |2009-04-06T23:06:29Z|
+|katebornstein  |__ANY__|0.5626         |pos            |2009-04-06T23:06:33Z|
+|JustGelo       |__ANY__|-0.7717        |neg            |2009-04-06T23:06:38Z|
+|FollowSavvy    |__ANY__|0.0            |neu            |2009-04-06T23:06:50Z|
+|stephenkruiser |__ANY__|-0.5423        |neg            |2009-04-06T23:06:50Z|
+|David_Henrie   |__ANY__|0.0            |neu            |2009-04-06T23:06:55Z|
+|crummyasshole  |__ANY__|-0.2755        |neg            |2009-04-06T23:07:14Z|
+|d_castillo     |__ANY__|-0.4215        |neg            |2009-04-06T23:07:24Z|
+|Devinthedude007|__ANY__|-0.4019        |neg            |2009-04-06T23:07:25Z|
+|Carmonium      |__ANY__|-0.34          |neg            |2009-04-06T23:07:39Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=45 total=28 nonnull=28 ge1=9 ge2=0
+[mentions] batch=45 ge1=9 ge2=0
+[with_figs] batch=46 total=12 nonnull=12 ge1=1 ge2=0
+[mentions] batch=46 ge1=1 ge2=0
+[with_figs] batch=47 total=14 nonnull=14 ge1=8 ge2=0
+[mentions] batch=47 ge1=8 ge2=0
+[with_figs] batch=48 total=10 nonnull=10 ge1=5 ge2=1
+[mentions] batch=48 ge1=5 ge2=1
+[with_figs] batch=49 total=10 nonnull=10 ge1=8 ge2=0
+[mentions] batch=49 ge1=8 ge2=0
+[with_figs] batch=50 total=11 nonnull=11 ge1=3 ge2=0
+[mentions] batch=50 ge1=3 ge2=0
+[with_figs] batch=51 total=10 nonnull=10 ge1=3 ge2=0
+[mentions] batch=51 ge1=3 ge2=0
+[with_figs] batch=52 total=10 nonnull=10 ge1=6 ge2=1
+[mentions] batch=52 ge1=6 ge2=0
+[with_figs] batch=53 total=11 nonnull=11 ge1=5 ge2=0
+[mentions] batch=53 ge1=5 ge2=0
+batchId= 4 numInputRows= 796 inputRowsPerSecond= 39.8 processedRowsPerSecond= 222.84434490481522
+[with_figs] batch=54 total=10 nonnull=10 ge1=2 ge2=0
+[mentions] batch=54 ge1=2 ge2=0
+[with_figs] batch=55 total=10 nonnull=10 ge1=6 ge2=1
+[mentions] batch=55 ge1=6 ge2=1
+[with_figs] batch=56 total=11 nonnull=11 ge1=7 ge2=0
+[mentions] batch=56 ge1=7 ge2=0
+[with_figs] batch=57 total=9 nonnull=9 ge1=6 ge2=0
+[mentions] batch=57 ge1=6 ge2=0
+[with_figs] batch=58 total=11 nonnull=11 ge1=3 ge2=0
+[mentions] batch=58 ge1=3 ge2=0
+[with_figs] batch=59 total=11 nonnull=11 ge1=6 ge2=0
+[mentions] batch=59 ge1=6 ge2=0
+[with_figs] batch=60 total=10 nonnull=10 ge1=4 ge2=1
+[mentions] batch=60 ge1=4 ge2=1
+[edges] batch=5 rows=86
+[with_figs] batch=61 total=10 nonnull=10 ge1=4 ge2=0
+[mentions] batch=61 ge1=4 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |26   |
+|neg            |33   |
+|neu            |27   |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|Steve_Buscemi  |__ANY__|-0.7264        |neg            |2009-04-06T23:18:59Z|
+|chauncey78     |__ANY__|0.6808         |pos            |2009-04-06T23:21:07Z|
+|endearingevania|__ANY__|0.3612         |pos            |2009-04-06T23:21:06Z|
+|widyatarina    |__ANY__|-0.6829        |neg            |2009-04-06T23:21:08Z|
+|yaykimo        |__ANY__|-0.5255        |neg            |2009-04-06T23:21:13Z|
+|rj             |__ANY__|0.0            |neu            |2009-04-06T23:21:21Z|
+|MeLaMachinko   |__ANY__|-0.5423        |neg            |2009-04-06T23:21:29Z|
+|emiliexclarkex |__ANY__|-0.1531        |neg            |2009-04-06T23:21:41Z|
+|stephenkruiser |__ANY__|-0.188         |neg            |2009-04-06T23:21:44Z|
+|featherinair   |__ANY__|0.0            |neu            |2009-04-06T23:21:57Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=62 total=21 nonnull=21 ge1=9 ge2=0
+[mentions] batch=62 ge1=9 ge2=0
+[with_figs] batch=63 total=17 nonnull=17 ge1=5 ge2=1
+[mentions] batch=63 ge1=4 ge2=1
+[with_figs] batch=64 total=11 nonnull=11 ge1=1 ge2=0
+[mentions] batch=64 ge1=1 ge2=0
+[with_figs] batch=65 total=9 nonnull=9 ge1=5 ge2=0
+[mentions] batch=65 ge1=5 ge2=0
+[with_figs] batch=66 total=10 nonnull=10 ge1=5 ge2=0
+[mentions] batch=66 ge1=5 ge2=0
+[with_figs] batch=67 total=10 nonnull=10 ge1=2 ge2=0
+[mentions] batch=67 ge1=2 ge2=0
+[with_figs] batch=68 total=10 nonnull=10 ge1=3 ge2=0
+[mentions] batch=68 ge1=3 ge2=0
+[with_figs] batch=69 total=9 nonnull=9 ge1=4 ge2=0
+[mentions] batch=69 ge1=4 ge2=0
+[with_figs] batch=70 total=11 nonnull=11 ge1=5 ge2=0
+[mentions] batch=70 ge1=5 ge2=0
+[with_figs] batch=71 total=9 nonnull=9 ge1=1 ge2=0
+[mentions] batch=71 ge1=1 ge2=0
+batchId= 5 numInputRows= 796 inputRowsPerSecond= 39.78806358092572 processedRowsPerSecond= 247.82067247820672
+[with_figs] batch=72 total=11 nonnull=11 ge1=4 ge2=0
+[mentions] batch=72 ge1=4 ge2=0
+[with_figs] batch=73 total=10 nonnull=10 ge1=2 ge2=1
+[mentions] batch=73 ge1=2 ge2=1
+[with_figs] batch=74 total=11 nonnull=11 ge1=3 ge2=0
+[mentions] batch=74 ge1=3 ge2=0
+[with_figs] batch=75 total=10 nonnull=10 ge1=5 ge2=0
+[mentions] batch=75 ge1=5 ge2=0
+[with_figs] batch=76 total=10 nonnull=10 ge1=4 ge2=0
+[mentions] batch=76 ge1=4 ge2=0
+[with_figs] batch=77 total=10 nonnull=10 ge1=5 ge2=0
+[mentions] batch=77 ge1=5 ge2=0
+[with_figs] batch=78 total=10 nonnull=10 ge1=5 ge2=0
+[mentions] batch=78 ge1=5 ge2=0
+[edges] batch=6 rows=74
+[with_figs] batch=79 total=10 nonnull=10 ge1=4 ge2=0
+[mentions] batch=79 ge1=4 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |29   |
+|neg            |30   |
+|neu            |15   |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|Health4UandPets|__ANY__|0.5334         |pos            |2009-04-06T23:33:59Z|
+|mycaricature   |__ANY__|-0.2732        |neg            |2009-04-06T23:34:31Z|
+|rootbeerfloats8|__ANY__|-0.6114        |neg            |2009-04-06T23:34:34Z|
+|snaprebelx     |__ANY__|-0.5448        |neg            |2009-04-06T23:34:40Z|
+|paulieseow     |__ANY__|0.1779         |pos            |2009-04-06T23:34:49Z|
+|onlysweeter    |__ANY__|0.0            |neu            |2009-04-06T23:34:52Z|
+|laurwee_boo    |__ANY__|0.2023         |pos            |2009-04-06T23:34:56Z|
+|sarahprout     |__ANY__|-0.6808        |neg            |2009-04-06T23:35:10Z|
+|Twilighter4Life|__ANY__|0.7729         |pos            |2009-04-06T23:35:11Z|
+|transbay       |__ANY__|-0.4215        |neg            |2009-04-06T23:35:15Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=80 total=20 nonnull=20 ge1=7 ge2=1
+[mentions] batch=80 ge1=7 ge2=0
+[with_figs] batch=81 total=18 nonnull=18 ge1=9 ge2=0
+[mentions] batch=81 ge1=9 ge2=0
+[with_figs] batch=82 total=9 nonnull=9 ge1=4 ge2=0
+[mentions] batch=82 ge1=4 ge2=0
+[with_figs] batch=83 total=9 nonnull=9 ge1=6 ge2=0
+[mentions] batch=83 ge1=6 ge2=0
+[with_figs] batch=84 total=11 nonnull=11 ge1=1 ge2=0
+[mentions] batch=84 ge1=1 ge2=0
+[with_figs] batch=85 total=9 nonnull=9 ge1=3 ge2=0
+[mentions] batch=85 ge1=3 ge2=0
+[with_figs] batch=86 total=9 nonnull=9 ge1=1 ge2=0
+[mentions] batch=86 ge1=1 ge2=0
+[with_figs] batch=87 total=10 nonnull=10 ge1=4 ge2=0
+[mentions] batch=87 ge1=4 ge2=0
+[with_figs] batch=88 total=9 nonnull=9 ge1=3 ge2=0
+[mentions] batch=88 ge1=3 ge2=0
+[with_figs] batch=89 total=10 nonnull=10 ge1=2 ge2=1
+[mentions] batch=89 ge1=2 ge2=0
+[with_figs] batch=90 total=9 nonnull=9 ge1=6 ge2=1
+[mentions] batch=90 ge1=6 ge2=1
+batchId= 6 numInputRows= 792 inputRowsPerSecond= 39.61188356506952 processedRowsPerSecond= 258.5700293829579
+[with_figs] batch=91 total=9 nonnull=9 ge1=2 ge2=0
+[mentions] batch=91 ge1=1 ge2=0
+[with_figs] batch=92 total=9 nonnull=9 ge1=6 ge2=1
+[mentions] batch=92 ge1=6 ge2=0
+[with_figs] batch=93 total=10 nonnull=10 ge1=3 ge2=0
+[mentions] batch=93 ge1=3 ge2=0
+[with_figs] batch=94 total=9 nonnull=9 ge1=4 ge2=0
+[mentions] batch=94 ge1=4 ge2=0
+[with_figs] batch=95 total=9 nonnull=9 ge1=2 ge2=0
+[mentions] batch=95 ge1=2 ge2=0
+[with_figs] batch=96 total=10 nonnull=10 ge1=3 ge2=0
+[mentions] batch=96 ge1=3 ge2=0
+[with_figs] batch=97 total=9 nonnull=9 ge1=2 ge2=0
+[mentions] batch=97 ge1=2 ge2=0
+[edges] batch=7 rows=72
+[with_figs] batch=98 total=10 nonnull=10 ge1=3 ge2=0
+[mentions] batch=98 ge1=3 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |25   |
+|neg            |35   |
+|neu            |12   |
++---------------+-----+
+
++---------------+----------+---------------+---------------+--------------------+
+|src            |dst       |sentiment_score|sentiment_label|timestamp           |
++---------------+----------+---------------+---------------+--------------------+
+|PriscillaCruz  |__ANY__   |0.7897         |pos            |2009-04-06T23:48:27Z|
+|avisionofbeauty|__ANY__   |-0.2235        |neg            |2009-04-06T23:48:35Z|
+|missoliviaa    |__ANY__   |-0.5209        |neg            |2009-04-06T23:48:41Z|
+|KristenjStewart|__ANY__   |0.4304         |pos            |2009-04-06T23:49:29Z|
+|ThisismyiQ     |__ANY__   |-0.2057        |neg            |2009-04-06T23:49:43Z|
+|Jay-Z          |SCC_Skwerl|-0.4389        |neg            |2009-04-06T23:49:43Z|
+|TheBlondeTheory|__ANY__   |-0.5563        |neg            |2009-04-06T23:49:49Z|
+|powerpoole     |__ANY__   |0.1007         |pos            |2009-04-06T23:50:12Z|
+|dra6on         |__ANY__   |-0.7351        |neg            |2009-04-06T23:50:21Z|
+|gotobekiddingme|__ANY__   |-0.5106        |neg            |2009-04-06T23:50:21Z|
++---------------+----------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=99 total=20 nonnull=20 ge1=7 ge2=0
+[mentions] batch=99 ge1=7 ge2=0
+[with_figs] batch=100 total=17 nonnull=17 ge1=9 ge2=1
+[mentions] batch=100 ge1=9 ge2=1
+[with_figs] batch=101 total=11 nonnull=11 ge1=2 ge2=0
+[mentions] batch=101 ge1=2 ge2=0
+[with_figs] batch=102 total=11 nonnull=11 ge1=3 ge2=1
+[mentions] batch=102 ge1=3 ge2=0
+[with_figs] batch=103 total=8 nonnull=8 ge1=6 ge2=0
+[mentions] batch=103 ge1=6 ge2=0
+[with_figs] batch=104 total=10 nonnull=10 ge1=5 ge2=0
+[mentions] batch=104 ge1=5 ge2=0
+[with_figs] batch=105 total=9 nonnull=9 ge1=0 ge2=0
+[mentions] batch=105 ge1=0 ge2=0
+[with_figs] batch=106 total=9 nonnull=9 ge1=5 ge2=0
+[mentions] batch=106 ge1=5 ge2=0
+[with_figs] batch=107 total=10 nonnull=10 ge1=3 ge2=0
+[mentions] batch=107 ge1=2 ge2=0
+[with_figs] batch=108 total=9 nonnull=9 ge1=3 ge2=0
+[mentions] batch=108 ge1=2 ge2=0
+[with_figs] batch=109 total=9 nonnull=9 ge1=1 ge2=0
+[mentions] batch=109 ge1=1 ge2=0
+batchId= 7 numInputRows= 796 inputRowsPerSecond= 39.79801009949502 processedRowsPerSecond= 249.2953335421234
+[with_figs] batch=110 total=9 nonnull=9 ge1=4 ge2=0
+[mentions] batch=110 ge1=4 ge2=0
+[with_figs] batch=111 total=9 nonnull=9 ge1=3 ge2=0
+[mentions] batch=111 ge1=3 ge2=0
+[with_figs] batch=112 total=9 nonnull=9 ge1=3 ge2=0
+[mentions] batch=112 ge1=2 ge2=0
+[with_figs] batch=113 total=9 nonnull=9 ge1=4 ge2=0
+[mentions] batch=113 ge1=4 ge2=0
+[with_figs] batch=114 total=10 nonnull=10 ge1=2 ge2=0
+[mentions] batch=114 ge1=2 ge2=0
+[with_figs] batch=115 total=9 nonnull=9 ge1=4 ge2=0
+[mentions] batch=115 ge1=4 ge2=0
+[with_figs] batch=116 total=10 nonnull=10 ge1=6 ge2=0
+[mentions] batch=116 ge1=6 ge2=0
+[with_figs] batch=117 total=9 nonnull=9 ge1=0 ge2=0
+[edges] batch=8 rows=69
+[mentions] batch=117 ge1=0 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |27   |
+|neg            |26   |
+|neu            |16   |
++---------------+-----+
+
++---------------+-------------+---------------+---------------+--------------------+
+|src            |dst          |sentiment_score|sentiment_label|timestamp           |
++---------------+-------------+---------------+---------------+--------------------+
+|EvilUnicorn    |__ANY__      |0.0            |neu            |2009-04-07T00:02:42Z|
+|honeyortar     |__ANY__      |-0.6705        |neg            |2009-04-07T00:02:47Z|
+|rachaelyamagata|__ANY__      |0.6506         |pos            |2009-04-07T00:02:54Z|
+|Nightwyrm      |__ANY__      |-0.296         |neg            |2009-04-07T00:02:57Z|
+|rampantheart   |__ANY__      |0.0            |neu            |2009-04-07T00:03:01Z|
+|BrandzHD       |__ANY__      |0.4648         |pos            |2009-04-07T00:03:12Z|
+|idolette       |marissatastic|0.5579         |pos            |2009-04-07T00:03:23Z|
+|choclatdrop404 |__ANY__      |0.0            |neu            |2009-04-07T00:03:33Z|
+|shalinique     |__ANY__      |0.3612         |pos            |2009-04-07T00:03:32Z|
+|Gen_Marie      |__ANY__      |0.4404         |pos            |2009-04-07T00:03:34Z|
++---------------+-------------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=118 total=10 nonnull=10 ge1=4 ge2=0
+[mentions] batch=118 ge1=4 ge2=0
+[with_figs] batch=119 total=25 nonnull=25 ge1=9 ge2=0
+[mentions] batch=119 ge1=9 ge2=0
+[with_figs] batch=120 total=7 nonnull=7 ge1=2 ge2=0
+[mentions] batch=120 ge1=2 ge2=0
+[with_figs] batch=121 total=9 nonnull=9 ge1=6 ge2=1
+[mentions] batch=121 ge1=6 ge2=1
+[with_figs] batch=122 total=8 nonnull=8 ge1=1 ge2=0
+[mentions] batch=122 ge1=1 ge2=0
+[with_figs] batch=123 total=8 nonnull=8 ge1=1 ge2=0
+[mentions] batch=123 ge1=1 ge2=0
+[with_figs] batch=124 total=10 nonnull=10 ge1=2 ge2=0
+[mentions] batch=124 ge1=2 ge2=0
+[with_figs] batch=125 total=9 nonnull=9 ge1=3 ge2=0
+[mentions] batch=125 ge1=3 ge2=0
+[with_figs] batch=126 total=7 nonnull=7 ge1=2 ge2=1
+[mentions] batch=126 ge1=2 ge2=0
+[with_figs] batch=127 total=9 nonnull=9 ge1=4 ge2=0
+[mentions] batch=127 ge1=4 ge2=0
+[with_figs] batch=128 total=9 nonnull=9 ge1=3 ge2=0
+[mentions] batch=128 ge1=3 ge2=0
+[with_figs] batch=129 total=9 nonnull=9 ge1=2 ge2=0
+batchId= 8 numInputRows= 796 inputRowsPerSecond= 39.80199009950498 processedRowsPerSecond= 283.4757834757835
+[mentions] batch=129 ge1=2 ge2=0
+[with_figs] batch=130 total=8 nonnull=8 ge1=3 ge2=0
+[mentions] batch=130 ge1=3 ge2=0
+[edges] batch=9 rows=42
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |12   |
+|neg            |17   |
+|neu            |13   |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|30SECONDSTOMARS|__ANY__|0.0            |neu            |2009-04-07T00:17:39Z|
+|vanidosa27     |__ANY__|-0.1179        |neg            |2009-04-07T00:17:41Z|
+|eri74          |__ANY__|0.8172         |pos            |2009-04-07T00:17:42Z|
+|grahamcracker  |__ANY__|0.0            |neu            |2009-04-07T00:17:48Z|
+|m0nkfish       |__ANY__|-0.4512        |neg            |2009-04-07T00:17:58Z|
+|sunky          |__ANY__|-0.5423        |neg            |2009-04-07T00:18:32Z|
+|SEAF2009       |__ANY__|-0.6532        |neg            |2009-04-07T00:18:35Z|
+|innocentdrinks |__ANY__|-0.7226        |neg            |2009-04-07T00:18:36Z|
+|ChauV          |__ANY__|0.0            |neu            |2009-04-07T00:18:42Z|
+|bkGirlFriday   |__ANY__|0.0            |neu            |2009-04-07T00:18:46Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 9 numInputRows= 500 inputRowsPerSecond= 25.0 processedRowsPerSecond= 116.8770453482936
+batchId= 10 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+^CTraceback (most recent call last):
+  File "/project/streaming/stream_job.py", line 265, in <module>
+    main()
+  File "/project/streaming/stream_job.py", line 258, in main
+    time.sleep(20)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 382, in signal_handler
+KeyboardInterrupt
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc 'tail -n 3 /data/metrics/stream_progress.jsonl'
+{"id": "a259138a-71ab-46a4-867d-89795c10a549", "runId": "a2b4db24-c01b-4456-a0da-cc7a885977ad", "name": null, "timestamp": "2025-12-30T08:15:40.000Z", "batchId": 8, "numInputRows": 796, "inputRowsPerSecond": 39.80199009950498, "processedRowsPerSecond": 283.4757834757835, "durationMs": {"addBatch": 2688, "commitOffsets": 52, "getBatch": 0, "latestOffset": 6, "queryPlanning": 23, "triggerExecution": 2807, "walCommit": 38}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 1463}}, "endOffset": {"tweets": {"0": 1662}}, "latestOffset": {"tweets": {"0": 1662}}, "numInputRows": 796, "inputRowsPerSecond": 39.80199009950498, "processedRowsPerSecond": 283.4757834757835, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:15:53.308232Z"}
+{"id": "a259138a-71ab-46a4-867d-89795c10a549", "runId": "a2b4db24-c01b-4456-a0da-cc7a885977ad", "name": null, "timestamp": "2025-12-30T08:16:00.000Z", "batchId": 9, "numInputRows": 500, "inputRowsPerSecond": 25.0, "processedRowsPerSecond": 116.8770453482936, "durationMs": {"addBatch": 4177, "commitOffsets": 35, "getBatch": 1, "latestOffset": 4, "queryPlanning": 26, "triggerExecution": 4278, "walCommit": 34}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 1662}}, "endOffset": {"tweets": {"0": 1787}}, "latestOffset": {"tweets": {"0": 1787}}, "numInputRows": 500, "inputRowsPerSecond": 25.0, "processedRowsPerSecond": 116.8770453482936, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:16:13.327708Z"}
+{"id": "a259138a-71ab-46a4-867d-89795c10a549", "runId": "a2b4db24-c01b-4456-a0da-cc7a885977ad", "name": null, "timestamp": "2025-12-30T08:16:20.000Z", "batchId": 10, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "durationMs": {"latestOffset": 3, "triggerExecution": 3}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 1787}}, "endOffset": {"tweets": {"0": 1787}}, "latestOffset": {"tweets": {"0": 1787}}, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:16:33.349275Z"}
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ grep -E "batchId=|processedRowsPerSecond|falling behind" logs/slow_stream.log | tail -n 80
+25/12/30 08:13:20 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 27324 milliseconds
+batchId= 1 numInputRows= 1024 inputRowsPerSecond= 37.47346849154651 processedRowsPerSecond= 160.47641435511676
+batchId= 2 numInputRows= 776 inputRowsPerSecond= 39.6505032956926 processedRowsPerSecond= 173.175630439634
+batchId= 3 numInputRows= 796 inputRowsPerSecond= 39.8 processedRowsPerSecond= 214.49744004311506
+batchId= 4 numInputRows= 796 inputRowsPerSecond= 39.8 processedRowsPerSecond= 222.84434490481522
+batchId= 5 numInputRows= 796 inputRowsPerSecond= 39.78806358092572 processedRowsPerSecond= 247.82067247820672
+batchId= 6 numInputRows= 792 inputRowsPerSecond= 39.61188356506952 processedRowsPerSecond= 258.5700293829579
+batchId= 7 numInputRows= 796 inputRowsPerSecond= 39.79801009949502 processedRowsPerSecond= 249.2953335421234
+batchId= 8 numInputRows= 796 inputRowsPerSecond= 39.80199009950498 processedRowsPerSecond= 283.4757834757835
+batchId= 9 numInputRows= 500 inputRowsPerSecond= 25.0 processedRowsPerSecond= 116.8770453482936
+batchId= 10 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec spark-master bash -lc 'rm -rf /data/checkpoints/with_figs_counts /data/checkpoints/edges /data/raw_parquet/*'
+docker exec spark-master bash -lc 'mkdir -p /data/checkpoints/with_figs_counts /data/checkpoints/edges && chmod -R 777 /data/checkpoints'
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec kafka bash -lc '
+kafka-topics --bootstrap-server kafka:29092 --delete --topic tweets || true
+sleep 2
+kafka-topics --bootstrap-server kafka:29092 --create --topic tweets --partitions 1 --replication-factor 1 || true
+kafka-topics --bootstrap-server kafka:29092 --describe --topic tweets
+'
+Created topic tweets.
+Topic: tweets   TopicId: Sc_42-IMRQWklCZ4vKrXSQ PartitionCount: 1       ReplicationFactor: 1    Configs: 
+        Topic: tweets   Partition: 0    Leader: 1       Replicas: 1     Isr: 1
+
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ timeout 180 python3 ingestion/producer.py --source file --file data/kaggle_tweets/samples/sent140_100k.jsonl   --interval 0.1
+Streaming from data/kaggle_tweets/samples/sent140_100k.jsonl to Kafka topic 'tweets'...
+ Produced record to tweets partition [0] @ offset 0
+ Produced record to tweets partition [0] @ offset 1
+ Produced record to tweets partition [0] @ offset 2
+...
+ Produced record to tweets partition [0] @ offset 1782
+ Produced record to tweets partition [0] @ offset 1783
+ Produced record to tweets partition [0] @ offset 1784
+ Produced record to tweets partition [0] @ offset 1785
+
+
+ Fast run with logs
+
+ (venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ timeout 180 python3 ingestion/producer.py --source file --file data/kaggle_tweets/samples/sent140_100k.jsonl   --interval 0.01
+Streaming from data/kaggle_tweets/samples/sent140_100k.jsonl to Kafka topic 'tweets'...
+ Produced record to tweets partition [0] @ offset 0
+ Produced record to tweets partition [0] @ offset 1
+ Produced record to tweets partition [0] @ offset 2
+ Produced record to tweets partition [0] @ offset 3
+ Produced record to tweets partition [0] @ offset 4
+ ...
+ Produced record to tweets partition [0] @ offset 17112
+ Produced record to tweets partition [0] @ offset 17113
+ Produced record to tweets partition [0] @ offset 17114
+ Produced record to tweets partition [0] @ offset 17115
+ Produced record to tweets partition [0] @ offset 17116
+ Produced record to tweets partition [0] @ offset 17117
+
+ (venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ mkdir -p logs
+docker exec -it spark-master bash -lc '
+export ENTITIES_PATH=/project/config/entities.yml
+export PYTHONPATH=/project
+cd /project &&
+/opt/spark/bin/spark-submit \
+  --master spark://spark-master:7077 \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+  --conf spark.jars.ivy=/tmp/ivy \
+  --py-files /project/streaming.zip \
+  /project/streaming/stream_job.py
+' |& tee logs/slow_stream.log
+:: loading settings :: url = jar:file:/opt/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /tmp/ivy/cache
+The jars for the packages stored in: /tmp/ivy/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-32f7bb16-faa1-4b96-87d1-e99eb7b44cd2;1.0
+        confs: [default]
+        found org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.kafka#kafka-clients;3.4.1 in central
+        found org.lz4#lz4-java;1.8.0 in central
+        found org.xerial.snappy#snappy-java;1.1.10.3 in central
+        found org.slf4j#slf4j-api;2.0.7 in central
+        found org.apache.hadoop#hadoop-client-runtime;3.3.4 in central
+        found org.apache.hadoop#hadoop-client-api;3.3.4 in central
+        found commons-logging#commons-logging;1.1.3 in central
+        found com.google.code.findbugs#jsr305;3.0.0 in central
+        found org.apache.commons#commons-pool2;2.11.1 in central
+:: resolution report :: resolve 727ms :: artifacts dl 24ms
+        :: modules in use:
+        com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+        commons-logging#commons-logging;1.1.3 from central in [default]
+        org.apache.commons#commons-pool2;2.11.1 from central in [default]
+        org.apache.hadoop#hadoop-client-api;3.3.4 from central in [default]
+        org.apache.hadoop#hadoop-client-runtime;3.3.4 from central in [default]
+        org.apache.kafka#kafka-clients;3.4.1 from central in [default]
+        org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.lz4#lz4-java;1.8.0 from central in [default]
+        org.slf4j#slf4j-api;2.0.7 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.10.3 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   11  |   0   |   0   |   0   ||   11  |   0   |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-32f7bb16-faa1-4b96-87d1-e99eb7b44cd2
+        confs: [default]
+        0 artifacts copied, 11 already retrieved (0kB/15ms)
+25/12/30 08:19:25 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+STREAM_JOB_VERSION=2025-12-30_0527
+25/12/30 08:19:27 INFO SparkContext: Running Spark version 3.5.1
+25/12/30 08:19:27 INFO SparkContext: OS info Linux, 6.8.0-1044-gcp, amd64
+25/12/30 08:19:27 INFO SparkContext: Java version 11.0.22
+25/12/30 08:19:27 INFO ResourceUtils: ==============================================================
+25/12/30 08:19:27 INFO ResourceUtils: No custom resources configured for spark.driver.
+25/12/30 08:19:27 INFO ResourceUtils: ==============================================================
+25/12/30 08:19:27 INFO SparkContext: Submitted application: TwitterGraphStream
+25/12/30 08:19:27 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+25/12/30 08:19:27 INFO ResourceProfile: Limiting resource is cpu
+25/12/30 08:19:27 INFO ResourceProfileManager: Added ResourceProfile id: 0
+25/12/30 08:19:27 INFO SecurityManager: Changing view acls to: spark
+25/12/30 08:19:27 INFO SecurityManager: Changing modify acls to: spark
+25/12/30 08:19:27 INFO SecurityManager: Changing view acls groups to: 
+25/12/30 08:19:27 INFO SecurityManager: Changing modify acls groups to: 
+25/12/30 08:19:27 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark; groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY
+25/12/30 08:19:27 INFO Utils: Successfully started service 'sparkDriver' on port 42575.
+25/12/30 08:19:27 INFO SparkEnv: Registering MapOutputTracker
+25/12/30 08:19:27 INFO SparkEnv: Registering BlockManagerMaster
+25/12/30 08:19:27 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+25/12/30 08:19:27 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+25/12/30 08:19:27 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+25/12/30 08:19:27 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-6c10dac3-e3e7-48d8-9159-0a034cdc62a3
+25/12/30 08:19:28 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+25/12/30 08:19:28 INFO SparkEnv: Registering OutputCommitCoordinator
+25/12/30 08:19:28 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+25/12/30 08:19:28 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:42575/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:42575/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:42575/jars/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:42575/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:42575/jars/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:42575/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:42575/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:42575/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:42575/jars/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:42575/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added JAR file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:42575/jars/commons-logging_commons-logging-1.1.3.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO SparkContext: Added file file:///project/streaming.zip at spark://cde593a9630d:42575/files/streaming.zip with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /project/streaming.zip to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/streaming.zip
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:42575/files/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:42575/files/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:42575/files/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.apache.kafka_kafka-clients-3.4.1.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:42575/files/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/com.google.code.findbugs_jsr305-3.0.0.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:42575/files/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.apache.commons_commons-pool2-2.11.1.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:42575/files/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:42575/files/org.lz4_lz4-java-1.8.0.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.lz4_lz4-java-1.8.0.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:42575/files/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.xerial.snappy_snappy-java-1.1.10.3.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:42575/files/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.slf4j_slf4j-api-2.0.7.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:42575/files/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/org.apache.hadoop_hadoop-client-api-3.3.4.jar
+25/12/30 08:19:28 INFO SparkContext: Added file file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:42575/files/commons-logging_commons-logging-1.1.3.jar with timestamp 1767082767237
+25/12/30 08:19:28 INFO Utils: Copying /tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar to /tmp/spark-38e3352d-6e5b-4814-a4dd-51fd49682d51/userFiles-d6a56878-6447-41ed-9d12-379dbc1417de/commons-logging_commons-logging-1.1.3.jar
+25/12/30 08:19:28 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+25/12/30 08:19:28 INFO TransportClientFactory: Successfully created connection to spark-master/172.18.0.4:7077 after 44 ms (0 ms spent in bootstraps)
+25/12/30 08:19:28 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20251230081928-0014
+25/12/30 08:19:28 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20251230081928-0014/0 on worker-20251229050300-172.18.0.5-33597 (172.18.0.5:33597) with 2 core(s)
+25/12/30 08:19:28 INFO StandaloneSchedulerBackend: Granted executor ID app-20251230081928-0014/0 on hostPort 172.18.0.5:33597 with 2 core(s), 1024.0 MiB RAM
+25/12/30 08:19:28 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 44413.
+25/12/30 08:19:28 INFO NettyBlockTransferService: Server created on cde593a9630d:44413
+25/12/30 08:19:28 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+25/12/30 08:19:28 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, cde593a9630d, 44413, None)
+25/12/30 08:19:28 INFO BlockManagerMasterEndpoint: Registering block manager cde593a9630d:44413 with 434.4 MiB RAM, BlockManagerId(driver, cde593a9630d, 44413, None)
+25/12/30 08:19:29 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, cde593a9630d, 44413, None)
+25/12/30 08:19:29 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, cde593a9630d, 44413, None)
+25/12/30 08:19:29 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20251230081928-0014/0 is now RUNNING
+25/12/30 08:19:29 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+25/12/30 08:19:36 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+25/12/30 08:19:36 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+Streaming query started. Writing edges to: /data/raw_parquet
+[metrics] writing streaming progress to /data/metrics/stream_progress.jsonl
+25/12/30 08:19:37 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+25/12/30 08:19:37 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+[edges] batch=0 rows=0
+[with_figs] batch=0 total=0 nonnull=0 ge1=0 ge2=0
+[mentions] batch=0 ge1=0 ge2=0
+[edges] batch=1 rows=34
+[with_figs] batch=1 total=304 nonnull=304 ge1=126 ge2=1
+batchId= 0 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+[mentions] batch=1 ge1=126 ge2=1
+[with_figs] batch=2 total=1297 nonnull=1297 ge1=512 ge2=18
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |15   |
+|neg            |12   |
+|neu            |7    |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|switchfoot     |__ANY__|-0.0173        |neu            |2009-04-06T22:19:45Z|
+|Kenichan       |__ANY__|0.4939         |pos            |2009-04-06T22:19:53Z|
+|nationwideclass|__ANY__|-0.4939        |neg            |2009-04-06T22:19:57Z|
+|Kwesidei       |__ANY__|0.0            |neu            |2009-04-06T22:20:00Z|
+|LOLTrish       |__ANY__|0.6208         |pos            |2009-04-06T22:20:03Z|
+|Tatiana_K      |__ANY__|0.0            |neu            |2009-04-06T22:20:05Z|
+|twittera       |__ANY__|0.0            |neu            |2009-04-06T22:20:09Z|
+|caregiving     |__ANY__|-0.5994        |neg            |2009-04-06T22:20:19Z|
+|octolinz16     |__ANY__|-0.1027        |neg            |2009-04-06T22:20:19Z|
+|smarrison      |__ANY__|0.3724         |pos            |2009-04-06T22:20:20Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=2 ge1=504 ge2=11
+[with_figs] batch=3 total=517 nonnull=517 ge1=175 ge2=7
+25/12/30 08:20:08 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 24983 milliseconds
+[mentions] batch=3 ge1=173 ge2=6
+[edges] batch=2 rows=873
+[with_figs] batch=4 total=348 nonnull=348 ge1=97 ge2=3
+[mentions] batch=4 ge1=94 ge2=2
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |315  |
+|neg            |349  |
+|neu            |209  |
++---------------+-----+
+
+[with_figs] batch=5 total=289 nonnull=289 ge1=110 ge2=5
+[mentions] batch=5 ge1=110 ge2=3
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|ashleyac      |__ANY__|0.1779         |pos            |2009-04-06T22:25:44Z|
+|statravelAU   |__ANY__|-0.315         |neg            |2009-04-06T22:25:53Z|
+|markhardy1974 |__ANY__|0.0            |neu            |2009-04-06T22:25:54Z|
+|msdrama       |__ANY__|-0.296         |neg            |2009-04-06T22:26:02Z|
+|januarycrimson|__ANY__|-0.3987        |neg            |2009-04-06T22:26:10Z|
+|Hollywoodheat |__ANY__|0.0            |neu            |2009-04-06T22:26:10Z|
+|makeherfamous |__ANY__|0.2006         |pos            |2009-04-06T22:26:22Z|
+|stark         |__ANY__|0.0            |neu            |2009-04-06T22:26:29Z|
+|mangaaa       |__ANY__|-0.3818        |neg            |2009-04-06T22:26:38Z|
+|kpreyes       |__ANY__|-0.4215        |neg            |2009-04-06T22:26:45Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 1 numInputRows= 292 inputRowsPerSecond= 46.80987495992305 processedRowsPerSecond= 11.688883551499138
+[with_figs] batch=6 total=484 nonnull=484 ge1=176 ge2=3
+[mentions] batch=6 ge1=174 ge2=3
+[with_figs] batch=7 total=171 nonnull=171 ge1=56 ge2=1
+[mentions] batch=7 ge1=56 ge2=1
+[with_figs] batch=8 total=122 nonnull=122 ge1=36 ge2=1
+[edges] batch=3 rows=401
+[mentions] batch=8 ge1=35 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |187  |
+|neg            |127  |
+|neu            |87   |
++---------------+-----+
+
+[with_figs] batch=9 total=177 nonnull=177 ge1=65 ge2=4
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|andygosling   |__ANY__|0.4767         |pos            |2009-04-07T01:19:09Z|
+|mileycyrus    |__ANY__|0.5562         |pos            |2009-04-07T01:19:59Z|
+|chewbeka      |__ANY__|0.7074         |pos            |2009-04-07T01:19:59Z|
+|DHughesy      |__ANY__|0.0            |neu            |2009-04-07T01:20:09Z|
+|msdivineknight|__ANY__|-0.7762        |neg            |2009-04-07T01:20:11Z|
+|leelowe       |__ANY__|0.3682         |pos            |2009-04-07T01:20:19Z|
+|gabrielmansour|__ANY__|-0.5423        |neg            |2009-04-07T01:20:32Z|
+|ClaireRichard6|__ANY__|0.0            |neu            |2009-04-07T01:20:35Z|
+|duncn         |__ANY__|0.0            |neu            |2009-04-07T01:20:42Z|
+|BipLing       |__ANY__|-0.4419        |neg            |2009-04-07T01:20:55Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=9 ge1=65 ge2=3
+[with_figs] batch=10 total=336 nonnull=336 ge1=125 ge2=3
+[mentions] batch=10 ge1=123 ge2=0
+[with_figs] batch=11 total=149 nonnull=149 ge1=46 ge2=2
+[mentions] batch=11 ge1=46 ge2=1
+[with_figs] batch=12 total=113 nonnull=113 ge1=40 ge2=0
+[mentions] batch=12 ge1=39 ge2=0
+[with_figs] batch=13 total=103 nonnull=103 ge1=37 ge2=3
+[mentions] batch=13 ge1=37 ge2=2
+[with_figs] batch=14 total=115 nonnull=115 ge1=50 ge2=2
+[mentions] batch=14 ge1=49 ge2=1
+[with_figs] batch=15 total=104 nonnull=104 ge1=28 ge2=1
+[mentions] batch=15 ge1=28 ge2=1
+[with_figs] batch=16 total=103 nonnull=103 ge1=36 ge2=2
+[mentions] batch=16 ge1=35 ge2=1
+[with_figs] batch=17 total=107 nonnull=107 ge1=37 ge2=3
+[mentions] batch=17 ge1=37 ge2=1
+[with_figs] batch=18 total=103 nonnull=103 ge1=34 ge2=2
+[mentions] batch=18 ge1=34 ge2=2
+[with_figs] batch=19 total=101 nonnull=101 ge1=29 ge2=1
+[mentions] batch=19 ge1=29 ge2=1
+batchId= 3 numInputRows= 4552 inputRowsPerSecond= 379.96661101836395 processedRowsPerSecond= 842.339008142117
+[with_figs] batch=20 total=113 nonnull=113 ge1=32 ge2=1
+[mentions] batch=20 ge1=32 ge2=1
+[with_figs] batch=21 total=104 nonnull=104 ge1=35 ge2=0
+[mentions] batch=21 ge1=35 ge2=0
+[with_figs] batch=22 total=143 nonnull=143 ge1=37 ge2=1
+[mentions] batch=22 ge1=37 ge2=0
+[edges] batch=4 rows=647
+[with_figs] batch=23 total=133 nonnull=133 ge1=41 ge2=2
+[mentions] batch=23 ge1=40 ge2=1
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |256  |
+|neg            |246  |
+|neu            |145  |
++---------------+-----+
+
+[with_figs] batch=24 total=156 nonnull=156 ge1=42 ge2=3
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|CSIMiamiJenny |__ANY__|0.2794         |pos            |2009-04-07T02:50:05Z|
+|MissyKesson   |__ANY__|0.0            |neu            |2009-04-07T02:50:08Z|
+|fireflies_uk  |__ANY__|-0.4017        |neg            |2009-04-07T02:50:09Z|
+|carli_chick   |__ANY__|0.0            |neu            |2009-04-07T02:50:11Z|
+|robparsons    |__ANY__|-0.7992        |neg            |2009-04-07T02:50:19Z|
+|nickynocky    |__ANY__|-0.0516        |neg            |2009-04-07T02:50:22Z|
+|abhian        |__ANY__|0.0            |neu            |2009-04-07T02:50:30Z|
+|Retrochick_uk |__ANY__|-0.2732        |neg            |2009-04-07T02:50:52Z|
+|kenmcguire    |__ANY__|-0.743         |neg            |2009-04-07T02:51:15Z|
+|divapromotions|__ANY__|0.8221         |pos            |2009-04-07T02:51:19Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=24 ge1=41 ge2=2
+[with_figs] batch=25 total=395 nonnull=395 ge1=120 ge2=6
+[mentions] batch=25 ge1=119 ge2=3
+[with_figs] batch=26 total=164 nonnull=164 ge1=66 ge2=5
+[mentions] batch=26 ge1=66 ge2=2
+[with_figs] batch=27 total=100 nonnull=100 ge1=31 ge2=1
+[mentions] batch=27 ge1=31 ge2=0
+[with_figs] batch=28 total=102 nonnull=102 ge1=33 ge2=3
+[mentions] batch=28 ge1=33 ge2=0
+[with_figs] batch=29 total=107 nonnull=107 ge1=31 ge2=1
+[mentions] batch=29 ge1=31 ge2=1
+[with_figs] batch=30 total=97 nonnull=97 ge1=39 ge2=1
+[mentions] batch=30 ge1=38 ge2=1
+[with_figs] batch=31 total=94 nonnull=94 ge1=33 ge2=2
+[mentions] batch=31 ge1=33 ge2=1
+[with_figs] batch=32 total=105 nonnull=105 ge1=27 ge2=2
+[mentions] batch=32 ge1=26 ge2=3
+[with_figs] batch=33 total=110 nonnull=110 ge1=41 ge2=1
+[mentions] batch=33 ge1=40 ge2=1
+batchId= 4 numInputRows= 7600 inputRowsPerSecond= 380.0570085512827 processedRowsPerSecond= 1057.31775180857
+[with_figs] batch=34 total=104 nonnull=104 ge1=48 ge2=3
+[mentions] batch=34 ge1=48 ge2=3
+[with_figs] batch=35 total=91 nonnull=91 ge1=29 ge2=0
+[mentions] batch=35 ge1=29 ge2=0
+[with_figs] batch=36 total=97 nonnull=97 ge1=41 ge2=0
+[mentions] batch=36 ge1=41 ge2=0
+[with_figs] batch=37 total=100 nonnull=100 ge1=29 ge2=0
+[edges] batch=5 rows=651
+[mentions] batch=37 ge1=29 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |237  |
+|neg            |239  |
+|neu            |175  |
++---------------+-----+
+
+[with_figs] batch=38 total=135 nonnull=135 ge1=37 ge2=0
+[mentions] batch=38 ge1=37 ge2=0
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|nikkiwoods    |__ANY__|-0.5255        |neg            |2009-04-07T05:12:05Z|
+|grahambeale   |__ANY__|0.63           |pos            |2009-04-07T05:12:15Z|
+|rootvet       |__ANY__|-0.34          |neg            |2009-04-07T05:12:21Z|
+|empiremagazine|__ANY__|-0.5446        |neg            |2009-04-07T05:12:45Z|
+|ElleCMcG      |__ANY__|-0.4574        |neg            |2009-04-07T05:12:56Z|
+|perezhilton   |__ANY__|-0.1901        |neg            |2009-04-07T05:13:06Z|
+|Apple         |__ANY__|-0.1779        |neg            |2009-04-07T05:13:11Z|
+|DG_MMK        |__ANY__|-0.7269        |neg            |2009-04-07T05:13:33Z|
+|pennydog      |__ANY__|0.0            |neu            |2009-04-07T05:13:39Z|
+|lauraEchilds  |__ANY__|-0.7769        |neg            |2009-04-07T05:14:00Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=39 total=279 nonnull=279 ge1=94 ge2=5
+[mentions] batch=39 ge1=93 ge2=5
+[with_figs] batch=40 total=136 nonnull=136 ge1=39 ge2=3
+[mentions] batch=40 ge1=38 ge2=1
+[with_figs] batch=41 total=99 nonnull=99 ge1=39 ge2=1
+[mentions] batch=41 ge1=39 ge2=0
+[with_figs] batch=42 total=93 nonnull=93 ge1=27 ge2=2
+[mentions] batch=42 ge1=27 ge2=0
+[with_figs] batch=43 total=91 nonnull=91 ge1=30 ge2=0
+[mentions] batch=43 ge1=30 ge2=0
+[with_figs] batch=44 total=98 nonnull=98 ge1=32 ge2=4
+[mentions] batch=44 ge1=32 ge2=3
+[with_figs] batch=45 total=94 nonnull=94 ge1=25 ge2=1
+[mentions] batch=45 ge1=24 ge2=1
+[with_figs] batch=46 total=107 nonnull=107 ge1=40 ge2=4
+[mentions] batch=46 ge1=40 ge2=3
+[with_figs] batch=47 total=102 nonnull=102 ge1=40 ge2=1
+[mentions] batch=47 ge1=39 ge2=1
+[with_figs] batch=48 total=96 nonnull=96 ge1=50 ge2=3
+[mentions] batch=48 ge1=50 ge2=3
+[with_figs] batch=49 total=92 nonnull=92 ge1=36 ge2=1
+[mentions] batch=49 ge1=36 ge2=1
+[with_figs] batch=50 total=92 nonnull=92 ge1=38 ge2=4
+[mentions] batch=50 ge1=38 ge2=3
+batchId= 5 numInputRows= 7632 inputRowsPerSecond= 381.6381638163816 processedRowsPerSecond= 1656.6095072715432
+[with_figs] batch=51 total=96 nonnull=96 ge1=39 ge2=1
+[mentions] batch=51 ge1=38 ge2=1
+[with_figs] batch=52 total=93 nonnull=93 ge1=38 ge2=3
+[mentions] batch=52 ge1=38 ge2=3
+[with_figs] batch=53 total=87 nonnull=87 ge1=40 ge2=1
+[mentions] batch=53 ge1=39 ge2=1
+[with_figs] batch=54 total=105 nonnull=105 ge1=31 ge2=1
+[mentions] batch=54 ge1=31 ge2=1
+[edges] batch=6 rows=682
+[with_figs] batch=55 total=104 nonnull=104 ge1=40 ge2=0
+[mentions] batch=55 ge1=40 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |250  |
+|neg            |264  |
+|neu            |168  |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|traceob1       |__ANY__|-0.3939        |neg            |2009-04-07T07:28:28Z|
+|HeikeM         |__ANY__|0.0772         |pos            |2009-04-07T07:28:30Z|
+|ambeanosce     |__ANY__|0.0            |neu            |2009-04-07T07:28:33Z|
+|ginoboi        |__ANY__|0.7236         |pos            |2009-04-07T07:28:40Z|
+|cventooraa     |__ANY__|0.8209         |pos            |2009-04-07T07:29:06Z|
+|sumiann        |__ANY__|-0.3449        |neg            |2009-04-07T07:29:08Z|
+|ohnoscarlett   |__ANY__|0.0            |neu            |2009-04-07T07:29:29Z|
+|mreeves1       |__ANY__|-0.296         |neg            |2009-04-07T07:29:32Z|
+|Jonathan_Hlibka|__ANY__|-0.7712        |neg            |2009-04-07T07:29:33Z|
+|SarahLWLee     |__ANY__|0.8715         |pos            |2009-04-07T07:30:02Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=56 total=233 nonnull=233 ge1=94 ge2=2
+[mentions] batch=56 ge1=94 ge2=1
+[with_figs] batch=57 total=166 nonnull=166 ge1=58 ge2=1
+[mentions] batch=57 ge1=58 ge2=2
+[with_figs] batch=58 total=112 nonnull=112 ge1=40 ge2=1
+[mentions] batch=58 ge1=40 ge2=1
+[with_figs] batch=59 total=89 nonnull=89 ge1=28 ge2=2
+[mentions] batch=59 ge1=26 ge2=2
+[with_figs] batch=60 total=93 nonnull=93 ge1=19 ge2=2
+[mentions] batch=60 ge1=19 ge2=1
+[with_figs] batch=61 total=95 nonnull=95 ge1=35 ge2=1
+[mentions] batch=61 ge1=34 ge2=2
+[with_figs] batch=62 total=87 nonnull=87 ge1=35 ge2=0
+[mentions] batch=62 ge1=35 ge2=0
+[with_figs] batch=63 total=92 nonnull=92 ge1=23 ge2=0
+[mentions] batch=63 ge1=23 ge2=0
+[with_figs] batch=64 total=86 nonnull=86 ge1=29 ge2=3
+[mentions] batch=64 ge1=28 ge2=1
+[with_figs] batch=65 total=98 nonnull=98 ge1=32 ge2=3
+[mentions] batch=65 ge1=32 ge2=2
+[with_figs] batch=66 total=91 nonnull=91 ge1=24 ge2=1
+[mentions] batch=66 ge1=24 ge2=1
+[with_figs] batch=67 total=89 nonnull=89 ge1=27 ge2=0
+[mentions] batch=67 ge1=27 ge2=0
+[with_figs] batch=68 total=88 nonnull=88 ge1=33 ge2=3
+[mentions] batch=68 ge1=33 ge2=0
+batchId= 6 numInputRows= 7624 inputRowsPerSecond= 381.1809409529523 processedRowsPerSecond= 1594.9790794979078
+[with_figs] batch=69 total=93 nonnull=93 ge1=30 ge2=0
+[mentions] batch=69 ge1=30 ge2=0
+[with_figs] batch=70 total=89 nonnull=89 ge1=33 ge2=1
+[mentions] batch=70 ge1=33 ge2=1
+[with_figs] batch=71 total=92 nonnull=92 ge1=37 ge2=1
+[mentions] batch=71 ge1=36 ge2=1
+[with_figs] batch=72 total=89 nonnull=89 ge1=32 ge2=0
+[mentions] batch=72 ge1=32 ge2=0
+[edges] batch=7 rows=664
+[with_figs] batch=73 total=100 nonnull=100 ge1=39 ge2=3
+[mentions] batch=73 ge1=38 ge2=3
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |256  |
+|neg            |246  |
+|neu            |162  |
++---------------+-----+
+
+[with_figs] batch=74 total=160 nonnull=160 ge1=59 ge2=3
++-------------+-------+---------------+---------------+--------------------+
+|src          |dst    |sentiment_score|sentiment_label|timestamp           |
++-------------+-------+---------------+---------------+--------------------+
+|bitsyfest    |__ANY__|-0.4215        |neg            |2009-04-17T21:41:00Z|
+|laurie       |__ANY__|0.6439         |pos            |2009-04-17T21:41:00Z|
+|kentjlewis   |__ANY__|0.0            |neu            |2009-04-17T21:41:04Z|
+|tokiohotelusa|__ANY__|-0.1761        |neg            |2009-04-17T21:41:05Z|
+|daverandaII  |__ANY__|-0.5401        |neg            |2009-04-17T21:41:06Z|
+|hollybird    |__ANY__|-0.4199        |neg            |2009-04-17T21:41:06Z|
+|ivey         |__ANY__|0.296          |pos            |2009-04-17T21:41:16Z|
+|superdaveyboy|__ANY__|0.8172         |pos            |2009-04-17T21:41:25Z|
+|montefontaine|__ANY__|-0.3593        |neg            |2009-04-17T21:41:31Z|
+|ndoto        |__ANY__|-0.4753        |neg            |2009-04-17T21:41:37Z|
++-------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=74 ge1=57 ge2=2
+[with_figs] batch=75 total=242 nonnull=242 ge1=73 ge2=2
+[mentions] batch=75 ge1=73 ge2=2
+[with_figs] batch=76 total=121 nonnull=121 ge1=47 ge2=1
+[mentions] batch=76 ge1=46 ge2=1
+[with_figs] batch=77 total=98 nonnull=98 ge1=37 ge2=1
+[mentions] batch=77 ge1=37 ge2=1
+[with_figs] batch=78 total=96 nonnull=96 ge1=28 ge2=2
+[mentions] batch=78 ge1=28 ge2=1
+[with_figs] batch=79 total=89 nonnull=89 ge1=25 ge2=0
+[mentions] batch=79 ge1=25 ge2=0
+[with_figs] batch=80 total=95 nonnull=95 ge1=32 ge2=2
+[mentions] batch=80 ge1=32 ge2=1
+[with_figs] batch=81 total=85 nonnull=85 ge1=29 ge2=0
+[mentions] batch=81 ge1=29 ge2=0
+[with_figs] batch=82 total=87 nonnull=87 ge1=27 ge2=0
+[mentions] batch=82 ge1=26 ge2=0
+[with_figs] batch=83 total=90 nonnull=90 ge1=35 ge2=0
+[mentions] batch=83 ge1=35 ge2=0
+[with_figs] batch=84 total=87 nonnull=87 ge1=36 ge2=1
+[mentions] batch=84 ge1=36 ge2=1
+[with_figs] batch=85 total=85 nonnull=85 ge1=36 ge2=1
+[mentions] batch=85 ge1=36 ge2=1
+[with_figs] batch=86 total=87 nonnull=87 ge1=34 ge2=1
+[mentions] batch=86 ge1=33 ge2=1
+[with_figs] batch=87 total=87 nonnull=87 ge1=37 ge2=0
+[mentions] batch=87 ge1=37 ge2=0
+batchId= 7 numInputRows= 7632 inputRowsPerSecond= 381.6 processedRowsPerSecond= 1558.8235294117646
+[with_figs] batch=88 total=84 nonnull=84 ge1=24 ge2=0
+[mentions] batch=88 ge1=24 ge2=0
+[with_figs] batch=89 total=81 nonnull=81 ge1=31 ge2=3
+[mentions] batch=89 ge1=30 ge2=3
+[with_figs] batch=90 total=88 nonnull=88 ge1=37 ge2=1
+[mentions] batch=90 ge1=36 ge2=1
+[with_figs] batch=91 total=89 nonnull=89 ge1=31 ge2=2
+[mentions] batch=91 ge1=31 ge2=2
+[edges] batch=8 rows=694
+[with_figs] batch=92 total=98 nonnull=98 ge1=40 ge2=0
+[mentions] batch=92 ge1=40 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |315  |
+|neg            |231  |
+|neu            |148  |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|Josh_Holtby    |__ANY__|0.0            |neu            |2009-04-18T08:34:25Z|
+|hannahbonellu  |__ANY__|-0.2244        |neg            |2009-04-18T08:34:25Z|
+|Lisa_stupidlamb|__ANY__|0.6249         |pos            |2009-04-18T08:34:37Z|
+|stokez         |__ANY__|0.34           |pos            |2009-04-18T08:34:36Z|
+|mrswatts       |__ANY__|0.3244         |pos            |2009-04-18T08:34:40Z|
+|evelinselli    |__ANY__|0.0            |neu            |2009-04-18T08:34:42Z|
+|tawnyheath     |__ANY__|0.4019         |pos            |2009-04-18T08:34:49Z|
+|StephanieDrumm |__ANY__|0.6369         |pos            |2009-04-18T08:34:52Z|
+|omegatron      |__ANY__|0.0            |neu            |2009-04-18T08:34:55Z|
+|jimmyjosh      |__ANY__|0.4019         |pos            |2009-04-18T08:35:01Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=93 total=193 nonnull=193 ge1=59 ge2=1
+[mentions] batch=93 ge1=58 ge2=1
+[with_figs] batch=94 total=162 nonnull=162 ge1=65 ge2=6
+[mentions] batch=94 ge1=65 ge2=4
+[with_figs] batch=95 total=80 nonnull=80 ge1=35 ge2=2
+[mentions] batch=95 ge1=35 ge2=1
+[with_figs] batch=96 total=97 nonnull=97 ge1=38 ge2=2
+[mentions] batch=96 ge1=38 ge2=1
+[with_figs] batch=97 total=88 nonnull=88 ge1=30 ge2=3
+[mentions] batch=97 ge1=30 ge2=3
+[with_figs] batch=98 total=87 nonnull=87 ge1=28 ge2=0
+[mentions] batch=98 ge1=27 ge2=0
+[with_figs] batch=99 total=88 nonnull=88 ge1=24 ge2=0
+[mentions] batch=99 ge1=24 ge2=0
+[with_figs] batch=100 total=88 nonnull=88 ge1=21 ge2=0
+[mentions] batch=100 ge1=21 ge2=0
+[with_figs] batch=101 total=88 nonnull=88 ge1=36 ge2=2
+[mentions] batch=101 ge1=35 ge2=0
+[with_figs] batch=102 total=89 nonnull=89 ge1=29 ge2=2
+[mentions] batch=102 ge1=29 ge2=2
+[with_figs] batch=103 total=92 nonnull=92 ge1=30 ge2=1
+[mentions] batch=103 ge1=29 ge2=0
+[with_figs] batch=104 total=83 nonnull=83 ge1=37 ge2=2
+[mentions] batch=104 ge1=37 ge2=2
+[with_figs] batch=105 total=89 nonnull=89 ge1=29 ge2=1
+[mentions] batch=105 ge1=29 ge2=0
+[with_figs] batch=106 total=90 nonnull=90 ge1=28 ge2=0
+[mentions] batch=106 ge1=28 ge2=0
+batchId= 8 numInputRows= 7628 inputRowsPerSecond= 381.4 processedRowsPerSecond= 1635.856744585031
+[with_figs] batch=107 total=86 nonnull=86 ge1=37 ge2=3
+[mentions] batch=107 ge1=36 ge2=3
+[with_figs] batch=108 total=88 nonnull=88 ge1=29 ge2=0
+[mentions] batch=108 ge1=28 ge2=0
+[with_figs] batch=109 total=83 nonnull=83 ge1=25 ge2=0
+[mentions] batch=109 ge1=23 ge2=0
+[with_figs] batch=110 total=95 nonnull=95 ge1=44 ge2=4
+[mentions] batch=110 ge1=44 ge2=3
+[edges] batch=9 rows=708
+[with_figs] batch=111 total=86 nonnull=86 ge1=33 ge2=0
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |279  |
+|neg            |252  |
+|neu            |177  |
++---------------+-----+
+
+[mentions] batch=111 ge1=33 ge2=0
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|michxxblc     |__ANY__|0.4887         |pos            |2009-04-18T13:23:49Z|
+|RonnieWK      |__ANY__|0.0            |neu            |2009-04-18T13:23:51Z|
+|tommcfly      |__ANY__|0.7158         |pos            |2009-04-18T13:23:56Z|
+|steveagee     |__ANY__|-0.908         |neg            |2009-04-18T13:24:01Z|
+|ZomgItzLauren |__ANY__|-0.4767        |neg            |2009-04-18T13:24:01Z|
+|mileycyrus    |__ANY__|0.743          |pos            |2009-04-18T13:24:02Z|
+|SarahFTW      |__ANY__|-0.5106        |neg            |2009-04-18T13:24:06Z|
+|inka_one      |__ANY__|0.9022         |pos            |2009-04-18T13:24:11Z|
+|DashKitten    |__ANY__|-0.6289        |neg            |2009-04-18T13:24:12Z|
+|TiffanyStarnes|__ANY__|0.0            |neu            |2009-04-18T13:24:13Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=112 total=262 nonnull=262 ge1=90 ge2=4
+[mentions] batch=112 ge1=89 ge2=2
+[with_figs] batch=113 total=115 nonnull=115 ge1=32 ge2=0
+[mentions] batch=113 ge1=31 ge2=1
+[with_figs] batch=114 total=84 nonnull=84 ge1=31 ge2=0
+[mentions] batch=114 ge1=31 ge2=0
+[with_figs] batch=115 total=87 nonnull=87 ge1=44 ge2=3
+[mentions] batch=115 ge1=44 ge2=2
+[with_figs] batch=116 total=84 nonnull=84 ge1=37 ge2=1
+[mentions] batch=116 ge1=37 ge2=1
+[with_figs] batch=117 total=84 nonnull=84 ge1=31 ge2=1
+[mentions] batch=117 ge1=31 ge2=0
+[with_figs] batch=118 total=80 nonnull=80 ge1=31 ge2=1
+[mentions] batch=118 ge1=31 ge2=1
+[with_figs] batch=119 total=83 nonnull=83 ge1=33 ge2=1
+[mentions] batch=119 ge1=32 ge2=1
+[with_figs] batch=120 total=93 nonnull=93 ge1=27 ge2=2
+[mentions] batch=120 ge1=27 ge2=2
+[with_figs] batch=121 total=92 nonnull=92 ge1=40 ge2=1
+[mentions] batch=121 ge1=40 ge2=1
+[with_figs] batch=122 total=83 nonnull=83 ge1=37 ge2=1
+[mentions] batch=122 ge1=37 ge2=1
+[with_figs] batch=123 total=86 nonnull=86 ge1=26 ge2=0
+[mentions] batch=123 ge1=26 ge2=0
+[with_figs] batch=124 total=85 nonnull=85 ge1=29 ge2=0
+[mentions] batch=124 ge1=29 ge2=0
+[with_figs] batch=125 total=88 nonnull=88 ge1=30 ge2=1
+[mentions] batch=125 ge1=30 ge2=1
+[with_figs] batch=126 total=87 nonnull=87 ge1=34 ge2=1
+[mentions] batch=126 ge1=34 ge2=1
+batchId= 9 numInputRows= 7628 inputRowsPerSecond= 381.4190709535477 processedRowsPerSecond= 2080.7419530823786
+[with_figs] batch=127 total=86 nonnull=86 ge1=39 ge2=0
+[mentions] batch=127 ge1=39 ge2=0
+[with_figs] batch=128 total=81 nonnull=81 ge1=33 ge2=2
+[mentions] batch=128 ge1=33 ge2=1
+[with_figs] batch=129 total=84 nonnull=84 ge1=34 ge2=4
+[mentions] batch=129 ge1=34 ge2=2
+[with_figs] batch=130 total=82 nonnull=82 ge1=34 ge2=2
+[mentions] batch=130 ge1=34 ge2=2
+[edges] batch=10 rows=771
+[with_figs] batch=131 total=84 nonnull=84 ge1=33 ge2=2
+[mentions] batch=131 ge1=33 ge2=2
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |285  |
+|neg            |297  |
+|neu            |189  |
++---------------+-----+
+
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|cai_mommy     |__ANY__|0.5093         |pos            |2009-04-18T15:39:52Z|
+|suntea        |__ANY__|0.0            |neu            |2009-04-18T15:39:56Z|
+|gregbrock     |__ANY__|0.6349         |pos            |2009-04-18T15:40:02Z|
+|lukalvsemwet  |__ANY__|0.4628         |pos            |2009-04-18T15:40:08Z|
+|laura_thompson|__ANY__|-0.4199        |neg            |2009-04-18T15:40:17Z|
+|dimitrimckay  |__ANY__|0.0            |neu            |2009-04-18T15:40:24Z|
+|penbleth      |__ANY__|-0.4767        |neg            |2009-04-18T15:43:21Z|
+|sodapopcomics |__ANY__|-0.4404        |neg            |2009-04-18T15:43:30Z|
+|allanxpress   |__ANY__|-0.5789        |neg            |2009-04-18T15:43:37Z|
+|Gailporter    |__ANY__|-0.4031        |neg            |2009-04-18T15:43:43Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=132 total=105 nonnull=105 ge1=38 ge2=1
+[mentions] batch=132 ge1=38 ge2=1
+[with_figs] batch=133 total=64 nonnull=64 ge1=23 ge2=1
+[mentions] batch=133 ge1=22 ge2=1
+batchId= 10 numInputRows= 7640 inputRowsPerSecond= 381.69464428457235 processedRowsPerSecond= 1500.6874877234334
+[edges] batch=11 rows=66
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |25   |
+|neg            |25   |
+|neu            |16   |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|footballlvnlady|__ANY__|0.296          |pos            |2009-04-18T21:40:28Z|
+|4cal           |__ANY__|0.0            |neu            |2009-04-18T21:40:32Z|
+|mjyazzie       |__ANY__|0.5859         |pos            |2009-04-18T21:40:43Z|
+|boomboxhearts  |__ANY__|-0.296         |neg            |2009-04-18T21:40:42Z|
+|ameliorating   |__ANY__|-0.1511        |neg            |2009-04-18T21:41:00Z|
+|notatard       |__ANY__|0.0            |neu            |2009-04-18T21:41:04Z|
+|semipenguin    |__ANY__|0.0            |neu            |2009-04-18T21:41:07Z|
+|bananawong     |__ANY__|0.25           |pos            |2009-04-18T21:41:32Z|
+|JeffLast       |__ANY__|0.4325         |pos            |2009-04-18T21:41:38Z|
+|bobbinrob      |__ANY__|-0.2732        |neg            |2009-04-18T21:41:41Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 11 numInputRows= 752 inputRowsPerSecond= 37.63010408326661 processedRowsPerSecond= 225.08231068542352
+batchId= 12 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+^CTraceback (most recent call last):
+  File "/project/streaming/stream_job.py", line 265, in <module>
+    main()
+  File "/project/streaming/stream_job.py", line 258, in main
+    time.sleep(20)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 382, in signal_handler
+KeyboardInterrupt
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc 'tail -n 3 /data/metrics/stream_progress.jsonl'
+{"id": "b680b18c-3836-4754-99b7-56675674d4f8", "runId": "99c6c3d6-bc7f-49f4-84d1-eae0ea2b54df", "name": null, "timestamp": "2025-12-30T08:22:40.016Z", "batchId": 10, "numInputRows": 7640, "inputRowsPerSecond": 381.69464428457235, "processedRowsPerSecond": 1500.6874877234334, "durationMs": {"addBatch": 4971, "commitOffsets": 32, "getBatch": 1, "latestOffset": 4, "queryPlanning": 36, "triggerExecution": 5091, "walCommit": 46}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 15021}}, "endOffset": {"tweets": {"0": 16931}}, "latestOffset": {"tweets": {"0": 16931}}, "numInputRows": 7640, "inputRowsPerSecond": 381.69464428457235, "processedRowsPerSecond": 1500.6874877234334, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:22:57.098774Z"}
+{"id": "b680b18c-3836-4754-99b7-56675674d4f8", "runId": "99c6c3d6-bc7f-49f4-84d1-eae0ea2b54df", "name": null, "timestamp": "2025-12-30T08:23:00.000Z", "batchId": 11, "numInputRows": 752, "inputRowsPerSecond": 37.63010408326661, "processedRowsPerSecond": 225.08231068542352, "durationMs": {"addBatch": 3245, "commitOffsets": 34, "getBatch": 0, "latestOffset": 3, "queryPlanning": 23, "triggerExecution": 3341, "walCommit": 35}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 16931}}, "endOffset": {"tweets": {"0": 17119}}, "latestOffset": {"tweets": {"0": 17119}}, "numInputRows": 752, "inputRowsPerSecond": 37.63010408326661, "processedRowsPerSecond": 225.08231068542352, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:23:17.120382Z"}
+{"id": "b680b18c-3836-4754-99b7-56675674d4f8", "runId": "99c6c3d6-bc7f-49f4-84d1-eae0ea2b54df", "name": null, "timestamp": "2025-12-30T08:23:20.000Z", "batchId": 12, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "durationMs": {"latestOffset": 3, "triggerExecution": 3}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 17119}}, "endOffset": {"tweets": {"0": 17119}}, "latestOffset": {"tweets": {"0": 17119}}, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:23:37.135749Z"}
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ grep -E "batchId=|processedRowsPerSecond|falling behind" logs/slow_stream.log | tail -n 80
+batchId= 0 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+25/12/30 08:20:08 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 24983 milliseconds
+batchId= 1 numInputRows= 292 inputRowsPerSecond= 46.80987495992305 processedRowsPerSecond= 11.688883551499138
+batchId= 3 numInputRows= 4552 inputRowsPerSecond= 379.96661101836395 processedRowsPerSecond= 842.339008142117
+batchId= 4 numInputRows= 7600 inputRowsPerSecond= 380.0570085512827 processedRowsPerSecond= 1057.31775180857
+batchId= 5 numInputRows= 7632 inputRowsPerSecond= 381.6381638163816 processedRowsPerSecond= 1656.6095072715432
+batchId= 6 numInputRows= 7624 inputRowsPerSecond= 381.1809409529523 processedRowsPerSecond= 1594.9790794979078
+batchId= 7 numInputRows= 7632 inputRowsPerSecond= 381.6 processedRowsPerSecond= 1558.8235294117646
+batchId= 8 numInputRows= 7628 inputRowsPerSecond= 381.4 processedRowsPerSecond= 1635.856744585031
+batchId= 9 numInputRows= 7628 inputRowsPerSecond= 381.4190709535477 processedRowsPerSecond= 2080.7419530823786
+batchId= 10 numInputRows= 7640 inputRowsPerSecond= 381.69464428457235 processedRowsPerSecond= 1500.6874877234334
+batchId= 11 numInputRows= 752 inputRowsPerSecond= 37.63010408326661 processedRowsPerSecond= 225.08231068542352
+batchId= 12 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec spark-master bash -lc 'rm -rf /data/checkpoints/with_figs_counts /data/checkpoints/edges /data/raw_parquet/*'
+docker exec spark-master bash -lc 'mkdir -p /data/checkpoints/with_figs_counts /data/checkpoints/edges && chmod -R 777 /data/checkpoints'
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec kafka bash -lc '
+kafka-topics --bootstrap-server kafka:29092 --delete --topic tweets || true
+sleep 2
+kafka-topics --bootstrap-server kafka:29092 --create --topic tweets --partitions 1 --replication-factor 1 || true
+kafka-topics --bootstrap-server kafka:29092 --describe --topic tweets
+'
+Created topic tweets.
+Topic: tweets   TopicId: kNns7DgIRaufF0st0crQ6g PartitionCount: 1       ReplicationFactor: 1    Configs: 
+        Topic: tweets   Partition: 0    Leader: 1       Replicas: 1     Isr: 1
+
+
+
+Very fast run with logs
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ timeout 180 python3 ingestion/producer.py --source file --file data/kaggle_tweets/samples/sent140_100k.jsonl   --interval 0.001
+Streaming from data/kaggle_tweets/samples/sent140_100k.jsonl to Kafka topic 'tweets'...
+ Produced record to tweets partition [0] @ offset 0
+ Produced record to tweets partition [0] @ offset 1
+ Produced record to tweets partition [0] @ offset 2
+ Produced record to tweets partition [0] @ offset 3
+ Produced record to tweets partition [0] @ offset 4
+ ...
+ Produced record to tweets partition [0] @ offset 99995
+ Produced record to tweets partition [0] @ offset 99996
+ Produced record to tweets partition [0] @ offset 99997
+ Produced record to tweets partition [0] @ offset 99998
+ Produced record to tweets partition [0] @ offset 99999
+Finished streaming from file.
+
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ mkdir -p logs
+docker exec -it spark-master bash -lc '
+export ENTITIES_PATH=/project/config/entities.yml
+export PYTHONPATH=/project
+cd /project &&
+/opt/spark/bin/spark-submit \
+  --master spark://spark-master:7077 \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+  --conf spark.jars.ivy=/tmp/ivy \
+  --py-files /project/streaming.zip \
+  /project/streaming/stream_job.py
+' |& tee logs/slow_stream.log
+:: loading settings :: url = jar:file:/opt/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /tmp/ivy/cache
+The jars for the packages stored in: /tmp/ivy/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-3d15b4dd-ea67-4816-a944-7ffefc532c3d;1.0
+        confs: [default]
+        found org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.kafka#kafka-clients;3.4.1 in central
+        found org.lz4#lz4-java;1.8.0 in central
+        found org.xerial.snappy#snappy-java;1.1.10.3 in central
+        found org.slf4j#slf4j-api;2.0.7 in central
+        found org.apache.hadoop#hadoop-client-runtime;3.3.4 in central
+        found org.apache.hadoop#hadoop-client-api;3.3.4 in central
+        found commons-logging#commons-logging;1.1.3 in central
+        found com.google.code.findbugs#jsr305;3.0.0 in central
+        found org.apache.commons#commons-pool2;2.11.1 in central
+:: resolution report :: resolve 781ms :: artifacts dl 24ms
+        :: modules in use:
+        com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+        commons-logging#commons-logging;1.1.3 from central in [default]
+        org.apache.commons#commons-pool2;2.11.1 from central in [default]
+        org.apache.hadoop#hadoop-client-api;3.3.4 from central in [default]
+        org.apache.hadoop#hadoop-client-runtime;3.3.4 from central in [default]
+        org.apache.kafka#kafka-clients;3.4.1 from central in [default]
+        org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.lz4#lz4-java;1.8.0 from central in [default]
+        org.slf4j#slf4j-api;2.0.7 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.10.3 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   11  |   0   |   0   |   0   ||   11  |   0   |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-3d15b4dd-ea67-4816-a944-7ffefc532c3d
+        confs: [default]
+        0 artifacts copied, 11 already retrieved (0kB/16ms)
+25/12/30 08:30:37 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+STREAM_JOB_VERSION=2025-12-30_0527
+25/12/30 08:30:39 INFO SparkContext: Running Spark version 3.5.1
+25/12/30 08:30:39 INFO SparkContext: OS info Linux, 6.8.0-1044-gcp, amd64
+25/12/30 08:30:39 INFO SparkContext: Java version 11.0.22
+25/12/30 08:30:39 INFO ResourceUtils: ==============================================================
+25/12/30 08:30:39 INFO ResourceUtils: No custom resources configured for spark.driver.
+25/12/30 08:30:39 INFO ResourceUtils: ==============================================================
+25/12/30 08:30:39 INFO SparkContext: Submitted application: TwitterGraphStream
+25/12/30 08:30:39 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+25/12/30 08:30:39 INFO ResourceProfile: Limiting resource is cpu
+25/12/30 08:30:39 INFO ResourceProfileManager: Added ResourceProfile id: 0
+25/12/30 08:30:39 INFO SecurityManager: Changing view acls to: spark
+25/12/30 08:30:39 INFO SecurityManager: Changing modify acls to: spark
+25/12/30 08:30:39 INFO SecurityManager: Changing view acls groups to: 
+25/12/30 08:30:39 INFO SecurityManager: Changing modify acls groups to: 
+25/12/30 08:30:39 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark; groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY
+25/12/30 08:30:39 INFO Utils: Successfully started service 'sparkDriver' on port 36413.
+25/12/30 08:30:39 INFO SparkEnv: Registering MapOutputTracker
+25/12/30 08:30:39 INFO SparkEnv: Registering BlockManagerMaster
+25/12/30 08:30:39 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+25/12/30 08:30:39 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+25/12/30 08:30:40 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+25/12/30 08:30:40 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-a9a3bc02-691b-4697-b482-6a6e0a2292ef
+25/12/30 08:30:40 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+25/12/30 08:30:40 INFO SparkEnv: Registering OutputCommitCoordinator
+25/12/30 08:30:40 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+25/12/30 08:30:40 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36413/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36413/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:36413/jars/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:36413/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:36413/jars/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:36413/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:36413/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:36413/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:36413/jars/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:36413/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added JAR file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:36413/jars/commons-logging_commons-logging-1.1.3.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO SparkContext: Added file file:///project/streaming.zip at spark://cde593a9630d:36413/files/streaming.zip with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /project/streaming.zip to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/streaming.zip
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36413/files/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:36413/files/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:36413/files/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.apache.kafka_kafka-clients-3.4.1.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:36413/files/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/com.google.code.findbugs_jsr305-3.0.0.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:36413/files/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.apache.commons_commons-pool2-2.11.1.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:36413/files/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:36413/files/org.lz4_lz4-java-1.8.0.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.lz4_lz4-java-1.8.0.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:36413/files/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.xerial.snappy_snappy-java-1.1.10.3.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:36413/files/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.slf4j_slf4j-api-2.0.7.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:36413/files/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/org.apache.hadoop_hadoop-client-api-3.3.4.jar
+25/12/30 08:30:40 INFO SparkContext: Added file file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:36413/files/commons-logging_commons-logging-1.1.3.jar with timestamp 1767083439026
+25/12/30 08:30:40 INFO Utils: Copying /tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar to /tmp/spark-b072addf-44f6-4a0b-b179-a75cd3da7f7c/userFiles-1ea28fdb-0e9c-454d-93d4-055eb3245571/commons-logging_commons-logging-1.1.3.jar
+25/12/30 08:30:40 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+25/12/30 08:30:41 INFO TransportClientFactory: Successfully created connection to spark-master/172.18.0.4:7077 after 56 ms (0 ms spent in bootstraps)
+25/12/30 08:30:41 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20251230083041-0015
+25/12/30 08:30:41 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20251230083041-0015/0 on worker-20251229050300-172.18.0.5-33597 (172.18.0.5:33597) with 2 core(s)
+25/12/30 08:30:41 INFO StandaloneSchedulerBackend: Granted executor ID app-20251230083041-0015/0 on hostPort 172.18.0.5:33597 with 2 core(s), 1024.0 MiB RAM
+25/12/30 08:30:41 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 37449.
+25/12/30 08:30:41 INFO NettyBlockTransferService: Server created on cde593a9630d:37449
+25/12/30 08:30:41 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+25/12/30 08:30:41 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, cde593a9630d, 37449, None)
+25/12/30 08:30:41 INFO BlockManagerMasterEndpoint: Registering block manager cde593a9630d:37449 with 434.4 MiB RAM, BlockManagerId(driver, cde593a9630d, 37449, None)
+25/12/30 08:30:41 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, cde593a9630d, 37449, None)
+25/12/30 08:30:41 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20251230083041-0015/0 is now RUNNING
+25/12/30 08:30:41 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, cde593a9630d, 37449, None)
+25/12/30 08:30:41 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+25/12/30 08:30:49 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+25/12/30 08:30:49 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+Streaming query started. Writing edges to: /data/raw_parquet
+[metrics] writing streaming progress to /data/metrics/stream_progress.jsonl
+25/12/30 08:30:50 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+25/12/30 08:30:50 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+[edges] batch=0 rows=0
+[with_figs] batch=0 total=0 nonnull=0 ge1=0 ge2=0
+[mentions] batch=0 ge1=0 ge2=0
+[edges] batch=1 rows=1062
+[with_figs] batch=1 total=604 nonnull=604 ge1=255 ge2=5
+batchId= 0 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+[mentions] batch=1 ge1=252 ge2=3
+[with_figs] batch=2 total=10634 nonnull=10634 ge1=3677 ge2=148
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |399  |
+|neg            |413  |
+|neu            |250  |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|switchfoot     |__ANY__|-0.0173        |neu            |2009-04-06T22:19:45Z|
+|Kenichan       |__ANY__|0.4939         |pos            |2009-04-06T22:19:53Z|
+|nationwideclass|__ANY__|-0.4939        |neg            |2009-04-06T22:19:57Z|
+|Kwesidei       |__ANY__|0.0            |neu            |2009-04-06T22:20:00Z|
+|LOLTrish       |__ANY__|0.6208         |pos            |2009-04-06T22:20:03Z|
+|Tatiana_K      |__ANY__|0.0            |neu            |2009-04-06T22:20:05Z|
+|twittera       |__ANY__|0.0            |neu            |2009-04-06T22:20:09Z|
+|caregiving     |__ANY__|-0.5994        |neg            |2009-04-06T22:20:19Z|
+|octolinz16     |__ANY__|-0.1027        |neg            |2009-04-06T22:20:19Z|
+|smarrison      |__ANY__|0.3724         |pos            |2009-04-06T22:20:20Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=2 ge1=3642 ge2=101
+25/12/30 08:31:26 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 26067 milliseconds
+[with_figs] batch=3 total=10338 nonnull=10338 ge1=3797 ge2=153
+batchId= 1 numInputRows= 11488 inputRowsPerSecond= 1119.3608106791387 processedRowsPerSecond= 440.72738433208013
+[mentions] batch=3 ge1=3765 ge2=124
+[edges] batch=2 rows=7600
+[with_figs] batch=4 total=5601 nonnull=5601 ge1=1851 ge2=77
+[mentions] batch=4 ge1=1831 ge2=56
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |3001 |
+|neg            |2749 |
+|neu            |1850 |
++---------------+-----+
+
+[with_figs] batch=5 total=2954 nonnull=2954 ge1=1035 ge2=44
+[mentions] batch=5 ge1=1030 ge2=31
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|shaundiviney  |__ANY__|0.0772         |pos            |2009-04-07T01:51:49Z|
+|karinhoegh    |__ANY__|0.8819         |pos            |2009-04-07T01:52:13Z|
+|savicevic     |__ANY__|0.0            |neu            |2009-04-07T01:52:26Z|
+|ianmack       |__ANY__|0.7003         |pos            |2009-04-07T01:52:30Z|
+|iphoneincanada|__ANY__|0.4346         |pos            |2009-04-07T01:52:40Z|
+|swati121      |__ANY__|-0.4724        |neg            |2009-04-07T01:52:48Z|
+|awlred        |__ANY__|0.0772         |pos            |2009-04-07T01:52:53Z|
+|craigelder    |__ANY__|0.3612         |pos            |2009-04-07T01:53:22Z|
+|hairpins      |__ANY__|-0.3987        |neg            |2009-04-07T01:53:25Z|
+|AnotherA      |__ANY__|0.0            |neu            |2009-04-07T01:53:27Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=6 total=4315 nonnull=4315 ge1=1370 ge2=60
+[mentions] batch=6 ge1=1354 ge2=43
+[with_figs] batch=7 total=2698 nonnull=2698 ge1=834 ge2=27
+[mentions] batch=7 ge1=830 ge2=23
+[with_figs] batch=8 total=2331 nonnull=2331 ge1=842 ge2=30
+[mentions] batch=8 ge1=837 ge2=24
+[edges] batch=3 rows=4944
+[with_figs] batch=9 total=1846 nonnull=1846 ge1=668 ge2=25
+batchId= 2 numInputRows= 83900 inputRowsPerSecond= 3218.381986267214 processedRowsPerSecond= 4516.094305092044
+[mentions] batch=9 ge1=664 ge2=18
+[with_figs] batch=10 total=1717 nonnull=1717 ge1=651 ge2=34
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1967 |
+|neg            |1795 |
+|neu            |1182 |
++---------------+-----+
+
+[mentions] batch=10 ge1=648 ge2=26
+[with_figs] batch=11 total=3311 nonnull=3311 ge1=1251 ge2=52
++------------+------------+---------------+---------------+--------------------+
+|src         |dst         |sentiment_score|sentiment_label|timestamp           |
++------------+------------+---------------+---------------+--------------------+
+|Kat_in_NY   |__ANY__     |-0.296         |neg            |2009-04-19T06:12:04Z|
+|pchere      |__ANY__     |0.0            |neu            |2009-04-19T06:12:17Z|
+|EllipsisKhan|__ANY__     |0.3612         |pos            |2009-04-19T06:12:28Z|
+|hello_jodie |__ANY__     |0.0            |neu            |2009-04-19T06:12:54Z|
+|Kimmerz719  |__ANY__     |-0.471         |neg            |2009-04-19T06:12:58Z|
+|Eminem      |__ANY__     |0.25           |pos            |2009-04-19T06:12:58Z|
+|MrMakeupGeek|civicbabe627|0.3544         |pos            |2009-04-19T06:13:01Z|
+|AlanCarr    |__ANY__     |0.3595         |pos            |2009-04-19T06:13:05Z|
+|artywah     |__ANY__     |-0.5983        |neg            |2009-04-19T06:13:08Z|
+|yourmyoxygen|__ANY__     |0.6486         |pos            |2009-04-19T06:13:22Z|
++------------+------------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=11 ge1=1240 ge2=47
+[with_figs] batch=12 total=2215 nonnull=2215 ge1=828 ge2=32
+[mentions] batch=12 ge1=823 ge2=27
+[with_figs] batch=13 total=1782 nonnull=1782 ge1=547 ge2=20
+[mentions] batch=13 ge1=542 ge2=12
+[edges] batch=4 rows=4567
+[with_figs] batch=14 total=1643 nonnull=1643 ge1=573 ge2=22
+[mentions] batch=14 ge1=565 ge2=18
+[with_figs] batch=15 total=1562 nonnull=1562 ge1=547 ge2=29
+[mentions] batch=15 ge1=543 ge2=26
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1851 |
+|neg            |1670 |
+|neu            |1046 |
++---------------+-----+
+
+[with_figs] batch=16 total=2393 nonnull=2393 ge1=870 ge2=37
+[mentions] batch=16 ge1=864 ge2=34
++------------+----------+---------------+---------------+--------------------+
+|src         |dst       |sentiment_score|sentiment_label|timestamp           |
++------------+----------+---------------+---------------+--------------------+
+|unclecj     |__ANY__   |0.0            |neu            |2009-04-21T00:39:00Z|
+|rbuerckner  |__ANY__   |0.0            |neu            |2009-04-21T00:39:05Z|
+|ChoChoMojo  |__ANY__   |-0.5255        |neg            |2009-04-21T00:39:15Z|
+|DJSlikk     |__ANY__   |0.26           |pos            |2009-04-21T00:39:18Z|
+|in_a_tent   |__ANY__   |0.0            |neu            |2009-04-21T00:39:31Z|
+|mrsmilly    |__ANY__   |0.0            |neu            |2009-04-21T00:39:35Z|
+|LilithHecate|__ANY__   |0.4588         |pos            |2009-04-21T00:39:39Z|
+|wildmanrouse|__ANY__   |0.0258         |neu            |2009-04-21T00:39:53Z|
+|kthxx       |ttaasshhaa|0.4404         |pos            |2009-04-21T00:39:51Z|
+|AmyyVee     |__ANY__   |0.7524         |pos            |2009-04-21T00:39:57Z|
++------------+----------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 3 numInputRows= 59072 inputRowsPerSecond= 3178.8193510197493 processedRowsPerSecond= 4131.197985873138
+[with_figs] batch=17 total=1970 nonnull=1970 ge1=676 ge2=25
+[mentions] batch=17 ge1=670 ge2=21
+[with_figs] batch=18 total=1914 nonnull=1914 ge1=647 ge2=28
+[mentions] batch=18 ge1=642 ge2=21
+[with_figs] batch=19 total=1352 nonnull=1352 ge1=433 ge2=18
+[mentions] batch=19 ge1=425 ge2=16
+[with_figs] batch=20 total=961 nonnull=961 ge1=293 ge2=14
+[mentions] batch=20 ge1=290 ge2=10
+[with_figs] batch=21 total=917 nonnull=917 ge1=334 ge2=9
+[mentions] batch=21 ge1=334 ge2=7
+[with_figs] batch=22 total=939 nonnull=939 ge1=327 ge2=13
+[mentions] batch=22 ge1=323 ge2=10
+[with_figs] batch=23 total=916 nonnull=916 ge1=345 ge2=19
+[mentions] batch=23 ge1=343 ge2=15
+[with_figs] batch=24 total=993 nonnull=993 ge1=410 ge2=13
+[mentions] batch=24 ge1=409 ge2=12
+[with_figs] batch=25 total=889 nonnull=889 ge1=350 ge2=16
+[mentions] batch=25 ge1=348 ge2=12
+[with_figs] batch=26 total=1166 nonnull=1166 ge1=456 ge2=12
+[mentions] batch=26 ge1=454 ge2=9
+[edges] batch=5 rows=5929
+[with_figs] batch=27 total=1035 nonnull=1035 ge1=402 ge2=12
+[mentions] batch=27 ge1=398 ge2=10
+[with_figs] batch=28 total=1210 nonnull=1210 ge1=456 ge2=11
+[mentions] batch=28 ge1=455 ge2=11
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2263 |
+|neg            |2218 |
+|neu            |1448 |
++---------------+-----+
+
+[with_figs] batch=29 total=1396 nonnull=1396 ge1=495 ge2=22
+[mentions] batch=29 ge1=490 ge2=14
+batchId= 4 numInputRows= 49172 inputRowsPerSecond= 3203.805056033359 processedRowsPerSecond= 4432.305750856319
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|iMegs          |__ANY__|0.0            |neu            |2009-05-02T07:26:48Z|
+|jon_dunn       |__ANY__|0.6476         |pos            |2009-05-02T07:26:48Z|
+|shaunjumpnow   |__ANY__|0.0            |neu            |2009-05-02T07:26:53Z|
+|russianlovedoll|__ANY__|0.6988         |pos            |2009-05-02T07:26:59Z|
+|elizabethlmccoy|__ANY__|0.4404         |pos            |2009-05-02T07:27:08Z|
+|monseur77      |__ANY__|0.0            |neu            |2009-05-02T07:27:14Z|
+|swallowsadness |__ANY__|-0.2942        |neg            |2009-05-02T07:27:17Z|
+|ddlovato       |__ANY__|0.3434         |pos            |2009-05-02T07:27:20Z|
+|daytonagrlmandy|__ANY__|0.7954         |pos            |2009-05-02T07:27:38Z|
+|AlixxZ         |__ANY__|0.0            |neu            |2009-05-02T07:27:43Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=30 total=2846 nonnull=2846 ge1=925 ge2=47
+[mentions] batch=30 ge1=913 ge2=30
+[with_figs] batch=31 total=1874 nonnull=1874 ge1=602 ge2=28
+[mentions] batch=31 ge1=596 ge2=15
+[with_figs] batch=32 total=1603 nonnull=1603 ge1=519 ge2=22
+[mentions] batch=32 ge1=518 ge2=19
+[with_figs] batch=33 total=1367 nonnull=1367 ge1=545 ge2=24
+[mentions] batch=33 ge1=543 ge2=18
+[with_figs] batch=34 total=1068 nonnull=1068 ge1=397 ge2=17
+[mentions] batch=34 ge1=395 ge2=14
+[with_figs] batch=35 total=967 nonnull=967 ge1=365 ge2=14
+[mentions] batch=35 ge1=362 ge2=12
+[with_figs] batch=36 total=1007 nonnull=1007 ge1=377 ge2=20
+[mentions] batch=36 ge1=374 ge2=18
+[with_figs] batch=37 total=1070 nonnull=1070 ge1=382 ge2=12
+[mentions] batch=37 ge1=378 ge2=9
+[edges] batch=6 rows=5773
+[with_figs] batch=38 total=1207 nonnull=1207 ge1=431 ge2=14
+[mentions] batch=38 ge1=426 ge2=12
+[with_figs] batch=39 total=1432 nonnull=1432 ge1=485 ge2=16
+[mentions] batch=39 ge1=480 ge2=8
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2260 |
+|neg            |2117 |
+|neu            |1396 |
++---------------+-----+
+
+[with_figs] batch=40 total=1299 nonnull=1299 ge1=420 ge2=22
+[mentions] batch=40 ge1=414 ge2=15
+batchId= 5 numInputRows= 64844 inputRowsPerSecond= 3238.961038961039 processedRowsPerSecond= 4709.761766414875
++---------------+--------+---------------+---------------+--------------------+
+|src            |dst     |sentiment_score|sentiment_label|timestamp           |
++---------------+--------+---------------+---------------+--------------------+
+|JalenJade      |__ANY__ |0.3182         |pos            |2009-05-03T19:25:33Z|
+|NyceDaytona    |__ANY__ |-0.6679        |neg            |2009-05-03T19:25:46Z|
+|Tonange        |__ANY__ |0.073          |pos            |2009-05-03T19:25:46Z|
+|joeymcintyre   |__ANY__ |0.508          |pos            |2009-05-03T19:25:47Z|
+|Kealik         |yourname|0.0            |neu            |2009-05-03T19:25:53Z|
+|melissjane     |__ANY__ |0.0            |neu            |2009-05-03T19:25:55Z|
+|tropicalxashley|__ANY__ |0.0772         |pos            |2009-05-03T19:25:59Z|
+|Jasmonique     |__ANY__ |-0.3802        |neg            |2009-05-03T19:26:10Z|
+|aplusk         |__ANY__ |0.7717         |pos            |2009-05-03T19:26:12Z|
+|becca_greenberg|__ANY__ |0.6808         |pos            |2009-05-03T19:26:13Z|
++---------------+--------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=41 total=2898 nonnull=2898 ge1=937 ge2=32
+[mentions] batch=41 ge1=932 ge2=26
+[with_figs] batch=42 total=1907 nonnull=1907 ge1=710 ge2=31
+[mentions] batch=42 ge1=708 ge2=25
+[with_figs] batch=43 total=1513 nonnull=1513 ge1=586 ge2=31
+[mentions] batch=43 ge1=580 ge2=25
+[with_figs] batch=44 total=1513 nonnull=1513 ge1=539 ge2=25
+[mentions] batch=44 ge1=538 ge2=20
+[with_figs] batch=45 total=1072 nonnull=1072 ge1=355 ge2=20
+[mentions] batch=45 ge1=352 ge2=16
+[with_figs] batch=46 total=969 nonnull=969 ge1=357 ge2=12
+[mentions] batch=46 ge1=355 ge2=11
+[with_figs] batch=47 total=969 nonnull=969 ge1=378 ge2=10
+[mentions] batch=47 ge1=376 ge2=9
+[with_figs] batch=48 total=904 nonnull=904 ge1=344 ge2=18
+[mentions] batch=48 ge1=338 ge2=15
+[edges] batch=7 rows=5711
+[with_figs] batch=49 total=913 nonnull=913 ge1=323 ge2=15
+[mentions] batch=49 ge1=321 ge2=11
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2227 |
+|neg            |2144 |
+|neu            |1340 |
++---------------+-----+
+
++---------------+---------+---------------+---------------+--------------------+
+|src            |dst      |sentiment_score|sentiment_label|timestamp           |
++---------------+---------+---------------+---------------+--------------------+
+|MUFCNews       |__ANY__  |0.2359         |pos            |2009-05-10T00:45:33Z|
+|caityyyyyy     |__ANY__  |-0.7223        |neg            |2009-05-10T00:45:33Z|
+|PotFace        |__ANY__  |0.0            |neu            |2009-05-10T00:45:35Z|
+|loft201        |modamouth|-0.471         |neg            |2009-05-10T00:45:46Z|
+|myria101       |__ANY__  |0.3595         |pos            |2009-05-10T00:45:47Z|
+|ladykbj        |__ANY__  |0.7332         |pos            |2009-05-10T00:46:06Z|
+|michaeljritchie|__ANY__  |0.0            |neu            |2009-05-10T00:46:08Z|
+|shivf1         |__ANY__  |0.0            |neu            |2009-05-10T00:46:41Z|
+|instruisto     |__ANY__  |0.1531         |pos            |2009-05-10T00:46:48Z|
+|shaki_sm       |__ANY__  |-0.1531        |neg            |2009-05-10T00:46:52Z|
++---------------+---------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 6 numInputRows= 63892 inputRowsPerSecond= 3197.7977977977976 processedRowsPerSecond= 4677.9909210719
+[edges] batch=8 rows=366
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |131  |
+|neg            |142  |
+|neu            |93   |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|Glendy15       |__ANY__|0.0            |neu            |2009-05-14T02:50:58Z|
+|evilsense      |__ANY__|-0.4767        |neg            |2009-05-14T02:51:04Z|
+|PainterMommy   |__ANY__|0.7098         |pos            |2009-05-14T02:51:12Z|
+|JemDevenish    |__ANY__|-0.381         |neg            |2009-05-14T02:51:39Z|
+|euphoricdreamer|__ANY__|0.0            |neu            |2009-05-14T02:51:42Z|
+|tommcfly       |__ANY__|0.8225         |pos            |2009-05-14T02:51:50Z|
+|Nick7782       |__ANY__|0.7217         |pos            |2009-05-14T02:51:58Z|
+|angelapanagacos|__ANY__|0.0            |neu            |2009-05-14T02:52:13Z|
+|Tittch         |__ANY__|0.802          |pos            |2009-05-14T02:52:13Z|
+|kels450        |__ANY__|0.8507         |pos            |2009-05-14T02:52:16Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 8 numInputRows= 4000 inputRowsPerSecond= 200.010000500025 processedRowsPerSecond= 907.6469253460403
+batchId= 9 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+^CTraceback (most recent call last):
+  File "/project/streaming/stream_job.py", line 265, in <module>
+    main()
+  File "/project/streaming/stream_job.py", line 258, in main
+    time.sleep(20)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 382, in signal_handler
+KeyboardInterrupt
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc 'tail -n 3 /data/metrics/stream_progress.jsonl'
+{"id": "c318a551-e367-4be3-95f9-5ed1e6c23fbb", "runId": "bb4b3eae-7142-4949-ad01-e52b68a578da", "name": null, "timestamp": "2025-12-30T08:32:40.000Z", "batchId": 6, "numInputRows": 63892, "inputRowsPerSecond": 3197.7977977977976, "processedRowsPerSecond": 4677.9909210719, "durationMs": {"addBatch": 13472, "commitOffsets": 78, "getBatch": 1, "latestOffset": 11, "queryPlanning": 39, "triggerExecution": 13657, "walCommit": 54}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 67119}}, "endOffset": {"tweets": {"0": 83092}}, "latestOffset": {"tweets": {"0": 83092}}, "numInputRows": 63892, "inputRowsPerSecond": 3197.7977977977976, "processedRowsPerSecond": 4677.9909210719, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:33:09.963790Z"}
+{"id": "c318a551-e367-4be3-95f9-5ed1e6c23fbb", "runId": "bb4b3eae-7142-4949-ad01-e52b68a578da", "name": null, "timestamp": "2025-12-30T08:33:20.000Z", "batchId": 8, "numInputRows": 4000, "inputRowsPerSecond": 200.010000500025, "processedRowsPerSecond": 907.6469253460403, "durationMs": {"addBatch": 4307, "commitOffsets": 34, "getBatch": 0, "latestOffset": 3, "queryPlanning": 24, "triggerExecution": 4407, "walCommit": 36}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 99000}}, "endOffset": {"tweets": {"0": 100000}}, "latestOffset": {"tweets": {"0": 100000}}, "numInputRows": 4000, "inputRowsPerSecond": 200.010000500025, "processedRowsPerSecond": 907.6469253460403, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:33:29.979440Z"}
+{"id": "c318a551-e367-4be3-95f9-5ed1e6c23fbb", "runId": "bb4b3eae-7142-4949-ad01-e52b68a578da", "name": null, "timestamp": "2025-12-30T08:33:40.001Z", "batchId": 9, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "durationMs": {"latestOffset": 2, "triggerExecution": 2}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 100000}}, "endOffset": {"tweets": {"0": 100000}}, "latestOffset": {"tweets": {"0": 100000}}, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T08:33:49.990022Z"}
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ grep -E "batchId=|processedRowsPerSecond|falling behind" logs/slow_stream.log | tail -n 80
+batchId= 0 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+25/12/30 08:31:26 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 26067 milliseconds
+batchId= 1 numInputRows= 11488 inputRowsPerSecond= 1119.3608106791387 processedRowsPerSecond= 440.72738433208013
+batchId= 2 numInputRows= 83900 inputRowsPerSecond= 3218.381986267214 processedRowsPerSecond= 4516.094305092044
+batchId= 3 numInputRows= 59072 inputRowsPerSecond= 3178.8193510197493 processedRowsPerSecond= 4131.197985873138
+batchId= 4 numInputRows= 49172 inputRowsPerSecond= 3203.805056033359 processedRowsPerSecond= 4432.305750856319
+batchId= 5 numInputRows= 64844 inputRowsPerSecond= 3238.961038961039 processedRowsPerSecond= 4709.761766414875
+batchId= 6 numInputRows= 63892 inputRowsPerSecond= 3197.7977977977976 processedRowsPerSecond= 4677.9909210719
+batchId= 8 numInputRows= 4000 inputRowsPerSecond= 200.010000500025 processedRowsPerSecond= 907.6469253460403
+batchId= 9 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec spark-master bash -lc 'rm -rf /data/checkpoints/with_figs_counts /data/checkpoints/edges /data/raw_parquet/*'
+docker exec spark-master bash -lc 'mkdir -p /data/checkpoints/with_figs_counts /data/checkpoints/edges && chmod -R 777 /data/checkpoints'
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec kafka bash -lc '
+kafka-topics --bootstrap-server kafka:29092 --delete --topic tweets || true
+sleep 2
+kafka-topics --bootstrap-server kafka:29092 --create --topic tweets --partitions 1 --replication-factor 1 || true
+kafka-topics --bootstrap-server kafka:29092 --describe --topic tweets
+'
+Created topic tweets.
+Topic: tweets   TopicId: 6-rIJuVrT0mXbSxKpe_0Jw PartitionCount: 1       ReplicationFactor: 1    Configs: 
+        Topic: tweets   Partition: 0    Leader: 1       Replicas: 1     Isr: 1

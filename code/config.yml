@@ -1,0 +1,344 @@
+figures:
+  # US celebrities / billionaire artists
+  - canonical_name: "Taylor Swift"
+    patterns: ["taylor swift", "@taylorswift13"]
+    type: "person"
+    country: "US"
+    tags: ["celebrity", "musician", "billionaire"]
+
+  - canonical_name: "Jay-Z"
+    patterns: ["jay-z", "jay z", "@sc"]
+    type: "person"
+    country: "US"
+    tags: ["celebrity", "musician", "billionaire", "entrepreneur"]
+
+  - canonical_name: "Rihanna"
+    patterns: ["rihanna", "@rihanna"]
+    type: "person"
+    country: "Barbados"
+    tags: ["celebrity", "musician", "billionaire", "entrepreneur"]
+
+  # US tech / finance billionaires
+  - canonical_name: "Elon Musk"
+    patterns: ["elon musk", "@elonmusk"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "tech", "ceo"]
+
+  - canonical_name: "Jeff Bezos"
+    patterns: ["jeff bezos", "@jeffbezos"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "tech", "ecommerce"]
+
+  - canonical_name: "Bill Gates"
+    patterns: ["bill gates", "@billgates"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "tech", "philanthropy"]
+
+  - canonical_name: "Mark Cuban"
+    patterns: ["mark cuban", "@mcuban"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "investor", "media"]
+
+  - canonical_name: "Michael Bloomberg"
+    patterns: ["michael bloomberg", "bloomberg", "@mikebloomberg"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "finance", "media", "politician"]
+
+  - canonical_name: "Tim Cook"
+    patterns: ["tim cook", "@tim_cook"]
+    type: "person"
+    country: "US"
+    tags: ["ceo", "tech"]
+
+  - canonical_name: "Warren Buffett"
+    patterns: ["warren buffett", "@warrenbuffett"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "investor", "finance"]
+
+  - canonical_name: "Larry Ellison"
+    patterns: ["larry ellison", "@larryellison"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "tech", "oracle"]
+
+  - canonical_name: "Larry Page"
+    patterns: ["larry page"]
+    type: "person"
+    country: "US"
+    tags: ["billionaire", "tech", "google"]
+
+  # US politicians
+  - canonical_name: "Joe Biden"
+    patterns: ["joe biden", "@joebiden", "@potus"]
+    type: "person"
+    country: "US"
+    tags: ["politician", "us_president"]
+
+  - canonical_name: "Donald Trump"
+    patterns: ["donald trump", "trump", "@realdonaldtrump"]
+    type: "person"
+    country: "US"
+    tags: ["politician", "business", "us_president"]
+
+  - canonical_name: "Kamala Harris"
+    patterns: ["kamala harris", "@kamalaharris", "@vp"]
+    type: "person"
+    country: "US"
+    tags: ["politician", "us_vice_president"]
+
+  # Chinese business / political figures
+  - canonical_name: "Jack Ma"
+    patterns: ["jack ma", "@jackma"]
+    type: "person"
+    country: "CN"
+    tags: ["billionaire", "tech", "ecommerce"]
+
+  - canonical_name: "Pony Ma"
+    patterns: ["pony ma"]
+    type: "person"
+    country: "CN"
+    tags: ["billionaire", "tech", "social_media"]
+
+  - canonical_name: "Lei Jun"
+    patterns: ["lei jun", "@leijun"]
+    type: "person"
+    country: "CN"
+    tags: ["billionaire", "tech", "hardware"]
+
+  - canonical_name: "Robin Li"
+    patterns: ["robin li"]
+    type: "person"
+    country: "CN"
+    tags: ["billionaire", "tech", "search"]
+
+  - canonical_name: "Colin Huang"
+    patterns: ["colin huang"]
+    type: "person"
+    country: "CN"
+    tags: ["billionaire", "tech", "ecommerce"]
+
+  - canonical_name: "Zhang Yiming"
+    patterns: ["zhang yiming"]
+    type: "person"
+    country: "CN"
+    tags: ["billionaire", "tech", "social_media"]
+
+  - canonical_name: "Wang Xing"
+    patterns: ["wang xing"]
+    type: "person"
+    country: "CN"
+    tags: ["billionaire", "tech", "food_delivery"]
+
+  - canonical_name: "Xi Jinping"
+    patterns: ["xi jinping"]
+    type: "person"
+    country: "CN"
+    tags: ["politician", "head_of_state"]
+
+  # Russian oligarchs / political elites
+  - canonical_name: "Roman Abramovich"
+    patterns: ["roman abramovich"]
+    type: "person"
+    country: "RU"
+    tags: ["billionaire", "oligarch", "energy"]
+
+  - canonical_name: "Oleg Deripaska"
+    patterns: ["oleg deripaska"]
+    type: "person"
+    country: "RU"
+    tags: ["billionaire", "oligarch", "aluminum"]
+
+  - canonical_name: "Alisher Usmanov"
+    patterns: ["alisher usmanov"]
+    type: "person"
+    country: "RU"
+    tags: ["billionaire", "oligarch", "metals"]
+
+  - canonical_name: "Vladimir Potanin"
+    patterns: ["vladimir potanin"]
+    type: "person"
+    country: "RU"
+    tags: ["billionaire", "oligarch", "metals"]
+
+  - canonical_name: "Vladimir Putin"
+    patterns: ["vladimir putin", "putin"]
+    type: "person"
+    country: "RU"
+    tags: ["politician", "head_of_state"]
+
+  - canonical_name: "Alexey Mordashov"
+    patterns: ["alexey mordashov"]
+    type: "person"
+    country: "RU"
+    tags: ["billionaire", "oligarch", "steel"]
+
+  - canonical_name: "Leonid Mikhelson"
+    patterns: ["leonid mikhelson"]
+    type: "person"
+    country: "RU"
+    tags: ["billionaire", "oligarch", "energy", "gas"]
+
+  - canonical_name: "Gennady Timchenko"
+    patterns: ["gennady timchenko"]
+    type: "person"
+    country: "RU"
+    tags: ["billionaire", "oligarch", "energy", "politically_connected"]
+
+  # US companies
+  - canonical_name: "Tesla"
+    patterns: ["tesla", "@tesla"]
+    type: "company"
+    country: "US"
+    tags: ["company", "auto", "ev"]
+
+  - canonical_name: "SpaceX"
+    patterns: ["spacex", "@spacex"]
+    type: "company"
+    country: "US"
+    tags: ["company", "space", "aerospace"]
+
+  - canonical_name: "Amazon"
+    patterns: ["amazon", "@amazon"]
+    type: "company"
+    country: "US"
+    tags: ["company", "ecommerce", "cloud"]
+
+  - canonical_name: "Blue Origin"
+    patterns: ["blue origin", "@blueorigin"]
+    type: "company"
+    country: "US"
+    tags: ["company", "space", "aerospace"]
+
+  - canonical_name: "Microsoft"
+    patterns: ["microsoft", "@microsoft"]
+    type: "company"
+    country: "US"
+    tags: ["company", "tech", "software"]
+
+  - canonical_name: "Meta"
+    patterns: ["meta", "@meta", "@metaai"]
+    type: "company"
+    country: "US"
+    tags: ["company", "tech", "social_media"]
+
+  - canonical_name: "Apple"
+    patterns: ["apple", "@apple"]
+    type: "company"
+    country: "US"
+    tags: ["company", "tech", "hardware"]
+
+  - canonical_name: "Bloomberg"
+    patterns: ["bloomberg", "@bloomberg"]
+    type: "company"
+    country: "US"
+    tags: ["company", "finance", "media"]
+
+  - canonical_name: "Google"
+    patterns: ["google", "@google"]
+    type: "company"
+    country: "US"
+    tags: ["company", "tech", "search", "ads"]
+
+  - canonical_name: "Berkshire Hathaway"
+    patterns: ["berkshire hathaway"]
+    type: "company"
+    country: "US"
+    tags: ["company", "finance", "investment"]
+
+  - canonical_name: "Netflix"
+    patterns: ["netflix", "@netflix"]
+    type: "company"
+    country: "US"
+    tags: ["company", "media", "streaming"]
+
+  # Chinese companies
+  - canonical_name: "Alibaba"
+    patterns: ["alibaba", "@alibabagroup"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "ecommerce", "tech"]
+
+  - canonical_name: "Tencent"
+    patterns: ["tencent", "@tencentglobal"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "tech", "social_media"]
+
+  - canonical_name: "Huawei"
+    patterns: ["huawei", "@huawei"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "tech", "telecom"]
+
+  - canonical_name: "Xiaomi"
+    patterns: ["xiaomi", "@xiaomi", "@xiaomiglobal"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "tech", "hardware"]
+
+  - canonical_name: "ByteDance"
+    patterns: ["bytedance", "tiktok", "@tiktoknewsroom", "@tiktok_us"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "social_media", "tech"]
+
+  - canonical_name: "Meituan"
+    patterns: ["meituan"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "tech", "food_delivery"]
+
+  - canonical_name: "JD.com"
+    patterns: ["jd.com", "jd com", "@jd_corporate"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "ecommerce", "tech"]
+
+  - canonical_name: "Pinduoduo"
+    patterns: ["pinduoduo"]
+    type: "company"
+    country: "CN"
+    tags: ["company", "ecommerce", "tech"]
+
+  # Russian energy / finance companies
+  - canonical_name: "Gazprom"
+    patterns: ["gazprom", "@gazpromen"]
+    type: "company"
+    country: "RU"
+    tags: ["company", "energy", "gas"]
+
+  - canonical_name: "Rosneft"
+    patterns: ["rosneft", "@rosneften"]
+    type: "company"
+    country: "RU"
+    tags: ["company", "energy", "oil"]
+
+  - canonical_name: "Lukoil"
+    patterns: ["lukoil"]
+    type: "company"
+    country: "RU"
+    tags: ["company", "energy", "oil"]
+
+  - canonical_name: "Sberbank"
+    patterns: ["sberbank", "@sberbank"]
+    type: "company"
+    country: "RU"
+    tags: ["company", "finance", "banking"]
+
+  - canonical_name: "Norilsk Nickel"
+    patterns: ["norilsk nickel"]
+    type: "company"
+    country: "RU"
+    tags: ["company", "metals", "mining"]
+
+  - canonical_name: "Novatek"
+    patterns: ["novatek"]
+    type: "company"
+    country: "RU"
+    tags: ["company", "energy", "gas"]

@@ -1,0 +1,3230 @@
+Stress test
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc '
+export ENTITIES_PATH=/project/config/entities.yml
+export PYTHONPATH=/project
+cd /project &&
+/opt/spark/bin/spark-submit \
+  --master spark://spark-master:7077 \
+  --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 \
+  --conf spark.jars.ivy=/tmp/ivy \
+  --py-files /project/streaming.zip \
+  /project/streaming/stream_job.py
+' |& tee logs/final_long_run.log
+:: loading settings :: url = jar:file:/opt/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /tmp/ivy/cache
+The jars for the packages stored in: /tmp/ivy/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-184813e5-d8bf-4e7b-9385-d2d6e35edb32;1.0
+        confs: [default]
+        found org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 in central
+        found org.apache.kafka#kafka-clients;3.4.1 in central
+        found org.lz4#lz4-java;1.8.0 in central
+        found org.xerial.snappy#snappy-java;1.1.10.3 in central
+        found org.slf4j#slf4j-api;2.0.7 in central
+        found org.apache.hadoop#hadoop-client-runtime;3.3.4 in central
+        found org.apache.hadoop#hadoop-client-api;3.3.4 in central
+        found commons-logging#commons-logging;1.1.3 in central
+        found com.google.code.findbugs#jsr305;3.0.0 in central
+        found org.apache.commons#commons-pool2;2.11.1 in central
+:: resolution report :: resolve 722ms :: artifacts dl 23ms
+        :: modules in use:
+        com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+        commons-logging#commons-logging;1.1.3 from central in [default]
+        org.apache.commons#commons-pool2;2.11.1 from central in [default]
+        org.apache.hadoop#hadoop-client-api;3.3.4 from central in [default]
+        org.apache.hadoop#hadoop-client-runtime;3.3.4 from central in [default]
+        org.apache.kafka#kafka-clients;3.4.1 from central in [default]
+        org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.1 from central in [default]
+        org.lz4#lz4-java;1.8.0 from central in [default]
+        org.slf4j#slf4j-api;2.0.7 from central in [default]
+        org.xerial.snappy#snappy-java;1.1.10.3 from central in [default]
+        ---------------------------------------------------------------------
+        |                  |            modules            ||   artifacts   |
+        |       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+        ---------------------------------------------------------------------
+        |      default     |   11  |   0   |   0   |   0   ||   11  |   0   |
+        ---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-184813e5-d8bf-4e7b-9385-d2d6e35edb32
+        confs: [default]
+        0 artifacts copied, 11 already retrieved (0kB/15ms)
+25/12/30 09:32:39 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+STREAM_JOB_VERSION=2025-12-30_0527
+25/12/30 09:32:40 INFO SparkContext: Running Spark version 3.5.1
+25/12/30 09:32:40 INFO SparkContext: OS info Linux, 6.8.0-1044-gcp, amd64
+25/12/30 09:32:40 INFO SparkContext: Java version 11.0.22
+25/12/30 09:32:40 INFO ResourceUtils: ==============================================================
+25/12/30 09:32:40 INFO ResourceUtils: No custom resources configured for spark.driver.
+25/12/30 09:32:40 INFO ResourceUtils: ==============================================================
+25/12/30 09:32:40 INFO SparkContext: Submitted application: TwitterGraphStream
+25/12/30 09:32:40 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+25/12/30 09:32:40 INFO ResourceProfile: Limiting resource is cpu
+25/12/30 09:32:40 INFO ResourceProfileManager: Added ResourceProfile id: 0
+25/12/30 09:32:41 INFO SecurityManager: Changing view acls to: spark
+25/12/30 09:32:41 INFO SecurityManager: Changing modify acls to: spark
+25/12/30 09:32:41 INFO SecurityManager: Changing view acls groups to: 
+25/12/30 09:32:41 INFO SecurityManager: Changing modify acls groups to: 
+25/12/30 09:32:41 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: spark; groups with view permissions: EMPTY; users with modify permissions: spark; groups with modify permissions: EMPTY
+25/12/30 09:32:41 INFO Utils: Successfully started service 'sparkDriver' on port 40441.
+25/12/30 09:32:41 INFO SparkEnv: Registering MapOutputTracker
+25/12/30 09:32:41 INFO SparkEnv: Registering BlockManagerMaster
+25/12/30 09:32:41 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+25/12/30 09:32:41 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+25/12/30 09:32:41 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+25/12/30 09:32:41 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-ae0a0bea-587f-4633-b92f-e8d7fb189ba2
+25/12/30 09:32:41 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+25/12/30 09:32:41 INFO SparkEnv: Registering OutputCommitCoordinator
+25/12/30 09:32:41 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+25/12/30 09:32:42 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:40441/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:40441/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:40441/jars/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:40441/jars/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:40441/jars/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:40441/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:40441/jars/org.lz4_lz4-java-1.8.0.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:40441/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:40441/jars/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:40441/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added JAR file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:40441/jars/commons-logging_commons-logging-1.1.3.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO SparkContext: Added file file:///project/streaming.zip at spark://cde593a9630d:40441/files/streaming.zip with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /project/streaming.zip to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/streaming.zip
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:40441/files/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.apache.spark_spark-sql-kafka-0-10_2.12-3.5.1.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar at spark://cde593a9630d:40441/files/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.apache.spark_spark-token-provider-kafka-0-10_2.12-3.5.1.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar at spark://cde593a9630d:40441/files/org.apache.kafka_kafka-clients-3.4.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.apache.kafka_kafka-clients-3.4.1.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.apache.kafka_kafka-clients-3.4.1.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar at spark://cde593a9630d:40441/files/com.google.code.findbugs_jsr305-3.0.0.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/com.google.code.findbugs_jsr305-3.0.0.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/com.google.code.findbugs_jsr305-3.0.0.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar at spark://cde593a9630d:40441/files/org.apache.commons_commons-pool2-2.11.1.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.apache.commons_commons-pool2-2.11.1.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.apache.commons_commons-pool2-2.11.1.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar at spark://cde593a9630d:40441/files/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.apache.hadoop_hadoop-client-runtime-3.3.4.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar at spark://cde593a9630d:40441/files/org.lz4_lz4-java-1.8.0.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.lz4_lz4-java-1.8.0.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.lz4_lz4-java-1.8.0.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar at spark://cde593a9630d:40441/files/org.xerial.snappy_snappy-java-1.1.10.3.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.xerial.snappy_snappy-java-1.1.10.3.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.xerial.snappy_snappy-java-1.1.10.3.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar at spark://cde593a9630d:40441/files/org.slf4j_slf4j-api-2.0.7.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.slf4j_slf4j-api-2.0.7.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.slf4j_slf4j-api-2.0.7.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar at spark://cde593a9630d:40441/files/org.apache.hadoop_hadoop-client-api-3.3.4.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/org.apache.hadoop_hadoop-client-api-3.3.4.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/org.apache.hadoop_hadoop-client-api-3.3.4.jar
+25/12/30 09:32:42 INFO SparkContext: Added file file:///tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar at spark://cde593a9630d:40441/files/commons-logging_commons-logging-1.1.3.jar with timestamp 1767087160864
+25/12/30 09:32:42 INFO Utils: Copying /tmp/ivy/jars/commons-logging_commons-logging-1.1.3.jar to /tmp/spark-85579e4b-c1c7-4f56-b30e-e4230ed01112/userFiles-8e8e74cb-afe4-4579-b52a-075427c5067e/commons-logging_commons-logging-1.1.3.jar
+25/12/30 09:32:42 INFO StandaloneAppClient$ClientEndpoint: Connecting to master spark://spark-master:7077...
+25/12/30 09:32:42 INFO TransportClientFactory: Successfully created connection to spark-master/172.18.0.4:7077 after 40 ms (0 ms spent in bootstraps)
+25/12/30 09:32:42 INFO StandaloneSchedulerBackend: Connected to Spark cluster with app ID app-20251230093242-0018
+25/12/30 09:32:42 INFO StandaloneAppClient$ClientEndpoint: Executor added: app-20251230093242-0018/0 on worker-20251229050300-172.18.0.5-33597 (172.18.0.5:33597) with 2 core(s)
+25/12/30 09:32:42 INFO StandaloneSchedulerBackend: Granted executor ID app-20251230093242-0018/0 on hostPort 172.18.0.5:33597 with 2 core(s), 1024.0 MiB RAM
+25/12/30 09:32:42 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 43209.
+25/12/30 09:32:42 INFO NettyBlockTransferService: Server created on cde593a9630d:43209
+25/12/30 09:32:42 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+25/12/30 09:32:42 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, cde593a9630d, 43209, None)
+25/12/30 09:32:42 INFO BlockManagerMasterEndpoint: Registering block manager cde593a9630d:43209 with 434.4 MiB RAM, BlockManagerId(driver, cde593a9630d, 43209, None)
+25/12/30 09:32:42 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, cde593a9630d, 43209, None)
+25/12/30 09:32:42 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, cde593a9630d, 43209, None)
+25/12/30 09:32:42 INFO StandaloneAppClient$ClientEndpoint: Executor updated: app-20251230093242-0018/0 is now RUNNING
+25/12/30 09:32:43 INFO StandaloneSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.0
+25/12/30 09:32:49 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+25/12/30 09:32:49 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+Streaming query started. Writing edges to: /data/raw_parquet
+[metrics] writing streaming progress to /data/metrics/stream_progress.jsonl
+25/12/30 09:32:50 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+25/12/30 09:32:50 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+batchId= 8 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+[with_figs] batch=46 total=10 nonnull=10 ge1=7 ge2=0
+[mentions] batch=46 ge1=7 ge2=0
+[with_figs] batch=47 total=9486 nonnull=9486 ge1=3331 ge2=131
+[edges] batch=8 rows=4473
+[mentions] batch=47 ge1=3298 ge2=87
+batchId= 8 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+[with_figs] batch=48 total=10369 nonnull=10369 ge1=3763 ge2=146
+[mentions] batch=48 ge1=3735 ge2=116
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1756 |
+|neg            |1651 |
+|neu            |1066 |
++---------------+-----+
+
+[with_figs] batch=49 total=9529 nonnull=9529 ge1=3245 ge2=130
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|switchfoot     |__ANY__|-0.0173        |neu            |2009-04-06T22:19:45Z|
+|Kenichan       |__ANY__|0.4939         |pos            |2009-04-06T22:19:53Z|
+|nationwideclass|__ANY__|-0.4939        |neg            |2009-04-06T22:19:57Z|
+|Kwesidei       |__ANY__|0.0            |neu            |2009-04-06T22:20:00Z|
+|LOLTrish       |__ANY__|0.6208         |pos            |2009-04-06T22:20:03Z|
+|Tatiana_K      |__ANY__|0.0            |neu            |2009-04-06T22:20:05Z|
+|twittera       |__ANY__|0.0            |neu            |2009-04-06T22:20:09Z|
+|caregiving     |__ANY__|-0.5994        |neg            |2009-04-06T22:20:19Z|
+|octolinz16     |__ANY__|-0.1027        |neg            |2009-04-06T22:20:19Z|
+|smarrison      |__ANY__|0.3724         |pos            |2009-04-06T22:20:20Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=49 ge1=3211 ge2=97
+batchId= 8 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+[with_figs] batch=50 total=4199 nonnull=4199 ge1=1378 ge2=69
+25/12/30 09:33:50 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 30169 milliseconds
+[mentions] batch=50 ge1=1365 ge2=48
+[with_figs] batch=51 total=4105 nonnull=4105 ge1=1320 ge2=49
+[edges] batch=9 rows=8521
+[mentions] batch=51 ge1=1313 ge2=40
+[with_figs] batch=52 total=2818 nonnull=2818 ge1=1010 ge2=30
+[mentions] batch=52 ge1=1004 ge2=23
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |3370 |
+|neg            |3088 |
+|neu            |2063 |
++---------------+-----+
+
+[with_figs] batch=53 total=2134 nonnull=2134 ge1=779 ge2=34
+[mentions] batch=53 ge1=773 ge2=27
+[with_figs] batch=54 total=3842 nonnull=3842 ge1=1477 ge2=70
++-------------+-------+---------------+---------------+--------------------+
+|src          |dst    |sentiment_score|sentiment_label|timestamp           |
++-------------+-------+---------------+---------------+--------------------+
+|LilPecan     |__ANY__|-0.8316        |neg            |2009-04-18T10:17:03Z|
+|aplusk       |__ANY__|0.3832         |pos            |2009-04-18T10:17:05Z|
+|gbfiremelon  |__ANY__|0.8316         |pos            |2009-04-18T10:17:17Z|
+|tinkugallery |__ANY__|0.4019         |pos            |2009-04-18T10:17:19Z|
+|sebby_peek   |__ANY__|0.7003         |pos            |2009-04-18T10:20:11Z|
+|DiegoSecond  |__ANY__|0.0            |neu            |2009-04-18T10:20:12Z|
+|nprscottsimon|__ANY__|0.4576         |pos            |2009-04-18T10:20:17Z|
+|Wardere      |__ANY__|0.508          |pos            |2009-04-18T10:20:18Z|
+|ArtFireJohn  |__ANY__|0.0            |neu            |2009-04-18T10:20:19Z|
+|burningsound |__ANY__|-0.2406        |neg            |2009-04-18T10:20:21Z|
++-------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=54 ge1=1466 ge2=61
+[with_figs] batch=55 total=2974 nonnull=2974 ge1=1021 ge2=39
+[mentions] batch=55 ge1=1012 ge2=31
+[with_figs] batch=56 total=2081 nonnull=2081 ge1=685 ge2=26
+batchId= 9 numInputRows= 97244 inputRowsPerSecond= 3223.09502502403 processedRowsPerSecond= 5240.286684270087
+[mentions] batch=56 ge1=677 ge2=19
+[edges] batch=10 rows=5478
+[with_figs] batch=57 total=1595 nonnull=1595 ge1=568 ge2=28
+[mentions] batch=57 ge1=566 ge2=24
+[with_figs] batch=58 total=2337 nonnull=2337 ge1=856 ge2=37
+[mentions] batch=58 ge1=848 ge2=33
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2220 |
+|neg            |1988 |
+|neu            |1270 |
++---------------+-----+
+
+[with_figs] batch=59 total=3201 nonnull=3201 ge1=1122 ge2=43
+[mentions] batch=59 ge1=1114 ge2=38
++------------+-------+---------------+---------------+--------------------+
+|src         |dst    |sentiment_score|sentiment_label|timestamp           |
++------------+-------+---------------+---------------+--------------------+
+|JC_Live     |__ANY__|0.296          |pos            |2009-04-20T07:59:25Z|
+|jakedunn123 |__ANY__|-0.5106        |neg            |2009-04-20T07:59:28Z|
+|Adaripp     |__ANY__|0.7184         |pos            |2009-04-20T07:59:41Z|
+|KalynM      |__ANY__|-0.128         |neg            |2009-04-20T07:59:47Z|
+|OfRatsAndJen|__ANY__|0.508          |pos            |2009-04-20T07:59:52Z|
+|BronSt      |__ANY__|0.2996         |pos            |2009-04-20T07:59:59Z|
+|pcnlove125  |__ANY__|0.4574         |pos            |2009-04-20T08:00:02Z|
+|adlantis    |__ANY__|0.4574         |pos            |2009-04-20T08:00:05Z|
+|tweetchild  |__ANY__|0.4574         |pos            |2009-04-20T08:00:06Z|
+|chromachris |__ANY__|0.4574         |pos            |2009-04-20T08:00:07Z|
++------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=60 total=2722 nonnull=2722 ge1=863 ge2=37
+[mentions] batch=60 ge1=849 ge2=28
+[with_figs] batch=61 total=1828 nonnull=1828 ge1=618 ge2=21
+[mentions] batch=61 ge1=615 ge2=17
+[with_figs] batch=62 total=1658 nonnull=1658 ge1=600 ge2=31
+[edges] batch=11 rows=4321
+[mentions] batch=62 ge1=596 ge2=24
+[with_figs] batch=63 total=1389 nonnull=1389 ge1=562 ge2=20
+[mentions] batch=63 ge1=561 ge2=18
+batchId= 10 numInputRows= 58964 inputRowsPerSecond= 3177.282034702015 processedRowsPerSecond= 3827.8369254739027
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1670 |
+|neg            |1610 |
+|neu            |1041 |
++---------------+-----+
+
+[with_figs] batch=64 total=1538 nonnull=1538 ge1=595 ge2=20
+[mentions] batch=64 ge1=592 ge2=15
++------------+-------+---------------+---------------+--------------------+
+|src         |dst    |sentiment_score|sentiment_label|timestamp           |
++------------+-------+---------------+---------------+--------------------+
+|sambean_    |__ANY__|-0.1531        |neg            |2009-05-02T08:27:40Z|
+|lydiabarling|__ANY__|0.4019         |pos            |2009-05-02T08:27:43Z|
+|JustJen47   |__ANY__|-0.4199        |neg            |2009-05-02T08:27:45Z|
+|austin31    |__ANY__|0.1901         |pos            |2009-05-02T08:27:46Z|
+|mistawis    |__ANY__|0.0            |neu            |2009-05-02T08:27:51Z|
+|draymer72   |__ANY__|-0.497         |neg            |2009-05-02T08:27:51Z|
+|lizzielarock|__ANY__|-0.2924        |neg            |2009-05-02T08:28:06Z|
+|SadikMorshed|__ANY__|0.4404         |pos            |2009-05-02T08:28:12Z|
+|MissPippa   |__ANY__|0.3818         |pos            |2009-05-02T08:28:15Z|
+|KFZuzulo    |__ANY__|0.8312         |pos            |2009-05-02T08:28:16Z|
++------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=65 total=3161 nonnull=3161 ge1=1202 ge2=36
+[mentions] batch=65 ge1=1192 ge2=29
+[with_figs] batch=66 total=1756 nonnull=1756 ge1=571 ge2=22
+[mentions] batch=66 ge1=564 ge2=17
+[with_figs] batch=67 total=1319 nonnull=1319 ge1=437 ge2=32
+[mentions] batch=67 ge1=431 ge2=16
+[with_figs] batch=68 total=1203 nonnull=1203 ge1=395 ge2=14
+[mentions] batch=68 ge1=392 ge2=9
+[with_figs] batch=69 total=1032 nonnull=1032 ge1=328 ge2=17
+[mentions] batch=69 ge1=325 ge2=9
+[with_figs] batch=70 total=1220 nonnull=1220 ge1=379 ge2=11
+[edges] batch=12 rows=4655
+[mentions] batch=70 ge1=378 ge2=9
+[with_figs] batch=71 total=1278 nonnull=1278 ge1=496 ge2=26
+[mentions] batch=71 ge1=494 ge2=22
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1791 |
+|neg            |1712 |
+|neu            |1152 |
++---------------+-----+
+
+[with_figs] batch=72 total=1106 nonnull=1106 ge1=429 ge2=18
+batchId= 11 numInputRows= 48768 inputRowsPerSecond= 3165.72541382668 processedRowsPerSecond= 4012.176059234883
+[mentions] batch=72 ge1=428 ge2=13
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|DrayaMonster   |__ANY__|0.7003         |pos            |2009-05-03T09:41:17Z|
+|mariahvondita  |__ANY__|0.1779         |pos            |2009-05-03T09:41:19Z|
+|americanindie  |__ANY__|0.5949         |pos            |2009-05-03T09:41:20Z|
+|michaelwhite1  |__ANY__|0.7783         |pos            |2009-05-03T09:41:22Z|
+|rdperry        |__ANY__|0.0            |neu            |2009-05-03T09:41:24Z|
+|MandyyJirouxx  |__ANY__|0.4753         |pos            |2009-05-03T09:41:27Z|
+|Foaly          |__ANY__|0.0            |neu            |2009-05-03T09:41:34Z|
+|Agilesmusic    |__ANY__|0.0            |neu            |2009-05-03T09:41:34Z|
+|ChocolateHeartx|__ANY__|0.0            |neu            |2009-05-03T09:41:36Z|
+|ResourcefulMom |__ANY__|0.0            |neu            |2009-05-03T09:41:37Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=73 total=4230 nonnull=4230 ge1=1541 ge2=55
+[mentions] batch=73 ge1=1526 ge2=47
+[with_figs] batch=74 total=2614 nonnull=2614 ge1=891 ge2=43
+[mentions] batch=74 ge1=881 ge2=28
+[with_figs] batch=75 total=1497 nonnull=1497 ge1=472 ge2=20
+[mentions] batch=75 ge1=469 ge2=14
+[with_figs] batch=76 total=1040 nonnull=1040 ge1=351 ge2=9
+[mentions] batch=76 ge1=349 ge2=8
+[with_figs] batch=77 total=950 nonnull=950 ge1=306 ge2=10
+[mentions] batch=77 ge1=304 ge2=9
+[with_figs] batch=78 total=948 nonnull=948 ge1=355 ge2=10
+[mentions] batch=78 ge1=355 ge2=8
+[with_figs] batch=79 total=1183 nonnull=1183 ge1=443 ge2=26
+[mentions] batch=79 ge1=439 ge2=21
+[edges] batch=13 rows=5370
+[with_figs] batch=80 total=1222 nonnull=1222 ge1=470 ge2=24
+[mentions] batch=80 ge1=466 ge2=19
+[with_figs] batch=81 total=1342 nonnull=1342 ge1=512 ge2=25
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2088 |
+|neg            |2011 |
+|neu            |1271 |
++---------------+-----+
+
+[mentions] batch=81 ge1=511 ge2=20
+[with_figs] batch=82 total=2559 nonnull=2559 ge1=876 ge2=37
+[mentions] batch=82 ge1=871 ge2=32
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|ConstantineXVI|__ANY__|-0.7783        |neg            |2009-05-04T06:47:51Z|
+|elsiecake     |__ANY__|0.6908         |pos            |2009-05-04T06:47:58Z|
+|RenaBrown     |__ANY__|0.1531         |pos            |2009-05-04T06:48:02Z|
+|rup33         |__ANY__|0.5466         |pos            |2009-05-04T06:48:06Z|
+|Silveysurfer  |__ANY__|0.7959         |pos            |2009-05-04T06:48:10Z|
+|turner89      |__ANY__|-0.8957        |neg            |2009-05-04T06:48:17Z|
+|addthis       |__ANY__|-0.5678        |neg            |2009-05-04T06:48:17Z|
+|deanoshoes    |__ANY__|-0.126         |neg            |2009-05-04T06:48:21Z|
+|powboley      |__ANY__|-0.6369        |neg            |2009-05-04T06:48:22Z|
+|simplysoles   |__ANY__|-0.6597        |neg            |2009-05-04T06:48:29Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 12 numInputRows= 50528 inputRowsPerSecond= 3184.6716248581874 processedRowsPerSecond= 3481.568249155929
+[with_figs] batch=83 total=1428 nonnull=1428 ge1=555 ge2=23
+[mentions] batch=83 ge1=547 ge2=20
+[with_figs] batch=84 total=2248 nonnull=2248 ge1=798 ge2=40
+[mentions] batch=84 ge1=787 ge2=28
+[with_figs] batch=85 total=1483 nonnull=1483 ge1=540 ge2=24
+[mentions] batch=85 ge1=537 ge2=17
+[with_figs] batch=86 total=1086 nonnull=1086 ge1=469 ge2=38
+[mentions] batch=86 ge1=453 ge2=28
+[with_figs] batch=87 total=887 nonnull=887 ge1=357 ge2=14
+[mentions] batch=87 ge1=350 ge2=10
+[with_figs] batch=88 total=886 nonnull=886 ge1=336 ge2=13
+[mentions] batch=88 ge1=334 ge2=12
+[with_figs] batch=89 total=930 nonnull=930 ge1=380 ge2=18
+[mentions] batch=89 ge1=377 ge2=15
+[with_figs] batch=90 total=884 nonnull=884 ge1=373 ge2=22
+[mentions] batch=90 ge1=372 ge2=19
+[with_figs] batch=91 total=1063 nonnull=1063 ge1=390 ge2=15
+[mentions] batch=91 ge1=389 ge2=12
+[edges] batch=14 rows=6177
+[with_figs] batch=92 total=1133 nonnull=1133 ge1=384 ge2=18
+[mentions] batch=92 ge1=384 ge2=16
+[with_figs] batch=93 total=1359 nonnull=1359 ge1=412 ge2=18
+[mentions] batch=93 ge1=409 ge2=17
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2332 |
+|neg            |2292 |
+|neu            |1553 |
++---------------+-----+
+
+[with_figs] batch=361 total=1870 nonnull=1870 ge1=781 ge2=37
+[mentions] batch=361 ge1=779 ge2=29
+[with_figs] batch=362 total=1754 nonnull=1754 ge1=689 ge2=44
++------------+-------+---------------+---------------+--------------------+
+|src         |dst    |sentiment_score|sentiment_label|timestamp           |
++------------+-------+---------------+---------------+--------------------+
+|michygirl74 |__ANY__|-0.3595        |neg            |2009-06-03T07:24:05Z|
+|amiestuart  |__ANY__|-0.8838        |neg            |2009-06-03T07:24:05Z|
+|ERiiiN      |__ANY__|0.0            |neu            |2009-06-03T07:24:07Z|
+|msonline_uk |__ANY__|-0.5093        |neg            |2009-06-03T07:24:10Z|
+|cartoonmoney|__ANY__|0.296          |pos            |2009-06-03T07:24:12Z|
+|Gabelicious |__ANY__|0.6476         |pos            |2009-06-03T07:24:17Z|
+|AVIUS       |__ANY__|-0.7783        |neg            |2009-06-03T07:24:17Z|
+|ShystieUK   |__ANY__|0.8176         |pos            |2009-06-03T07:24:21Z|
+|KarinPrice  |__ANY__|0.0            |neu            |2009-06-03T07:24:21Z|
+|ErikBussink |__ANY__|-0.2411        |neg            |2009-06-03T07:24:25Z|
++------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 29 numInputRows= 64628 inputRowsPerSecond= 3231.4 processedRowsPerSecond= 6004.087699739874
+[mentions] batch=362 ge1=682 ge2=39
+[with_figs] batch=363 total=1270 nonnull=1270 ge1=503 ge2=30
+[mentions] batch=363 ge1=497 ge2=25
+[with_figs] batch=364 total=868 nonnull=868 ge1=309 ge2=16
+[mentions] batch=364 ge1=304 ge2=12
+[with_figs] batch=365 total=947 nonnull=947 ge1=289 ge2=21
+[mentions] batch=365 ge1=287 ge2=21
+[with_figs] batch=366 total=924 nonnull=924 ge1=318 ge2=25
+[mentions] batch=366 ge1=318 ge2=22
+[with_figs] batch=367 total=685 nonnull=685 ge1=236 ge2=11
+[mentions] batch=367 ge1=234 ge2=9
+[with_figs] batch=368 total=710 nonnull=710 ge1=289 ge2=16
+[mentions] batch=368 ge1=288 ge2=13
+[with_figs] batch=369 total=698 nonnull=698 ge1=300 ge2=14
+[mentions] batch=369 ge1=296 ge2=13
+[with_figs] batch=370 total=707 nonnull=707 ge1=253 ge2=12
+[mentions] batch=370 ge1=250 ge2=9
+[with_figs] batch=371 total=707 nonnull=707 ge1=261 ge2=16
+[mentions] batch=371 ge1=261 ge2=14
+[with_figs] batch=372 total=772 nonnull=772 ge1=274 ge2=13
+[mentions] batch=372 ge1=273 ge2=9
+[with_figs] batch=373 total=761 nonnull=761 ge1=265 ge2=6
+[mentions] batch=373 ge1=265 ge2=4
+[with_figs] batch=374 total=790 nonnull=790 ge1=274 ge2=13
+[edges] batch=31 rows=6503
+[mentions] batch=374 ge1=273 ge2=11
+[with_figs] batch=375 total=945 nonnull=945 ge1=311 ge2=10
+[mentions] batch=375 ge1=309 ge2=8
+[with_figs] batch=376 total=787 nonnull=787 ge1=258 ge2=18
+[mentions] batch=376 ge1=256 ge2=14
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2452 |
+|neg            |2515 |
+|neu            |1536 |
++---------------+-----+
+
+[with_figs] batch=377 total=757 nonnull=757 ge1=235 ge2=10
+[mentions] batch=377 ge1=233 ge2=8
+[with_figs] batch=378 total=1518 nonnull=1518 ge1=505 ge2=26
+[mentions] batch=378 ge1=501 ge2=21
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|20orsomething |__ANY__|-0.4427        |neg            |2009-06-05T14:58:26Z|
+|HOOPSLasVegas1|__ANY__|0.6909         |pos            |2009-06-05T14:58:29Z|
+|yaqui         |__ANY__|0.0            |neu            |2009-06-05T14:58:30Z|
+|Lilayy        |__ANY__|0.5574         |pos            |2009-06-05T14:58:31Z|
+|C_Ashtin      |__ANY__|0.6486         |pos            |2009-06-05T14:58:37Z|
+|tinietempah   |__ANY__|0.9314         |pos            |2009-06-05T14:58:37Z|
+|agochoa       |__ANY__|-0.1531        |neg            |2009-06-05T14:58:42Z|
+|jengannon     |__ANY__|-0.4215        |neg            |2009-06-05T14:58:48Z|
+|bammmo        |__ANY__|0.0            |neu            |2009-06-05T14:58:55Z|
+|FranAspiemom  |__ANY__|0.7901         |pos            |2009-06-05T14:59:00Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=379 total=951 nonnull=951 ge1=324 ge2=16
+[mentions] batch=379 ge1=323 ge2=11
+[with_figs] batch=380 total=918 nonnull=918 ge1=290 ge2=13
+[mentions] batch=380 ge1=288 ge2=11
+[with_figs] batch=381 total=780 nonnull=780 ge1=275 ge2=25
+batchId= 30 numInputRows= 64704 inputRowsPerSecond= 3235.2 processedRowsPerSecond= 4979.529013390796
+[mentions] batch=381 ge1=272 ge2=18
+[with_figs] batch=382 total=797 nonnull=797 ge1=256 ge2=13
+[mentions] batch=382 ge1=255 ge2=10
+[with_figs] batch=383 total=902 nonnull=902 ge1=299 ge2=18
+[mentions] batch=383 ge1=299 ge2=13
+[with_figs] batch=384 total=667 nonnull=667 ge1=260 ge2=16
+[mentions] batch=384 ge1=258 ge2=14
+[with_figs] batch=385 total=719 nonnull=719 ge1=267 ge2=11
+[mentions] batch=385 ge1=266 ge2=7
+[with_figs] batch=386 total=711 nonnull=711 ge1=275 ge2=17
+[mentions] batch=386 ge1=272 ge2=14
+[with_figs] batch=387 total=719 nonnull=719 ge1=255 ge2=12
+[mentions] batch=387 ge1=255 ge2=7
+[with_figs] batch=388 total=732 nonnull=732 ge1=297 ge2=15
+[mentions] batch=388 ge1=296 ge2=11
+[with_figs] batch=389 total=713 nonnull=713 ge1=266 ge2=15
+[mentions] batch=389 ge1=264 ge2=15
+[with_figs] batch=390 total=705 nonnull=705 ge1=261 ge2=11
+[mentions] batch=390 ge1=257 ge2=9
+[with_figs] batch=391 total=709 nonnull=709 ge1=259 ge2=14
+[mentions] batch=391 ge1=254 ge2=9
+[with_figs] batch=392 total=724 nonnull=724 ge1=290 ge2=12
+[mentions] batch=392 ge1=288 ge2=10
+[with_figs] batch=393 total=888 nonnull=888 ge1=334 ge2=15
+[mentions] batch=393 ge1=332 ge2=15
+[edges] batch=32 rows=5837
+[with_figs] batch=394 total=836 nonnull=836 ge1=339 ge2=17
+[mentions] batch=394 ge1=336 ge2=12
+[with_figs] batch=395 total=784 nonnull=784 ge1=329 ge2=19
+[mentions] batch=395 ge1=328 ge2=17
+[with_figs] batch=396 total=785 nonnull=785 ge1=330 ge2=13
+[mentions] batch=396 ge1=328 ge2=10
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2303 |
+|neg            |2175 |
+|neu            |1359 |
++---------------+-----+
+
+[with_figs] batch=397 total=1196 nonnull=1196 ge1=505 ge2=17
+[mentions] batch=397 ge1=500 ge2=14
+[with_figs] batch=398 total=1153 nonnull=1153 ge1=499 ge2=22
+[mentions] batch=398 ge1=498 ge2=21
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|5LiveF1       |__ANY__|-0.4102        |neg            |2009-06-06T01:25:57Z|
+|TRIumphant3   |__ANY__|-0.6776        |neg            |2009-06-06T01:25:58Z|
+|SidneyKidney  |__ANY__|0.775          |pos            |2009-06-06T01:26:00Z|
+|Calimuffin    |__ANY__|0.7809         |pos            |2009-06-06T01:26:30Z|
+|priya98       |__ANY__|0.0            |neu            |2009-06-06T01:26:34Z|
+|RetroRewind   |__ANY__|0.0            |neu            |2009-06-06T01:26:43Z|
+|abrahamjam    |__ANY__|0.0            |neu            |2009-06-06T01:26:48Z|
+|JackAllTimeLow|__ANY__|0.5574         |pos            |2009-06-06T01:26:50Z|
+|jamesmoran    |__ANY__|0.8718         |pos            |2009-06-06T01:27:18Z|
+|nancyychen    |__ANY__|0.0            |neu            |2009-06-06T01:27:42Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=399 total=806 nonnull=806 ge1=340 ge2=12
+[mentions] batch=399 ge1=338 ge2=10
+[with_figs] batch=400 total=1278 nonnull=1278 ge1=536 ge2=20
+[mentions] batch=400 ge1=534 ge2=20
+batchId= 32 numInputRows= 64692 inputRowsPerSecond= 3234.6 processedRowsPerSecond= 6296.058394160584
+[with_figs] batch=401 total=944 nonnull=944 ge1=397 ge2=25
+[mentions] batch=401 ge1=393 ge2=19
+[with_figs] batch=402 total=884 nonnull=884 ge1=370 ge2=12
+[mentions] batch=402 ge1=366 ge2=6
+[with_figs] batch=403 total=664 nonnull=664 ge1=254 ge2=9
+[mentions] batch=403 ge1=254 ge2=9
+[with_figs] batch=404 total=687 nonnull=687 ge1=301 ge2=15
+[mentions] batch=404 ge1=301 ge2=14
+[with_figs] batch=405 total=714 nonnull=714 ge1=280 ge2=11
+[mentions] batch=405 ge1=279 ge2=8
+[with_figs] batch=406 total=758 nonnull=758 ge1=306 ge2=17
+[mentions] batch=406 ge1=305 ge2=15
+[with_figs] batch=407 total=750 nonnull=750 ge1=282 ge2=7
+[mentions] batch=407 ge1=281 ge2=7
+[with_figs] batch=408 total=702 nonnull=702 ge1=286 ge2=6
+[mentions] batch=408 ge1=283 ge2=5
+[with_figs] batch=409 total=703 nonnull=703 ge1=282 ge2=8
+[mentions] batch=409 ge1=281 ge2=6
+[with_figs] batch=410 total=695 nonnull=695 ge1=264 ge2=9
+[mentions] batch=410 ge1=260 ge2=8
+[with_figs] batch=411 total=708 nonnull=708 ge1=266 ge2=15
+[mentions] batch=411 ge1=265 ge2=11
+[with_figs] batch=412 total=718 nonnull=718 ge1=299 ge2=12
+[mentions] batch=412 ge1=297 ge2=12
+[with_figs] batch=413 total=869 nonnull=869 ge1=362 ge2=13
+[mentions] batch=413 ge1=358 ge2=13
+[edges] batch=33 rows=6759
+[with_figs] batch=414 total=799 nonnull=799 ge1=344 ge2=13
+[mentions] batch=414 ge1=339 ge2=11
+[with_figs] batch=415 total=873 nonnull=873 ge1=370 ge2=20
+[mentions] batch=415 ge1=370 ge2=17
+[with_figs] batch=416 total=738 nonnull=738 ge1=298 ge2=17
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2615 |
+|neg            |2455 |
+|neu            |1689 |
++---------------+-----+
+
+[mentions] batch=416 ge1=296 ge2=12
+[with_figs] batch=417 total=1409 nonnull=1409 ge1=578 ge2=29
+[mentions] batch=417 ge1=574 ge2=24
+[with_figs] batch=418 total=951 nonnull=951 ge1=380 ge2=19
++---------------+----------+---------------+---------------+--------------------+
+|src            |dst       |sentiment_score|sentiment_label|timestamp           |
++---------------+----------+---------------+---------------+--------------------+
+|Jimeninchen    |__ANY__   |-0.3595        |neg            |2009-06-06T11:15:34Z|
+|QTI9422        |__ANY__   |0.2263         |pos            |2009-06-06T11:15:43Z|
+|krhodez        |__ANY__   |0.0            |neu            |2009-06-06T11:15:44Z|
+|teeribbzz      |__ANY__   |0.8016         |pos            |2009-06-06T11:16:24Z|
+|ampersandrea   |__ANY__   |-0.296         |neg            |2009-06-06T11:16:29Z|
+|PrincessJiblets|__ANY__   |0.5962         |pos            |2009-06-06T11:16:29Z|
+|elieberkowitz  |__ANY__   |-0.7778        |neg            |2009-06-06T11:16:42Z|
+|MeganCamp      |emilymaine|0.5106         |pos            |2009-06-06T11:16:43Z|
+|emboosh        |__ANY__   |-0.4981        |neg            |2009-06-06T11:16:44Z|
+|louise_hendy   |__ANY__   |0.8519         |pos            |2009-06-06T11:16:44Z|
++---------------+----------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=418 ge1=378 ge2=15
+[with_figs] batch=419 total=848 nonnull=848 ge1=359 ge2=22
+[mentions] batch=419 ge1=357 ge2=17
+[with_figs] batch=420 total=1109 nonnull=1109 ge1=444 ge2=25
+[mentions] batch=420 ge1=442 ge2=23
+batchId= 33 numInputRows= 64856 inputRowsPerSecond= 3242.9621481074055 processedRowsPerSecond= 6187.9591642018895
+[with_figs] batch=421 total=790 nonnull=790 ge1=329 ge2=21
+[mentions] batch=421 ge1=325 ge2=12
+[with_figs] batch=422 total=906 nonnull=906 ge1=338 ge2=18
+[mentions] batch=422 ge1=334 ge2=14
+[with_figs] batch=423 total=681 nonnull=681 ge1=230 ge2=9
+[mentions] batch=423 ge1=229 ge2=7
+[with_figs] batch=424 total=692 nonnull=692 ge1=221 ge2=11
+[mentions] batch=424 ge1=220 ge2=8
+[with_figs] batch=425 total=695 nonnull=695 ge1=251 ge2=12
+[mentions] batch=425 ge1=248 ge2=10
+[with_figs] batch=426 total=814 nonnull=814 ge1=291 ge2=12
+[mentions] batch=426 ge1=290 ge2=8
+[with_figs] batch=427 total=706 nonnull=706 ge1=253 ge2=17
+[mentions] batch=427 ge1=250 ge2=11
+[with_figs] batch=428 total=729 nonnull=729 ge1=270 ge2=11
+[mentions] batch=428 ge1=267 ge2=9
+[with_figs] batch=429 total=707 nonnull=707 ge1=244 ge2=12
+[mentions] batch=429 ge1=241 ge2=12
+[with_figs] batch=430 total=712 nonnull=712 ge1=221 ge2=6
+[mentions] batch=430 ge1=219 ge2=4
+[with_figs] batch=431 total=716 nonnull=716 ge1=225 ge2=8
+[mentions] batch=431 ge1=225 ge2=7
+[with_figs] batch=432 total=842 nonnull=842 ge1=277 ge2=18
+[mentions] batch=432 ge1=274 ge2=15
+[edges] batch=34 rows=6278
+[with_figs] batch=433 total=759 nonnull=759 ge1=274 ge2=11
+[mentions] batch=433 ge1=274 ge2=10
+[with_figs] batch=434 total=781 nonnull=781 ge1=260 ge2=14
+[mentions] batch=434 ge1=259 ge2=11
+[with_figs] batch=435 total=794 nonnull=794 ge1=311 ge2=13
+[mentions] batch=435 ge1=309 ge2=5
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2308 |
+|neg            |2354 |
+|neu            |1616 |
++---------------+-----+
+
+[with_figs] batch=436 total=1226 nonnull=1226 ge1=422 ge2=15
+[mentions] batch=436 ge1=418 ge2=12
+[with_figs] batch=437 total=1205 nonnull=1205 ge1=410 ge2=18
+[mentions] batch=437 ge1=408 ge2=16
++------------+-------+---------------+---------------+--------------------+
+|src         |dst    |sentiment_score|sentiment_label|timestamp           |
++------------+-------+---------------+---------------+--------------------+
+|dreamhard   |__ANY__|-0.5799        |neg            |2009-06-06T19:04:09Z|
+|David_Henrie|__ANY__|-0.2382        |neg            |2009-06-06T19:04:15Z|
+|donlemoncnn |__ANY__|-0.1027        |neg            |2009-06-06T19:04:17Z|
+|princesselai|__ANY__|0.631          |pos            |2009-06-06T19:04:18Z|
+|ephram_     |__ANY__|0.4404         |pos            |2009-06-06T19:04:21Z|
+|Meta        |__ANY__|0.0            |neu            |2009-06-06T19:04:23Z|
+|leenahyena  |__ANY__|0.0            |neu            |2009-06-06T19:04:24Z|
+|PaulinaxL   |__ANY__|-0.5719        |neg            |2009-06-06T19:04:27Z|
+|awskii      |__ANY__|0.7506         |pos            |2009-06-06T19:04:28Z|
+|Lizzi247    |__ANY__|0.4019         |pos            |2009-06-06T19:04:35Z|
++------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=438 total=826 nonnull=826 ge1=317 ge2=10
+[mentions] batch=438 ge1=316 ge2=8
+[with_figs] batch=439 total=1017 nonnull=1017 ge1=394 ge2=22
+[mentions] batch=439 ge1=393 ge2=19
+batchId= 33 numInputRows= 64856 inputRowsPerSecond= 3242.9621481074055 processedRowsPerSecond= 6187.9591642018895
+[with_figs] batch=440 total=810 nonnull=810 ge1=290 ge2=15
+[mentions] batch=440 ge1=289 ge2=12
+[with_figs] batch=441 total=960 nonnull=960 ge1=380 ge2=18
+[mentions] batch=441 ge1=378 ge2=15
+[with_figs] batch=442 total=1155 nonnull=1155 ge1=401 ge2=28
+[mentions] batch=442 ge1=401 ge2=22
+[with_figs] batch=443 total=762 nonnull=762 ge1=292 ge2=23
+[mentions] batch=443 ge1=290 ge2=16
+[with_figs] batch=444 total=705 nonnull=705 ge1=280 ge2=9
+[mentions] batch=444 ge1=279 ge2=6
+[with_figs] batch=445 total=839 nonnull=839 ge1=320 ge2=13
+[mentions] batch=445 ge1=317 ge2=11
+[with_figs] batch=446 total=657 nonnull=657 ge1=261 ge2=19
+[mentions] batch=446 ge1=260 ge2=15
+[with_figs] batch=447 total=707 nonnull=707 ge1=285 ge2=14
+[mentions] batch=447 ge1=285 ge2=14
+[with_figs] batch=448 total=720 nonnull=720 ge1=279 ge2=12
+[mentions] batch=448 ge1=278 ge2=9
+[with_figs] batch=449 total=697 nonnull=697 ge1=302 ge2=5
+[mentions] batch=449 ge1=301 ge2=4
+[with_figs] batch=450 total=768 nonnull=768 ge1=292 ge2=5
+[mentions] batch=450 ge1=290 ge2=5
+[with_figs] batch=451 total=919 nonnull=919 ge1=376 ge2=15
+[mentions] batch=451 ge1=373 ge2=9
+[edges] batch=35 rows=6087
+[with_figs] batch=452 total=716 nonnull=716 ge1=273 ge2=14
+[mentions] batch=452 ge1=272 ge2=9
+[with_figs] batch=453 total=827 nonnull=827 ge1=342 ge2=16
+[mentions] batch=453 ge1=341 ge2=12
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2390 |
+|neg            |2125 |
+|neu            |1572 |
++---------------+-----+
+
+[with_figs] batch=454 total=874 nonnull=874 ge1=341 ge2=15
+[mentions] batch=454 ge1=340 ge2=14
+[with_figs] batch=455 total=1511 nonnull=1511 ge1=603 ge2=29
+[mentions] batch=455 ge1=599 ge2=23
++-------------+-------+---------------+---------------+--------------------+
+|src          |dst    |sentiment_score|sentiment_label|timestamp           |
++-------------+-------+---------------+---------------+--------------------+
+|macleadpiping|__ANY__|-0.5684        |neg            |2009-06-07T05:12:18Z|
+|msj84        |__ANY__|0.4019         |pos            |2009-06-07T05:12:25Z|
+|jodifur      |__ANY__|-0.5334        |neg            |2009-06-07T05:12:46Z|
+|AminaChaney  |__ANY__|0.6486         |pos            |2009-06-07T05:12:55Z|
+|AnabelleStehl|__ANY__|0.0772         |pos            |2009-06-07T05:12:57Z|
+|natlyy       |__ANY__|0.0            |neu            |2009-06-07T05:13:00Z|
+|ste_vee      |__ANY__|-0.5859        |neg            |2009-06-07T05:13:01Z|
+|Sky_1995     |__ANY__|-0.1179        |neg            |2009-06-07T05:13:18Z|
+|mememegann   |__ANY__|0.9312         |pos            |2009-06-07T05:13:19Z|
+|I_enigma     |__ANY__|0.4159         |pos            |2009-06-07T05:13:30Z|
++-------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=456 total=976 nonnull=976 ge1=425 ge2=22
+[mentions] batch=456 ge1=423 ge2=18
+[with_figs] batch=457 total=855 nonnull=855 ge1=354 ge2=13
+[mentions] batch=457 ge1=352 ge2=12
+[with_figs] batch=458 total=727 nonnull=727 ge1=288 ge2=13
+[mentions] batch=458 ge1=286 ge2=13
+batchId= 35 numInputRows= 63892 inputRowsPerSecond= 3194.6 processedRowsPerSecond= 6013.930722891566
+[with_figs] batch=459 total=810 nonnull=810 ge1=348 ge2=10
+[mentions] batch=459 ge1=343 ge2=7
+[with_figs] batch=460 total=982 nonnull=982 ge1=415 ge2=14
+[mentions] batch=460 ge1=413 ge2=9
+[with_figs] batch=461 total=675 nonnull=675 ge1=260 ge2=13
+[mentions] batch=461 ge1=259 ge2=10
+[with_figs] batch=462 total=688 nonnull=688 ge1=273 ge2=5
+[mentions] batch=462 ge1=272 ge2=3
+[with_figs] batch=463 total=768 nonnull=768 ge1=318 ge2=10
+[mentions] batch=463 ge1=308 ge2=9
+[with_figs] batch=464 total=687 nonnull=687 ge1=290 ge2=16
+[mentions] batch=464 ge1=289 ge2=15
+[with_figs] batch=465 total=750 nonnull=750 ge1=303 ge2=14
+[mentions] batch=465 ge1=301 ge2=11
+[with_figs] batch=466 total=704 nonnull=704 ge1=284 ge2=12
+[mentions] batch=466 ge1=284 ge2=11
+[with_figs] batch=467 total=691 nonnull=691 ge1=277 ge2=4
+[mentions] batch=467 ge1=273 ge2=5
+[with_figs] batch=468 total=687 nonnull=687 ge1=277 ge2=11
+[mentions] batch=468 ge1=275 ge2=11
+[with_figs] batch=469 total=739 nonnull=739 ge1=307 ge2=10
+[mentions] batch=469 ge1=306 ge2=8
+[with_figs] batch=470 total=782 nonnull=782 ge1=278 ge2=15
+[mentions] batch=470 ge1=276 ge2=11
+[with_figs] batch=471 total=897 nonnull=897 ge1=343 ge2=20
+[mentions] batch=471 ge1=340 ge2=16
+[edges] batch=36 rows=6691
+[with_figs] batch=472 total=782 nonnull=782 ge1=306 ge2=17
+[mentions] batch=472 ge1=306 ge2=11
+[with_figs] batch=473 total=839 nonnull=839 ge1=314 ge2=15
+[mentions] batch=473 ge1=311 ge2=10
+[with_figs] batch=474 total=739 nonnull=739 ge1=253 ge2=12
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2553 |
+|neg            |2547 |
+|neu            |1591 |
++---------------+-----+
+
+[mentions] batch=474 ge1=252 ge2=10
+[with_figs] batch=475 total=1443 nonnull=1443 ge1=481 ge2=21
+[mentions] batch=475 ge1=476 ge2=18
+[with_figs] batch=476 total=1100 nonnull=1100 ge1=396 ge2=20
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|amyshell       |__ANY__|-0.4019        |neg            |2009-06-07T13:26:51Z|
+|joeTHEstrange  |__ANY__|-0.4803        |neg            |2009-06-07T13:26:51Z|
+|mell_e         |__ANY__|0.6774         |pos            |2009-06-07T13:26:52Z|
+|Nick_Coombes   |__ANY__|0.0            |neu            |2009-06-07T13:26:53Z|
+|SarahBrady     |__ANY__|-0.1511        |neg            |2009-06-07T13:26:54Z|
+|SandyLovesMiley|__ANY__|0.8213         |pos            |2009-06-07T13:26:54Z|
+|FakePlasticAnge|__ANY__|0.0            |neu            |2009-06-07T13:26:54Z|
+|iainplaysdrums |__ANY__|-0.1027        |neg            |2009-06-07T13:26:57Z|
+|DarkskinDave   |__ANY__|-0.5787        |neg            |2009-06-07T13:26:58Z|
+|LolaAM         |__ANY__|-0.2023        |neg            |2009-06-07T13:26:58Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=476 ge1=390 ge2=13
+[with_figs] batch=477 total=1132 nonnull=1132 ge1=409 ge2=32
+[mentions] batch=477 ge1=406 ge2=19
+[with_figs] batch=478 total=850 nonnull=850 ge1=284 ge2=14
+batchId= 35 numInputRows= 63892 inputRowsPerSecond= 3194.6 processedRowsPerSecond= 6013.930722891566
+[mentions] batch=478 ge1=282 ge2=11
+[with_figs] batch=479 total=754 nonnull=754 ge1=241 ge2=10
+[mentions] batch=479 ge1=241 ge2=7
+[with_figs] batch=480 total=673 nonnull=673 ge1=222 ge2=10
+[mentions] batch=480 ge1=220 ge2=10
+[with_figs] batch=481 total=794 nonnull=794 ge1=246 ge2=13
+[mentions] batch=481 ge1=245 ge2=8
+[with_figs] batch=482 total=717 nonnull=717 ge1=242 ge2=6
+[mentions] batch=482 ge1=239 ge2=5
+[with_figs] batch=483 total=684 nonnull=684 ge1=225 ge2=5
+[mentions] batch=483 ge1=225 ge2=5
+[with_figs] batch=484 total=694 nonnull=694 ge1=232 ge2=18
+[mentions] batch=484 ge1=230 ge2=15
+[with_figs] batch=485 total=697 nonnull=697 ge1=229 ge2=10
+[mentions] batch=485 ge1=226 ge2=8
+[with_figs] batch=486 total=718 nonnull=718 ge1=237 ge2=8
+[mentions] batch=486 ge1=234 ge2=6
+[with_figs] batch=487 total=709 nonnull=709 ge1=223 ge2=16
+[mentions] batch=487 ge1=222 ge2=14
+[with_figs] batch=488 total=873 nonnull=873 ge1=291 ge2=16
+[mentions] batch=488 ge1=287 ge2=12
+[with_figs] batch=489 total=735 nonnull=735 ge1=242 ge2=12
+[mentions] batch=489 ge1=239 ge2=11
+[with_figs] batch=490 total=920 nonnull=920 ge1=307 ge2=11
+[mentions] batch=490 ge1=303 ge2=9
+[edges] batch=37 rows=5701
+[with_figs] batch=491 total=749 nonnull=749 ge1=276 ge2=17
+[mentions] batch=491 ge1=274 ge2=15
+[with_figs] batch=492 total=896 nonnull=896 ge1=324 ge2=16
+[mentions] batch=492 ge1=320 ge2=11
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2169 |
+|neg            |2137 |
+|neu            |1395 |
++---------------+-----+
+
+[with_figs] batch=493 total=772 nonnull=772 ge1=277 ge2=13
+[mentions] batch=493 ge1=277 ge2=11
+[with_figs] batch=494 total=1469 nonnull=1469 ge1=534 ge2=22
+[mentions] batch=494 ge1=531 ge2=20
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|thejoshset    |__ANY__|0.5423         |pos            |2009-06-14T22:33:11Z|
+|shelliwazzu   |__ANY__|0.8073         |pos            |2009-06-14T22:33:13Z|
+|MrsMcClellan  |__ANY__|0.2279         |pos            |2009-06-14T22:33:19Z|
+|acc1987fans   |__ANY__|0.0            |neu            |2009-06-14T22:33:21Z|
+|mctweetaholic |__ANY__|0.63           |pos            |2009-06-14T22:33:26Z|
+|iLuvLinkinPark|__ANY__|0.872          |pos            |2009-06-14T22:33:26Z|
+|LekiaLove     |__ANY__|0.0            |neu            |2009-06-14T22:33:33Z|
+|fluffled      |__ANY__|-0.3099        |neg            |2009-06-14T22:33:35Z|
+|jude282       |__ANY__|-0.1531        |neg            |2009-06-14T22:33:39Z|
+|amburrtron    |__ANY__|-0.0772        |neg            |2009-06-14T22:33:46Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=495 total=913 nonnull=913 ge1=343 ge2=23
+[mentions] batch=495 ge1=342 ge2=15
+[with_figs] batch=496 total=1114 nonnull=1114 ge1=403 ge2=15
+[mentions] batch=496 ge1=397 ge2=12
+[with_figs] batch=497 total=799 nonnull=799 ge1=306 ge2=14
+[mentions] batch=497 ge1=302 ge2=10
+batchId= 37 numInputRows= 64664 inputRowsPerSecond= 3233.2 processedRowsPerSecond= 6615.242966751918
+[with_figs] batch=498 total=874 nonnull=874 ge1=371 ge2=10
+[mentions] batch=498 ge1=365 ge2=9
+[with_figs] batch=499 total=729 nonnull=729 ge1=292 ge2=13
+[mentions] batch=499 ge1=292 ge2=9
+[with_figs] batch=500 total=696 nonnull=696 ge1=295 ge2=12
+[mentions] batch=500 ge1=292 ge2=11
+[with_figs] batch=501 total=698 nonnull=698 ge1=275 ge2=12
+[mentions] batch=501 ge1=272 ge2=8
+[with_figs] batch=502 total=722 nonnull=722 ge1=300 ge2=23
+[mentions] batch=502 ge1=299 ge2=16
+[with_figs] batch=503 total=693 nonnull=693 ge1=290 ge2=17
+[mentions] batch=503 ge1=289 ge2=14
+[with_figs] batch=504 total=718 nonnull=718 ge1=277 ge2=11
+[mentions] batch=504 ge1=274 ge2=8
+[with_figs] batch=505 total=704 nonnull=704 ge1=301 ge2=16
+[mentions] batch=505 ge1=299 ge2=11
+[with_figs] batch=506 total=729 nonnull=729 ge1=300 ge2=14
+[mentions] batch=506 ge1=298 ge2=10
+[with_figs] batch=507 total=711 nonnull=711 ge1=277 ge2=13
+[mentions] batch=507 ge1=275 ge2=9
+[with_figs] batch=508 total=690 nonnull=690 ge1=278 ge2=11
+[mentions] batch=508 ge1=276 ge2=6
+[with_figs] batch=509 total=716 nonnull=716 ge1=285 ge2=15
+[mentions] batch=509 ge1=283 ge2=11
+[with_figs] batch=510 total=790 nonnull=790 ge1=328 ge2=15
+[mentions] batch=510 ge1=326 ge2=13
+[edges] batch=38 rows=6425
+[with_figs] batch=511 total=792 nonnull=792 ge1=318 ge2=19
+[mentions] batch=511 ge1=317 ge2=16
+[with_figs] batch=512 total=836 nonnull=836 ge1=330 ge2=15
+[mentions] batch=512 ge1=329 ge2=13
+[with_figs] batch=513 total=862 nonnull=862 ge1=324 ge2=15
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2483 |
+|neg            |2463 |
+|neu            |1479 |
++---------------+-----+
+
+[mentions] batch=513 ge1=323 ge2=12
+[with_figs] batch=514 total=1381 nonnull=1381 ge1=556 ge2=24
+[mentions] batch=514 ge1=551 ge2=21
+[with_figs] batch=515 total=919 nonnull=919 ge1=379 ge2=19
+[mentions] batch=515 ge1=377 ge2=15
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|GEDASH        |__ANY__|-0.6808        |neg            |2009-06-15T07:25:24Z|
+|sweetlilmzmia |__ANY__|0.6892         |pos            |2009-06-15T07:25:28Z|
+|toysintheattic|__ANY__|-0.2382        |neg            |2009-06-15T07:25:29Z|
+|KDtwtr        |__ANY__|-0.4153        |neg            |2009-06-15T07:25:32Z|
+|helenzaltzman |__ANY__|-0.7074        |neg            |2009-06-15T07:25:36Z|
+|AmyKachurak   |__ANY__|0.4939         |pos            |2009-06-15T07:25:40Z|
+|cookiefriend  |__ANY__|-0.7372        |neg            |2009-06-15T07:25:45Z|
+|statelines    |__ANY__|0.0            |neu            |2009-06-15T07:25:57Z|
+|The_Blackout  |__ANY__|-0.1531        |neg            |2009-06-15T07:26:45Z|
+|culvers       |__ANY__|0.0772         |pos            |2009-06-15T07:26:50Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=516 total=683 nonnull=683 ge1=284 ge2=11
+[mentions] batch=516 ge1=282 ge2=10
+[with_figs] batch=517 total=859 nonnull=859 ge1=341 ge2=13
+[mentions] batch=517 ge1=339 ge2=12
+[with_figs] batch=518 total=818 nonnull=818 ge1=348 ge2=16
+batchId= 37 numInputRows= 64664 inputRowsPerSecond= 3233.2 processedRowsPerSecond= 6615.242966751918
+[mentions] batch=518 ge1=345 ge2=11
+[with_figs] batch=519 total=700 nonnull=700 ge1=269 ge2=20
+[mentions] batch=519 ge1=267 ge2=18
+[with_figs] batch=520 total=880 nonnull=880 ge1=339 ge2=16
+[mentions] batch=520 ge1=334 ge2=14
+[with_figs] batch=521 total=644 nonnull=644 ge1=255 ge2=18
+[mentions] batch=521 ge1=253 ge2=15
+[with_figs] batch=522 total=682 nonnull=682 ge1=281 ge2=20
+[mentions] batch=522 ge1=280 ge2=13
+[with_figs] batch=523 total=687 nonnull=687 ge1=259 ge2=11
+[mentions] batch=523 ge1=258 ge2=10
+[with_figs] batch=524 total=840 nonnull=840 ge1=313 ge2=11
+[mentions] batch=524 ge1=312 ge2=9
+[with_figs] batch=525 total=654 nonnull=654 ge1=267 ge2=12
+[mentions] batch=525 ge1=266 ge2=9
+[with_figs] batch=526 total=689 nonnull=689 ge1=273 ge2=6
+[mentions] batch=526 ge1=268 ge2=6
+[with_figs] batch=527 total=703 nonnull=703 ge1=232 ge2=11
+[mentions] batch=527 ge1=230 ge2=9
+[with_figs] batch=528 total=697 nonnull=697 ge1=228 ge2=7
+[mentions] batch=528 ge1=226 ge2=6
+[with_figs] batch=529 total=724 nonnull=724 ge1=232 ge2=14
+[mentions] batch=529 ge1=231 ge2=12
+[with_figs] batch=530 total=851 nonnull=851 ge1=307 ge2=16
+[mentions] batch=530 ge1=305 ge2=15
+[with_figs] batch=531 total=721 nonnull=721 ge1=236 ge2=17
+[edges] batch=39 rows=6455
+[mentions] batch=531 ge1=228 ge2=12
+[with_figs] batch=532 total=761 nonnull=761 ge1=267 ge2=9
+[mentions] batch=532 ge1=262 ge2=7
+[with_figs] batch=533 total=797 nonnull=797 ge1=257 ge2=7
+[mentions] batch=533 ge1=251 ge2=4
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2394 |
+|neg            |2471 |
+|neu            |1590 |
++---------------+-----+
+
+[with_figs] batch=534 total=778 nonnull=778 ge1=287 ge2=16
+[mentions] batch=534 ge1=285 ge2=10
+[with_figs] batch=535 total=1542 nonnull=1542 ge1=563 ge2=29
+[mentions] batch=535 ge1=557 ge2=24
++-----------+-------+---------------+---------------+--------------------+
+|src        |dst    |sentiment_score|sentiment_label|timestamp           |
++-----------+-------+---------------+---------------+--------------------+
+|mkenzzi    |__ANY__|-0.4559        |neg            |2009-06-15T16:18:17Z|
+|Apple      |__ANY__|-0.4767        |neg            |2009-06-15T16:18:20Z|
+|taratomes  |__ANY__|0.5951         |pos            |2009-06-15T16:18:21Z|
+|WoWDawgs   |__ANY__|-0.2244        |neg            |2009-06-15T16:18:24Z|
+|Apple      |apple  |0.4019         |pos            |2009-06-15T16:18:33Z|
+|mattallen  |__ANY__|-0.4404        |neg            |2009-06-15T16:18:35Z|
+|oxygen8705 |__ANY__|0.2919         |pos            |2009-06-15T16:18:35Z|
+|Zubbytubby |__ANY__|0.6808         |pos            |2009-06-15T16:18:35Z|
+|bunnytrails|__ANY__|0.0            |neu            |2009-06-15T16:18:37Z|
+|dizzysyd   |__ANY__|0.2691         |pos            |2009-06-15T16:18:38Z|
++-----------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=536 total=967 nonnull=967 ge1=347 ge2=15
+[mentions] batch=536 ge1=338 ge2=11
+[with_figs] batch=537 total=1199 nonnull=1199 ge1=397 ge2=16
+[mentions] batch=537 ge1=393 ge2=13
+[with_figs] batch=538 total=850 nonnull=850 ge1=301 ge2=10
+batchId= 39 numInputRows= 64756 inputRowsPerSecond= 3237.8 processedRowsPerSecond= 6271.160178190974
+[mentions] batch=538 ge1=298 ge2=7
+[with_figs] batch=539 total=883 nonnull=883 ge1=293 ge2=10
+[mentions] batch=539 ge1=289 ge2=8
+[with_figs] batch=540 total=665 nonnull=665 ge1=213 ge2=13
+[mentions] batch=540 ge1=210 ge2=8
+[with_figs] batch=541 total=700 nonnull=700 ge1=244 ge2=15
+[mentions] batch=541 ge1=242 ge2=13
+[with_figs] batch=542 total=695 nonnull=695 ge1=263 ge2=14
+[mentions] batch=542 ge1=262 ge2=12
+[with_figs] batch=543 total=725 nonnull=725 ge1=239 ge2=7
+[mentions] batch=543 ge1=237 ge2=5
+[with_figs] batch=544 total=722 nonnull=722 ge1=249 ge2=14
+[mentions] batch=544 ge1=246 ge2=11
+[with_figs] batch=545 total=709 nonnull=709 ge1=261 ge2=9
+[mentions] batch=545 ge1=260 ge2=6
+[with_figs] batch=546 total=703 nonnull=703 ge1=261 ge2=8
+[mentions] batch=546 ge1=258 ge2=5
+[with_figs] batch=547 total=702 nonnull=702 ge1=277 ge2=13
+[mentions] batch=547 ge1=276 ge2=13
+[with_figs] batch=548 total=712 nonnull=712 ge1=265 ge2=15
+[mentions] batch=548 ge1=263 ge2=14
+[with_figs] batch=549 total=711 nonnull=711 ge1=271 ge2=24
+[mentions] batch=549 ge1=268 ge2=21
+[with_figs] batch=550 total=922 nonnull=922 ge1=345 ge2=16
+[mentions] batch=550 ge1=344 ge2=15
+[edges] batch=40 rows=5876
+[with_figs] batch=551 total=749 nonnull=749 ge1=287 ge2=17
+[mentions] batch=551 ge1=284 ge2=13
+[with_figs] batch=552 total=784 nonnull=784 ge1=313 ge2=15
+[mentions] batch=552 ge1=309 ge2=15
+[with_figs] batch=553 total=840 nonnull=840 ge1=307 ge2=12
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2209 |
+|neg            |2169 |
+|neu            |1498 |
++---------------+-----+
+
+[mentions] batch=553 ge1=301 ge2=11
+[with_figs] batch=554 total=1430 nonnull=1430 ge1=554 ge2=18
+[mentions] batch=554 ge1=550 ge2=13
+[with_figs] batch=555 total=1062 nonnull=1062 ge1=438 ge2=21
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|remoraeber     |__ANY__|-0.5848        |neg            |2009-06-16T00:16:03Z|
+|Misses_Gola    |__ANY__|-0.3595        |neg            |2009-06-16T00:16:09Z|
+|gsundayy       |__ANY__|0.6341         |pos            |2009-06-16T00:16:11Z|
+|3am            |__ANY__|-0.3595        |neg            |2009-06-16T00:16:11Z|
+|GashouseShawty |__ANY__|0.0            |neu            |2009-06-16T00:16:25Z|
+|meggytron      |__ANY__|0.0            |neu            |2009-06-16T00:16:27Z|
+|uccello_raro   |__ANY__|0.6369         |pos            |2009-06-16T00:16:31Z|
+|enslaved2564   |__ANY__|0.4767         |pos            |2009-06-16T00:16:33Z|
+|PastorRambo    |__ANY__|0.5106         |pos            |2009-06-16T00:16:39Z|
+|iranriggedelect|__ANY__|0.4019         |pos            |2009-06-16T00:16:48Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=555 ge1=436 ge2=14
+[with_figs] batch=556 total=1087 nonnull=1087 ge1=441 ge2=22
+[mentions] batch=556 ge1=436 ge2=14
+[with_figs] batch=557 total=819 nonnull=819 ge1=326 ge2=24
+[mentions] batch=557 ge1=321 ge2=18
+batchId= 40 numInputRows= 64932 inputRowsPerSecond= 3246.437678116094 processedRowsPerSecond= 6416.205533596838
+[with_figs] batch=558 total=697 nonnull=697 ge1=264 ge2=13
+[mentions] batch=558 ge1=260 ge2=9
+[with_figs] batch=559 total=880 nonnull=880 ge1=253 ge2=12
+[mentions] batch=559 ge1=248 ge2=9
+[with_figs] batch=560 total=759 nonnull=759 ge1=260 ge2=15
+[mentions] batch=560 ge1=259 ge2=14
+[with_figs] batch=561 total=744 nonnull=744 ge1=269 ge2=14
+[mentions] batch=561 ge1=267 ge2=14
+[with_figs] batch=562 total=702 nonnull=702 ge1=288 ge2=18
+[mentions] batch=562 ge1=287 ge2=14
+[with_figs] batch=563 total=693 nonnull=693 ge1=296 ge2=7
+[mentions] batch=563 ge1=295 ge2=5
+[with_figs] batch=564 total=732 nonnull=732 ge1=269 ge2=15
+[mentions] batch=564 ge1=266 ge2=11
+[with_figs] batch=565 total=721 nonnull=721 ge1=274 ge2=9
+[mentions] batch=565 ge1=273 ge2=4
+[with_figs] batch=566 total=703 nonnull=703 ge1=293 ge2=12
+[mentions] batch=566 ge1=291 ge2=9
+[with_figs] batch=567 total=723 nonnull=723 ge1=307 ge2=13
+[mentions] batch=567 ge1=301 ge2=8
+[with_figs] batch=568 total=689 nonnull=689 ge1=294 ge2=16
+[mentions] batch=568 ge1=291 ge2=13
+[with_figs] batch=569 total=690 nonnull=690 ge1=313 ge2=18
+[mentions] batch=569 ge1=311 ge2=17
+[with_figs] batch=570 total=798 nonnull=798 ge1=342 ge2=17
+[mentions] batch=570 ge1=339 ge2=14
+[edges] batch=41 rows=6507
+[with_figs] batch=571 total=738 nonnull=738 ge1=280 ge2=12
+[mentions] batch=571 ge1=276 ge2=8
+[with_figs] batch=572 total=850 nonnull=850 ge1=327 ge2=13
+[mentions] batch=572 ge1=323 ge2=10
+[with_figs] batch=573 total=897 nonnull=897 ge1=413 ge2=18
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2426 |
+|neg            |2453 |
+|neu            |1628 |
++---------------+-----+
+
+[mentions] batch=573 ge1=409 ge2=12
+[with_figs] batch=574 total=1616 nonnull=1616 ge1=699 ge2=36
+[mentions] batch=574 ge1=692 ge2=26
+[with_figs] batch=575 total=996 nonnull=996 ge1=418 ge2=27
++---------------+----------+---------------+---------------+--------------------+
+|src            |dst       |sentiment_score|sentiment_label|timestamp           |
++---------------+----------+---------------+---------------+--------------------+
+|PaulaAbdul     |__ANY__   |-0.8155        |neg            |2009-06-16T09:26:55Z|
+|johnniehandsome|ruhlaveray|0.2225         |pos            |2009-06-16T09:26:56Z|
+|IKNOWIGOTSKILLZ|__ANY__   |0.0            |neu            |2009-06-16T09:27:02Z|
+|Kiery_Deary    |__ANY__   |0.765          |pos            |2009-06-16T09:27:04Z|
+|andyoureuglytoo|__ANY__   |-0.5859        |neg            |2009-06-16T09:27:09Z|
+|exoticmaya     |__ANY__   |0.0            |neu            |2009-06-16T09:27:21Z|
+|philkirby      |__ANY__   |0.6908         |pos            |2009-06-16T09:27:25Z|
+|cidermaker     |__ANY__   |-0.5777        |neg            |2009-06-16T09:27:26Z|
+|ThomasHensel   |__ANY__   |0.7579         |pos            |2009-06-16T09:27:28Z|
+|vivalanikki93  |__ANY__   |-0.4404        |neg            |2009-06-16T09:27:28Z|
++---------------+----------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=575 ge1=416 ge2=23
+[with_figs] batch=576 total=797 nonnull=797 ge1=341 ge2=11
+[mentions] batch=576 ge1=335 ge2=8
+[with_figs] batch=577 total=1007 nonnull=1007 ge1=405 ge2=20
+[mentions] batch=577 ge1=404 ge2=19
+batchId= 40 numInputRows= 64932 inputRowsPerSecond= 3246.437678116094 processedRowsPerSecond= 6416.205533596838
+[with_figs] batch=578 total=815 nonnull=815 ge1=306 ge2=26
+[mentions] batch=578 ge1=300 ge2=19
+[with_figs] batch=579 total=667 nonnull=667 ge1=270 ge2=10
+[mentions] batch=579 ge1=266 ge2=7
+[with_figs] batch=580 total=685 nonnull=685 ge1=281 ge2=15
+[mentions] batch=580 ge1=279 ge2=12
+[with_figs] batch=581 total=708 nonnull=708 ge1=269 ge2=16
+[mentions] batch=581 ge1=264 ge2=15
+[with_figs] batch=582 total=698 nonnull=698 ge1=249 ge2=12
+[mentions] batch=582 ge1=241 ge2=8
+[with_figs] batch=583 total=691 nonnull=691 ge1=264 ge2=12
+[mentions] batch=583 ge1=257 ge2=8
+[with_figs] batch=584 total=689 nonnull=689 ge1=222 ge2=11
+[mentions] batch=584 ge1=215 ge2=8
+[with_figs] batch=585 total=741 nonnull=741 ge1=302 ge2=21
+[mentions] batch=585 ge1=289 ge2=12
+[with_figs] batch=586 total=721 nonnull=721 ge1=277 ge2=26
+[mentions] batch=586 ge1=274 ge2=17
+[with_figs] batch=587 total=694 nonnull=694 ge1=268 ge2=24
+[mentions] batch=587 ge1=259 ge2=17
+[with_figs] batch=588 total=689 nonnull=689 ge1=258 ge2=8
+[mentions] batch=588 ge1=255 ge2=3
+[with_figs] batch=589 total=765 nonnull=765 ge1=268 ge2=24
+[mentions] batch=589 ge1=261 ge2=14
+[with_figs] batch=590 total=822 nonnull=822 ge1=315 ge2=19
+[mentions] batch=590 ge1=308 ge2=15
+[edges] batch=42 rows=6637
+[with_figs] batch=591 total=804 nonnull=804 ge1=285 ge2=12
+[mentions] batch=591 ge1=277 ge2=8
+[with_figs] batch=592 total=844 nonnull=844 ge1=311 ge2=10
+[mentions] batch=592 ge1=303 ge2=7
+[with_figs] batch=593 total=704 nonnull=704 ge1=252 ge2=15
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2473 |
+|neg            |2464 |
+|neu            |1700 |
++---------------+-----+
+
+[mentions] batch=593 ge1=249 ge2=9
+[with_figs] batch=594 total=1450 nonnull=1450 ge1=498 ge2=39
+[mentions] batch=594 ge1=483 ge2=26
++---------------+---------+---------------+---------------+--------------------+
+|src            |dst      |sentiment_score|sentiment_label|timestamp           |
++---------------+---------+---------------+---------------+--------------------+
+|HeyPooks       |__ANY__  |-0.5942        |neg            |2009-06-16T18:51:49Z|
+|katrinabrandt  |__ANY__  |0.6428         |pos            |2009-06-16T18:51:53Z|
+|marrrieeex     |__ANY__  |-0.4102        |neg            |2009-06-16T18:51:58Z|
+|rburdick       |__ANY__  |0.0            |neu            |2009-06-16T18:52:02Z|
+|pegwole        |snkmchnb |0.4574         |pos            |2009-06-16T18:52:05Z|
+|handholds      |__ANY__  |0.2656         |pos            |2009-06-16T18:52:07Z|
+|woodwhisperer  |__ANY__  |0.3612         |pos            |2009-06-16T18:52:16Z|
+|davenavarro6767|ericavery|0.3612         |pos            |2009-06-16T18:52:20Z|
+|firetiger99    |__ANY__  |0.0            |neu            |2009-06-16T18:52:24Z|
+|jakeofficial   |__ANY__  |0.5255         |pos            |2009-06-16T18:52:27Z|
++---------------+---------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=595 total=1116 nonnull=1116 ge1=389 ge2=25
+[mentions] batch=595 ge1=378 ge2=11
+[with_figs] batch=596 total=1101 nonnull=1101 ge1=418 ge2=35
+[mentions] batch=596 ge1=413 ge2=13
+[with_figs] batch=597 total=813 nonnull=813 ge1=296 ge2=19
+[mentions] batch=597 ge1=291 ge2=11
+batchId= 42 numInputRows= 64876 inputRowsPerSecond= 3243.8 processedRowsPerSecond= 6329.983413015903
+[with_figs] batch=598 total=658 nonnull=658 ge1=252 ge2=8
+[mentions] batch=598 ge1=247 ge2=6
+[with_figs] batch=599 total=879 nonnull=879 ge1=337 ge2=14
+[mentions] batch=599 ge1=333 ge2=7
+[with_figs] batch=600 total=714 nonnull=714 ge1=258 ge2=16
+[mentions] batch=600 ge1=255 ge2=13
+[with_figs] batch=601 total=742 nonnull=742 ge1=265 ge2=11
+[mentions] batch=601 ge1=263 ge2=8
+[with_figs] batch=602 total=694 nonnull=694 ge1=252 ge2=18
+[mentions] batch=602 ge1=249 ge2=13
+[with_figs] batch=603 total=691 nonnull=691 ge1=271 ge2=11
+[mentions] batch=603 ge1=266 ge2=9
+[with_figs] batch=604 total=798 nonnull=798 ge1=322 ge2=15
+[mentions] batch=604 ge1=313 ge2=10
+[with_figs] batch=605 total=1056 nonnull=1056 ge1=447 ge2=25
+[mentions] batch=605 ge1=439 ge2=16
+[with_figs] batch=606 total=887 nonnull=887 ge1=347 ge2=18
+[mentions] batch=606 ge1=341 ge2=13
+[with_figs] batch=607 total=812 nonnull=812 ge1=327 ge2=8
+[mentions] batch=607 ge1=322 ge2=7
+[with_figs] batch=608 total=985 nonnull=985 ge1=390 ge2=17
+[mentions] batch=608 ge1=383 ge2=12
+[edges] batch=43 rows=6149
+[with_figs] batch=609 total=816 nonnull=816 ge1=335 ge2=17
+[mentions] batch=609 ge1=328 ge2=9
+[with_figs] batch=610 total=841 nonnull=841 ge1=374 ge2=26
+[mentions] batch=610 ge1=368 ge2=16
+[with_figs] batch=611 total=889 nonnull=889 ge1=368 ge2=14
+[mentions] batch=611 ge1=360 ge2=10
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2266 |
+|neg            |2275 |
+|neu            |1608 |
++---------------+-----+
+
+[with_figs] batch=612 total=1154 nonnull=1154 ge1=478 ge2=28
+[mentions] batch=612 ge1=469 ge2=20
+[with_figs] batch=613 total=1080 nonnull=1080 ge1=443 ge2=12
+[mentions] batch=613 ge1=437 ge2=9
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|J0be38        |__ANY__|-0.296         |neg            |2009-06-17T03:07:53Z|
+|iamlittleboots|__ANY__|0.0            |neu            |2009-06-17T03:07:54Z|
+|yeowhuei      |__ANY__|0.6504         |pos            |2009-06-17T03:07:58Z|
+|frootjuice    |__ANY__|-0.2755        |neg            |2009-06-17T03:08:02Z|
+|ellehwho      |__ANY__|0.2225         |pos            |2009-06-17T03:08:04Z|
+|coollike      |__ANY__|0.296          |pos            |2009-06-17T03:08:12Z|
+|princess_kasey|__ANY__|0.5423         |pos            |2009-06-17T03:08:17Z|
+|wicksey       |__ANY__|-0.128         |neg            |2009-06-17T03:08:24Z|
+|pluggdin      |__ANY__|0.1513         |pos            |2009-06-17T03:08:32Z|
+|cbrett        |__ANY__|-0.7351        |neg            |2009-06-17T03:08:40Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=614 total=783 nonnull=783 ge1=318 ge2=13
+[mentions] batch=614 ge1=314 ge2=8
+[with_figs] batch=615 total=1131 nonnull=1131 ge1=477 ge2=26
+[mentions] batch=615 ge1=468 ge2=22
+batchId= 43 numInputRows= 63808 inputRowsPerSecond= 3190.240487975601 processedRowsPerSecond= 6052.167314806033
+[with_figs] batch=616 total=970 nonnull=970 ge1=405 ge2=19
+[mentions] batch=616 ge1=401 ge2=14
+[with_figs] batch=617 total=888 nonnull=888 ge1=365 ge2=14
+[mentions] batch=617 ge1=363 ge2=11
+[with_figs] batch=618 total=677 nonnull=677 ge1=287 ge2=12
+[mentions] batch=618 ge1=286 ge2=10
+[with_figs] batch=619 total=692 nonnull=692 ge1=301 ge2=16
+[mentions] batch=619 ge1=296 ge2=11
+[with_figs] batch=620 total=700 nonnull=700 ge1=313 ge2=16
+[mentions] batch=620 ge1=311 ge2=12
+[with_figs] batch=621 total=698 nonnull=698 ge1=281 ge2=18
+[mentions] batch=621 ge1=276 ge2=9
+[with_figs] batch=622 total=707 nonnull=707 ge1=273 ge2=7
+[mentions] batch=622 ge1=268 ge2=5
+[with_figs] batch=623 total=694 nonnull=694 ge1=296 ge2=19
+[mentions] batch=623 ge1=294 ge2=13
+[with_figs] batch=624 total=694 nonnull=694 ge1=283 ge2=20
+[mentions] batch=624 ge1=278 ge2=17
+[with_figs] batch=625 total=710 nonnull=710 ge1=295 ge2=15
+[mentions] batch=625 ge1=294 ge2=13
+[with_figs] batch=626 total=689 nonnull=689 ge1=267 ge2=8
+[mentions] batch=626 ge1=262 ge2=7
+[with_figs] batch=627 total=683 nonnull=683 ge1=298 ge2=16
+[mentions] batch=627 ge1=296 ge2=12
+[with_figs] batch=628 total=1050 nonnull=1050 ge1=468 ge2=25
+[mentions] batch=628 ge1=462 ge2=20
+[edges] batch=44 rows=6972
+[with_figs] batch=629 total=780 nonnull=780 ge1=325 ge2=18
+[mentions] batch=629 ge1=323 ge2=16
+[with_figs] batch=630 total=725 nonnull=725 ge1=316 ge2=17
+[mentions] batch=630 ge1=314 ge2=12
+[with_figs] batch=631 total=748 nonnull=748 ge1=299 ge2=14
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2672 |
+|neg            |2551 |
+|neu            |1749 |
++---------------+-----+
+
+[mentions] batch=631 ge1=298 ge2=13
+[with_figs] batch=632 total=1441 nonnull=1441 ge1=570 ge2=24
+[mentions] batch=632 ge1=566 ge2=17
+[with_figs] batch=633 total=968 nonnull=968 ge1=382 ge2=21
+[mentions] batch=633 ge1=380 ge2=15
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|wtcc           |__ANY__|0.296          |pos            |2009-06-17T11:39:28Z|
+|pickwick       |__ANY__|0.0            |neu            |2009-06-17T11:39:31Z|
+|lotusrockstar  |__ANY__|-0.4215        |neg            |2009-06-17T11:39:38Z|
+|GeorginaGenisis|__ANY__|-0.4605        |neg            |2009-06-17T11:39:40Z|
+|nakedcherry    |__ANY__|-0.4767        |neg            |2009-06-17T11:39:42Z|
+|teechristina   |__ANY__|0.4118         |pos            |2009-06-17T11:39:44Z|
+|Jonasbrothers  |__ANY__|0.0            |neu            |2009-06-17T11:39:44Z|
+|Maxalfie48     |__ANY__|-0.296         |neg            |2009-06-17T11:39:47Z|
+|ashleekristin  |__ANY__|-0.6229        |neg            |2009-06-17T11:39:51Z|
+|inkfid         |__ANY__|-0.4497        |neg            |2009-06-17T11:39:53Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=634 total=703 nonnull=703 ge1=246 ge2=10
+[mentions] batch=634 ge1=238 ge2=8
+[with_figs] batch=635 total=1113 nonnull=1113 ge1=406 ge2=21
+[mentions] batch=635 ge1=400 ge2=14
+batchId= 44 numInputRows= 64816 inputRowsPerSecond= 3240.9620481024053 processedRowsPerSecond= 6155.365622032289
+[with_figs] batch=636 total=805 nonnull=805 ge1=292 ge2=13
+[mentions] batch=636 ge1=290 ge2=14
+[with_figs] batch=637 total=820 nonnull=820 ge1=323 ge2=13
+[mentions] batch=637 ge1=315 ge2=11
+[with_figs] batch=638 total=682 nonnull=682 ge1=211 ge2=12
+[mentions] batch=638 ge1=210 ge2=10
+[with_figs] batch=639 total=694 nonnull=694 ge1=211 ge2=6
+[mentions] batch=639 ge1=209 ge2=6
+[with_figs] batch=640 total=692 nonnull=692 ge1=239 ge2=8
+[mentions] batch=640 ge1=236 ge2=6
+[with_figs] batch=641 total=687 nonnull=687 ge1=205 ge2=11
+[mentions] batch=641 ge1=205 ge2=7
+[with_figs] batch=642 total=708 nonnull=708 ge1=274 ge2=11
+[mentions] batch=642 ge1=273 ge2=10
+[with_figs] batch=643 total=700 nonnull=700 ge1=258 ge2=19
+[mentions] batch=643 ge1=257 ge2=13
+[with_figs] batch=644 total=715 nonnull=715 ge1=245 ge2=10
+[mentions] batch=644 ge1=244 ge2=5
+[with_figs] batch=645 total=776 nonnull=776 ge1=297 ge2=13
+[mentions] batch=645 ge1=290 ge2=10
+[with_figs] batch=646 total=712 nonnull=712 ge1=300 ge2=12
+[mentions] batch=646 ge1=299 ge2=11
+[with_figs] batch=647 total=706 nonnull=706 ge1=270 ge2=13
+[mentions] batch=647 ge1=269 ge2=10
+[with_figs] batch=648 total=836 nonnull=836 ge1=305 ge2=12
+[mentions] batch=648 ge1=302 ge2=10
+[edges] batch=45 rows=6351
+[with_figs] batch=649 total=713 nonnull=713 ge1=254 ge2=16
+[mentions] batch=649 ge1=251 ge2=13
+[with_figs] batch=650 total=787 nonnull=787 ge1=309 ge2=10
+[mentions] batch=650 ge1=306 ge2=8
+[with_figs] batch=651 total=843 nonnull=843 ge1=327 ge2=17
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2407 |
+|neg            |2391 |
+|neu            |1553 |
++---------------+-----+
+
+[mentions] batch=651 ge1=323 ge2=12
+[with_figs] batch=652 total=1454 nonnull=1454 ge1=562 ge2=31
+[mentions] batch=652 ge1=557 ge2=27
+[with_figs] batch=653 total=982 nonnull=982 ge1=376 ge2=20
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|nickjonas     |__ANY__|0.6419         |pos            |2009-06-17T20:51:33Z|
+|eimmart       |__ANY__|0.1134         |pos            |2009-06-17T20:51:33Z|
+|jimsorock     |__ANY__|0.6517         |pos            |2009-06-17T20:51:40Z|
+|danecook      |__ANY__|0.5551         |pos            |2009-06-17T20:51:42Z|
+|pearsonified  |__ANY__|0.1298         |pos            |2009-06-17T20:51:47Z|
+|mrswdy1       |__ANY__|-0.0772        |neg            |2009-06-17T20:51:53Z|
+|summerblonde83|__ANY__|-0.296         |neg            |2009-06-17T20:51:58Z|
+|Bern_morley   |__ANY__|0.2023         |pos            |2009-06-17T20:51:59Z|
+|laughingrid   |__ANY__|0.2942         |pos            |2009-06-17T20:52:00Z|
+|CoraB         |__ANY__|-0.296         |neg            |2009-06-17T20:52:03Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=653 ge1=372 ge2=16
+[with_figs] batch=654 total=768 nonnull=768 ge1=315 ge2=10
+[mentions] batch=654 ge1=308 ge2=8
+[with_figs] batch=655 total=1099 nonnull=1099 ge1=433 ge2=20
+[mentions] batch=655 ge1=425 ge2=15
+batchId= 45 numInputRows= 64860 inputRowsPerSecond= 3243.0 processedRowsPerSecond= 6240.138541466231
+[with_figs] batch=656 total=805 nonnull=805 ge1=320 ge2=10
+[mentions] batch=656 ge1=316 ge2=7
+[with_figs] batch=657 total=854 nonnull=854 ge1=343 ge2=18
+[mentions] batch=657 ge1=339 ge2=14
+[with_figs] batch=658 total=744 nonnull=744 ge1=280 ge2=8
+[mentions] batch=658 ge1=280 ge2=4
+[with_figs] batch=659 total=702 nonnull=702 ge1=278 ge2=14
+[mentions] batch=659 ge1=273 ge2=11
+[with_figs] batch=660 total=716 nonnull=716 ge1=305 ge2=9
+[mentions] batch=660 ge1=304 ge2=7
+[with_figs] batch=661 total=744 nonnull=744 ge1=320 ge2=17
+[mentions] batch=661 ge1=318 ge2=14
+[with_figs] batch=662 total=717 nonnull=717 ge1=314 ge2=7
+[mentions] batch=662 ge1=314 ge2=5
+[with_figs] batch=663 total=682 nonnull=682 ge1=258 ge2=9
+[mentions] batch=663 ge1=256 ge2=5
+[with_figs] batch=664 total=694 nonnull=694 ge1=304 ge2=10
+[mentions] batch=664 ge1=303 ge2=6
+[with_figs] batch=665 total=706 nonnull=706 ge1=279 ge2=7
+[mentions] batch=665 ge1=277 ge2=6
+[with_figs] batch=666 total=691 nonnull=691 ge1=272 ge2=11
+[mentions] batch=666 ge1=269 ge2=9
+[with_figs] batch=667 total=779 nonnull=779 ge1=318 ge2=18
+[mentions] batch=667 ge1=316 ge2=13
+[with_figs] batch=668 total=811 nonnull=811 ge1=339 ge2=12
+[mentions] batch=668 ge1=336 ge2=11
+[edges] batch=46 rows=6544
+[with_figs] batch=669 total=669 nonnull=669 ge1=274 ge2=16
+[mentions] batch=669 ge1=271 ge2=13
+[with_figs] batch=670 total=785 nonnull=785 ge1=307 ge2=17
+[mentions] batch=670 ge1=302 ge2=12
+[with_figs] batch=671 total=773 nonnull=773 ge1=315 ge2=16
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2446 |
+|neg            |2491 |
+|neu            |1607 |
++---------------+-----+
+
+[mentions] batch=671 ge1=314 ge2=11
+[with_figs] batch=672 total=1490 nonnull=1490 ge1=613 ge2=26
+[mentions] batch=672 ge1=605 ge2=17
+[with_figs] batch=673 total=979 nonnull=979 ge1=369 ge2=18
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|dianajw       |__ANY__|-0.4215        |neg            |2009-06-18T07:27:08Z|
+|TheOnion      |__ANY__|-0.7713        |neg            |2009-06-18T07:27:09Z|
+|HellGates     |__ANY__|0.5859         |pos            |2009-06-18T07:27:16Z|
+|KHAOSDARAPPER |__ANY__|-0.0572        |neg            |2009-06-18T07:27:18Z|
+|viridari      |__ANY__|0.3919         |pos            |2009-06-18T07:27:19Z|
+|sanuzis       |__ANY__|0.0            |neu            |2009-06-18T07:27:27Z|
+|babygirlparis |__ANY__|0.6124         |pos            |2009-06-18T07:27:29Z|
+|beccashoemaker|__ANY__|0.0            |neu            |2009-06-18T07:27:30Z|
+|GotTriple     |__ANY__|0.4215         |pos            |2009-06-18T07:27:40Z|
+|justinechan   |__ANY__|0.2263         |pos            |2009-06-18T07:27:48Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=673 ge1=364 ge2=13
+[with_figs] batch=674 total=778 nonnull=778 ge1=327 ge2=15
+[mentions] batch=674 ge1=326 ge2=10
+[with_figs] batch=675 total=1113 nonnull=1113 ge1=481 ge2=29
+[mentions] batch=675 ge1=476 ge2=25
+batchId= 46 numInputRows= 64752 inputRowsPerSecond= 3237.6 processedRowsPerSecond= 6211.818879508826
+[with_figs] batch=676 total=850 nonnull=850 ge1=322 ge2=17
+[mentions] batch=676 ge1=319 ge2=13
+[with_figs] batch=677 total=865 nonnull=865 ge1=362 ge2=19
+[mentions] batch=677 ge1=356 ge2=17
+[with_figs] batch=678 total=646 nonnull=646 ge1=280 ge2=8
+[mentions] batch=678 ge1=276 ge2=5
+[with_figs] batch=679 total=698 nonnull=698 ge1=289 ge2=15
+[mentions] batch=679 ge1=288 ge2=13
+[with_figs] batch=680 total=703 nonnull=703 ge1=277 ge2=10
+[mentions] batch=680 ge1=274 ge2=6
+[with_figs] batch=681 total=694 nonnull=694 ge1=289 ge2=17
+[mentions] batch=681 ge1=286 ge2=15
+[with_figs] batch=682 total=715 nonnull=715 ge1=281 ge2=10
+[mentions] batch=682 ge1=277 ge2=5
+[with_figs] batch=683 total=688 nonnull=688 ge1=273 ge2=14
+[mentions] batch=683 ge1=272 ge2=12
+[with_figs] batch=684 total=748 nonnull=748 ge1=286 ge2=18
+[mentions] batch=684 ge1=284 ge2=13
+[with_figs] batch=685 total=721 nonnull=721 ge1=271 ge2=21
+[mentions] batch=685 ge1=270 ge2=15
+[with_figs] batch=686 total=682 nonnull=682 ge1=262 ge2=10
+[mentions] batch=686 ge1=259 ge2=7
+[with_figs] batch=687 total=707 nonnull=707 ge1=275 ge2=11
+[mentions] batch=687 ge1=274 ge2=9
+[with_figs] batch=688 total=845 nonnull=845 ge1=338 ge2=19
+[mentions] batch=688 ge1=334 ge2=10
+[edges] batch=47 rows=6735
+[with_figs] batch=689 total=717 nonnull=717 ge1=243 ge2=10
+[mentions] batch=689 ge1=243 ge2=7
+[with_figs] batch=690 total=874 nonnull=874 ge1=334 ge2=16
+[mentions] batch=690 ge1=331 ge2=13
+[with_figs] batch=691 total=788 nonnull=788 ge1=273 ge2=13
+[mentions] batch=691 ge1=269 ge2=13
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2479 |
+|neg            |2490 |
+|neu            |1766 |
++---------------+-----+
+
+[with_figs] batch=692 total=1134 nonnull=1134 ge1=416 ge2=19
+[mentions] batch=692 ge1=413 ge2=16
+[with_figs] batch=693 total=1065 nonnull=1065 ge1=407 ge2=30
+[mentions] batch=693 ge1=402 ge2=20
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|brandolynicole|__ANY__|0.6907         |pos            |2009-06-18T15:44:46Z|
+|frakfraco     |__ANY__|0.0            |neu            |2009-06-18T15:44:50Z|
+|nerearoldan   |__ANY__|0.7096         |pos            |2009-06-18T15:44:54Z|
+|19fischi75    |__ANY__|0.0            |neu            |2009-06-18T15:45:06Z|
+|javierabrown  |__ANY__|0.0            |neu            |2009-06-18T15:45:14Z|
+|MariahCarey   |__ANY__|0.0            |neu            |2009-06-18T15:45:46Z|
+|kindareal     |__ANY__|0.1491         |pos            |2009-06-18T15:45:55Z|
+|PizaSeven     |__ANY__|0.0            |neu            |2009-06-18T15:45:57Z|
+|tangowhisky   |__ANY__|-0.0258        |neu            |2009-06-18T15:46:04Z|
+|SHAN3KN3K     |__ANY__|0.0            |neu            |2009-06-18T15:46:04Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=694 total=798 nonnull=798 ge1=290 ge2=15
+[mentions] batch=694 ge1=284 ge2=15
+[with_figs] batch=695 total=1135 nonnull=1135 ge1=421 ge2=21
+[mentions] batch=695 ge1=413 ge2=18
+[with_figs] batch=696 total=843 nonnull=843 ge1=309 ge2=15
+batchId= 47 numInputRows= 64812 inputRowsPerSecond= 3240.6 processedRowsPerSecond= 6060.594726014587
+[mentions] batch=696 ge1=305 ge2=14
+[with_figs] batch=697 total=827 nonnull=827 ge1=295 ge2=13
+[mentions] batch=697 ge1=289 ge2=11
+[with_figs] batch=698 total=658 nonnull=658 ge1=251 ge2=8
+[mentions] batch=698 ge1=248 ge2=6
+[with_figs] batch=699 total=683 nonnull=683 ge1=253 ge2=15
+[mentions] batch=699 ge1=252 ge2=13
+[with_figs] batch=700 total=690 nonnull=690 ge1=227 ge2=11
+[mentions] batch=700 ge1=223 ge2=7
+[with_figs] batch=701 total=719 nonnull=719 ge1=276 ge2=18
+[mentions] batch=701 ge1=272 ge2=13
+[with_figs] batch=702 total=754 nonnull=754 ge1=258 ge2=9
+[mentions] batch=702 ge1=251 ge2=8
+[with_figs] batch=703 total=684 nonnull=684 ge1=236 ge2=10
+[mentions] batch=703 ge1=230 ge2=6
+[with_figs] batch=704 total=684 nonnull=684 ge1=269 ge2=14
+[mentions] batch=704 ge1=268 ge2=12
+[with_figs] batch=705 total=699 nonnull=699 ge1=254 ge2=13
+[mentions] batch=705 ge1=253 ge2=9
+[with_figs] batch=706 total=692 nonnull=692 ge1=287 ge2=16
+[mentions] batch=706 ge1=283 ge2=16
+[with_figs] batch=707 total=764 nonnull=764 ge1=293 ge2=16
+[mentions] batch=707 ge1=290 ge2=13
+[with_figs] batch=708 total=839 nonnull=839 ge1=347 ge2=18
+[mentions] batch=708 ge1=341 ge2=16
+[edges] batch=48 rows=6146
+[with_figs] batch=709 total=690 nonnull=690 ge1=261 ge2=11
+[mentions] batch=709 ge1=258 ge2=10
+[with_figs] batch=710 total=757 nonnull=757 ge1=307 ge2=26
+[mentions] batch=710 ge1=305 ge2=20
+[with_figs] batch=711 total=803 nonnull=803 ge1=334 ge2=13
+[mentions] batch=711 ge1=328 ge2=12
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2280 |
+|neg            |2311 |
+|neu            |1555 |
++---------------+-----+
+
+[with_figs] batch=712 total=1166 nonnull=1166 ge1=454 ge2=23
+[mentions] batch=712 ge1=447 ge2=13
+[with_figs] batch=713 total=1104 nonnull=1104 ge1=472 ge2=23
+[mentions] batch=713 ge1=464 ge2=17
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|bodacioustipsy |__ANY__|0.0            |neu            |2009-06-18T23:34:36Z|
+|tickklemeneesha|__ANY__|0.0            |neu            |2009-06-18T23:34:38Z|
+|_maroo         |__ANY__|0.1511         |pos            |2009-06-18T23:34:39Z|
+|adriannaa      |__ANY__|-0.4186        |neg            |2009-06-18T23:34:48Z|
+|BruceZimmer    |__ANY__|0.0            |neu            |2009-06-18T23:34:49Z|
+|davidjschneider|__ANY__|0.168          |pos            |2009-06-18T23:35:04Z|
+|tophatdog      |__ANY__|0.4019         |pos            |2009-06-18T23:35:08Z|
+|Fannysnightclub|__ANY__|-0.5707        |neg            |2009-06-18T23:35:15Z|
+|martieee18     |__ANY__|0.6289         |pos            |2009-06-18T23:35:26Z|
+|heartysweetie  |__ANY__|0.7615         |pos            |2009-06-18T23:35:46Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=714 total=750 nonnull=750 ge1=317 ge2=16
+[mentions] batch=714 ge1=316 ge2=12
+[with_figs] batch=715 total=1142 nonnull=1142 ge1=484 ge2=27
+[mentions] batch=715 ge1=479 ge2=19
+[with_figs] batch=716 total=820 nonnull=820 ge1=339 ge2=14
+[mentions] batch=716 ge1=338 ge2=12
+batchId= 48 numInputRows= 64676 inputRowsPerSecond= 3233.8 processedRowsPerSecond= 6201.553360820788
+[with_figs] batch=717 total=661 nonnull=661 ge1=249 ge2=11
+[mentions] batch=717 ge1=246 ge2=9
+[with_figs] batch=718 total=696 nonnull=696 ge1=305 ge2=16
+[mentions] batch=718 ge1=302 ge2=11
+[with_figs] batch=719 total=715 nonnull=715 ge1=296 ge2=12
+[mentions] batch=719 ge1=293 ge2=11
+[with_figs] batch=720 total=683 nonnull=683 ge1=286 ge2=19
+[mentions] batch=720 ge1=285 ge2=17
+[with_figs] batch=721 total=690 nonnull=690 ge1=279 ge2=13
+[mentions] batch=721 ge1=276 ge2=9
+[with_figs] batch=722 total=716 nonnull=716 ge1=312 ge2=18
+[mentions] batch=722 ge1=307 ge2=12
+[with_figs] batch=723 total=691 nonnull=691 ge1=300 ge2=14
+[mentions] batch=723 ge1=299 ge2=12
+[with_figs] batch=724 total=711 nonnull=711 ge1=304 ge2=9
+[mentions] batch=724 ge1=300 ge2=7
+[with_figs] batch=725 total=747 nonnull=747 ge1=299 ge2=20
+[mentions] batch=725 ge1=295 ge2=17
+[with_figs] batch=726 total=703 nonnull=703 ge1=263 ge2=13
+[mentions] batch=726 ge1=262 ge2=10
+[with_figs] batch=727 total=692 nonnull=692 ge1=276 ge2=10
+[mentions] batch=727 ge1=274 ge2=8
+[with_figs] batch=728 total=761 nonnull=761 ge1=303 ge2=15
+[mentions] batch=728 ge1=298 ge2=14
+[with_figs] batch=729 total=812 nonnull=812 ge1=313 ge2=17
+[mentions] batch=729 ge1=312 ge2=12
+[edges] batch=49 rows=6890
+[with_figs] batch=730 total=760 nonnull=760 ge1=310 ge2=9
+[mentions] batch=730 ge1=308 ge2=7
+[with_figs] batch=731 total=1176 nonnull=1176 ge1=448 ge2=23
+[mentions] batch=731 ge1=445 ge2=21
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2550 |
+|neg            |2572 |
+|neu            |1768 |
++---------------+-----+
+
+[with_figs] batch=732 total=1181 nonnull=1181 ge1=462 ge2=22
+[mentions] batch=732 ge1=461 ge2=17
+[with_figs] batch=733 total=1744 nonnull=1744 ge1=677 ge2=31
+[mentions] batch=733 ge1=673 ge2=28
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|svtcurious    |__ANY__|0.0            |neu            |2009-06-19T09:11:44Z|
+|RandomNickname|__ANY__|-0.631         |neg            |2009-06-19T09:11:49Z|
+|liesegardner  |__ANY__|0.3818         |pos            |2009-06-19T09:11:50Z|
+|Damien_Mills  |__ANY__|-0.2144        |neg            |2009-06-19T09:11:50Z|
+|srawlins      |__ANY__|-0.0772        |neg            |2009-06-19T09:11:55Z|
+|ketansoni     |__ANY__|-0.3412        |neg            |2009-06-19T09:11:57Z|
+|jessiiemcfly  |__ANY__|0.4574         |pos            |2009-06-19T09:11:58Z|
+|Allieandra    |__ANY__|-0.7506        |neg            |2009-06-19T09:11:59Z|
+|ericssan      |__ANY__|-0.1027        |neg            |2009-06-19T09:12:01Z|
+|blynch23      |__ANY__|0.7845         |pos            |2009-06-19T09:12:04Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=734 total=1033 nonnull=1033 ge1=387 ge2=21
+[mentions] batch=734 ge1=387 ge2=13
+[with_figs] batch=735 total=847 nonnull=847 ge1=323 ge2=17
+[mentions] batch=735 ge1=321 ge2=15
+batchId= 48 numInputRows= 64676 inputRowsPerSecond= 3233.8 processedRowsPerSecond= 6201.553360820788
+[with_figs] batch=736 total=736 nonnull=736 ge1=277 ge2=13
+[mentions] batch=736 ge1=275 ge2=12
+[with_figs] batch=737 total=837 nonnull=837 ge1=323 ge2=18
+[mentions] batch=737 ge1=323 ge2=11
+[with_figs] batch=738 total=876 nonnull=876 ge1=343 ge2=12
+[mentions] batch=738 ge1=341 ge2=10
+[with_figs] batch=739 total=650 nonnull=650 ge1=251 ge2=16
+[mentions] batch=739 ge1=249 ge2=12
+[with_figs] batch=740 total=699 nonnull=699 ge1=287 ge2=14
+[mentions] batch=740 ge1=285 ge2=11
+[with_figs] batch=741 total=705 nonnull=705 ge1=256 ge2=8
+[mentions] batch=741 ge1=252 ge2=9
+[with_figs] batch=742 total=687 nonnull=687 ge1=235 ge2=14
+[mentions] batch=742 ge1=232 ge2=14
+[with_figs] batch=743 total=696 nonnull=696 ge1=227 ge2=13
+[mentions] batch=743 ge1=225 ge2=10
+[with_figs] batch=744 total=737 nonnull=737 ge1=253 ge2=10
+[mentions] batch=744 ge1=252 ge2=10
+[with_figs] batch=745 total=723 nonnull=723 ge1=258 ge2=10
+[mentions] batch=745 ge1=256 ge2=11
+[with_figs] batch=746 total=698 nonnull=698 ge1=221 ge2=13
+[mentions] batch=746 ge1=220 ge2=9
+[with_figs] batch=747 total=862 nonnull=862 ge1=278 ge2=13
+[mentions] batch=747 ge1=276 ge2=10
+[edges] batch=50 rows=6243
+[with_figs] batch=748 total=778 nonnull=778 ge1=237 ge2=9
+[mentions] batch=748 ge1=234 ge2=8
+[with_figs] batch=749 total=785 nonnull=785 ge1=254 ge2=7
+[mentions] batch=749 ge1=253 ge2=6
+[with_figs] batch=750 total=768 nonnull=768 ge1=245 ge2=9
+[mentions] batch=750 ge1=244 ge2=8
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2418 |
+|neg            |2366 |
+|neu            |1459 |
++---------------+-----+
+
+[with_figs] batch=751 total=899 nonnull=899 ge1=274 ge2=11
+[mentions] batch=751 ge1=269 ge2=9
+[with_figs] batch=752 total=1384 nonnull=1384 ge1=431 ge2=30
+[mentions] batch=752 ge1=428 ge2=24
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|CBrazz         |__ANY__|0.4215         |pos            |2009-06-19T18:21:53Z|
+|jojo_the_brat  |__ANY__|-0.8356        |neg            |2009-06-19T18:21:54Z|
+|Chennylou      |__ANY__|-0.5423        |neg            |2009-06-19T18:21:59Z|
+|TraceCyrus     |__ANY__|-0.5848        |neg            |2009-06-19T18:22:32Z|
+|BinkieER       |__ANY__|-0.1531        |neg            |2009-06-19T18:22:36Z|
+|samueltwitt1   |__ANY__|0.0            |neu            |2009-06-19T18:22:39Z|
+|kIDqool        |__ANY__|-0.4767        |neg            |2009-06-19T18:22:39Z|
+|ThePaulaCreamer|__ANY__|0.0            |neu            |2009-06-19T18:22:40Z|
+|sharre         |__ANY__|0.5093         |pos            |2009-06-19T18:22:41Z|
+|ambitiouslove  |__ANY__|0.2732         |pos            |2009-06-19T18:22:41Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=753 total=872 nonnull=872 ge1=314 ge2=10
+[mentions] batch=753 ge1=310 ge2=8
+[with_figs] batch=754 total=1192 nonnull=1192 ge1=394 ge2=18
+[mentions] batch=754 ge1=394 ge2=18
+[with_figs] batch=755 total=877 nonnull=877 ge1=278 ge2=13
+batchId= 50 numInputRows= 64428 inputRowsPerSecond= 3221.4 processedRowsPerSecond= 6199.769053117783
+[mentions] batch=755 ge1=273 ge2=8
+[with_figs] batch=756 total=884 nonnull=884 ge1=291 ge2=13
+[mentions] batch=756 ge1=287 ge2=12
+[with_figs] batch=757 total=689 nonnull=689 ge1=243 ge2=13
+[mentions] batch=757 ge1=242 ge2=10
+[with_figs] batch=758 total=683 nonnull=683 ge1=236 ge2=7
+[mentions] batch=758 ge1=235 ge2=6
+[with_figs] batch=759 total=694 nonnull=694 ge1=244 ge2=12
+[mentions] batch=759 ge1=241 ge2=7
+[with_figs] batch=760 total=693 nonnull=693 ge1=239 ge2=11
+[mentions] batch=760 ge1=236 ge2=7
+[with_figs] batch=761 total=694 nonnull=694 ge1=239 ge2=10
+[mentions] batch=761 ge1=237 ge2=5
+[with_figs] batch=762 total=687 nonnull=687 ge1=256 ge2=10
+[mentions] batch=762 ge1=253 ge2=9
+[with_figs] batch=763 total=758 nonnull=758 ge1=291 ge2=12
+[mentions] batch=763 ge1=289 ge2=11
+[with_figs] batch=764 total=703 nonnull=703 ge1=258 ge2=17
+[mentions] batch=764 ge1=252 ge2=12
+[with_figs] batch=765 total=728 nonnull=728 ge1=278 ge2=15
+[mentions] batch=765 ge1=274 ge2=14
+[with_figs] batch=766 total=695 nonnull=695 ge1=263 ge2=14
+[mentions] batch=766 ge1=260 ge2=12
+[with_figs] batch=767 total=780 nonnull=780 ge1=304 ge2=11
+[mentions] batch=767 ge1=299 ge2=9
+[edges] batch=51 rows=5747
+[with_figs] batch=768 total=872 nonnull=872 ge1=318 ge2=16
+[mentions] batch=768 ge1=316 ge2=13
+[with_figs] batch=769 total=792 nonnull=792 ge1=290 ge2=10
+[mentions] batch=769 ge1=287 ge2=7
+[with_figs] batch=770 total=741 nonnull=741 ge1=303 ge2=12
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2220 |
+|neg            |2137 |
+|neu            |1390 |
++---------------+-----+
+
+[mentions] batch=770 ge1=299 ge2=10
+[with_figs] batch=771 total=1513 nonnull=1513 ge1=574 ge2=22
+[mentions] batch=771 ge1=571 ge2=17
+[with_figs] batch=772 total=981 nonnull=981 ge1=393 ge2=18
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|rainbow_dog    |__ANY__|0.3612         |pos            |2009-06-20T03:18:38Z|
+|beltain35      |__ANY__|0.4664         |pos            |2009-06-20T03:18:58Z|
+|tommcfly       |__ANY__|0.5187         |pos            |2009-06-20T03:19:12Z|
+|Cama           |__ANY__|0.2263         |pos            |2009-06-20T03:19:14Z|
+|ashwinpande    |__ANY__|0.0            |neu            |2009-06-20T03:19:14Z|
+|GrouchoDuke    |__ANY__|0.8932         |pos            |2009-06-20T03:19:37Z|
+|MelinaKDallas  |__ANY__|0.5093         |pos            |2009-06-20T03:19:45Z|
+|Kifa7          |__ANY__|0.128          |pos            |2009-06-20T03:19:49Z|
+|bounceswoosh   |__ANY__|-0.6124        |neg            |2009-06-20T03:19:53Z|
+|thirstinkirstin|__ANY__|-0.2263        |neg            |2009-06-20T03:20:09Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=772 ge1=392 ge2=15
+[with_figs] batch=773 total=762 nonnull=762 ge1=299 ge2=27
+[mentions] batch=773 ge1=295 ge2=25
+[with_figs] batch=774 total=960 nonnull=960 ge1=417 ge2=24
+[mentions] batch=774 ge1=413 ge2=22
+[with_figs] batch=775 total=720 nonnull=720 ge1=312 ge2=10
+[mentions] batch=775 ge1=310 ge2=9
+batchId= 51 numInputRows= 64980 inputRowsPerSecond= 3249.0 processedRowsPerSecond= 6349.423490326363
+[with_figs] batch=776 total=665 nonnull=665 ge1=295 ge2=8
+[mentions] batch=776 ge1=291 ge2=6
+[with_figs] batch=777 total=765 nonnull=765 ge1=319 ge2=15
+[mentions] batch=777 ge1=316 ge2=12
+[with_figs] batch=778 total=692 nonnull=692 ge1=282 ge2=14
+[mentions] batch=778 ge1=279 ge2=5
+[with_figs] batch=779 total=684 nonnull=684 ge1=264 ge2=14
+[mentions] batch=779 ge1=263 ge2=8
+[with_figs] batch=780 total=723 nonnull=723 ge1=286 ge2=9
+[mentions] batch=780 ge1=285 ge2=8
+[with_figs] batch=781 total=706 nonnull=706 ge1=277 ge2=11
+[mentions] batch=781 ge1=275 ge2=9
+[with_figs] batch=782 total=693 nonnull=693 ge1=242 ge2=15
+[mentions] batch=782 ge1=241 ge2=11
+[with_figs] batch=783 total=735 nonnull=735 ge1=307 ge2=17
+[mentions] batch=783 ge1=305 ge2=15
+[with_figs] batch=784 total=742 nonnull=742 ge1=285 ge2=20
+[mentions] batch=784 ge1=283 ge2=15
+[with_figs] batch=785 total=673 nonnull=673 ge1=267 ge2=9
+[mentions] batch=785 ge1=264 ge2=7
+[with_figs] batch=786 total=665 nonnull=665 ge1=259 ge2=8
+[mentions] batch=786 ge1=256 ge2=6
+[with_figs] batch=787 total=861 nonnull=861 ge1=338 ge2=18
+[mentions] batch=787 ge1=336 ge2=17
+[with_figs] batch=788 total=743 nonnull=743 ge1=306 ge2=17
+[edges] batch=52 rows=6561
+[mentions] batch=788 ge1=304 ge2=13
+[with_figs] batch=789 total=934 nonnull=934 ge1=398 ge2=36
+[mentions] batch=789 ge1=396 ge2=29
+[with_figs] batch=790 total=808 nonnull=808 ge1=320 ge2=18
+[mentions] batch=790 ge1=316 ge2=16
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2639 |
+|neg            |2352 |
+|neu            |1570 |
++---------------+-----+
+
+[with_figs] batch=791 total=775 nonnull=775 ge1=309 ge2=13
+[mentions] batch=791 ge1=305 ge2=10
+[with_figs] batch=792 total=1527 nonnull=1527 ge1=587 ge2=25
+[mentions] batch=792 ge1=583 ge2=19
+[with_figs] batch=793 total=911 nonnull=911 ge1=351 ge2=15
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|WimseyCat      |__ANY__|-0.7684        |neg            |2009-06-20T11:59:52Z|
+|ciararyandreams|__ANY__|0.0            |neu            |2009-06-20T11:59:52Z|
+|Kiwidreamer    |__ANY__|-0.4005        |neg            |2009-06-20T11:59:56Z|
+|africaforafrica|__ANY__|0.7837         |pos            |2009-06-20T11:59:56Z|
+|d_whiteplume   |__ANY__|-0.5994        |neg            |2009-06-20T12:00:00Z|
+|MissNatalieLynn|__ANY__|-0.3818        |neg            |2009-06-20T12:00:01Z|
+|MakeupAddict88 |__ANY__|0.0            |neu            |2009-06-20T12:00:05Z|
+|Lezlielu18     |__ANY__|0.0            |neu            |2009-06-20T12:00:07Z|
+|velmadaria     |__ANY__|0.8268         |pos            |2009-06-20T12:00:11Z|
+|Momosmommy     |__ANY__|0.3612         |pos            |2009-06-20T12:00:19Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=793 ge1=349 ge2=14
+[with_figs] batch=794 total=1085 nonnull=1085 ge1=434 ge2=30
+[mentions] batch=794 ge1=430 ge2=27
+[with_figs] batch=795 total=813 nonnull=813 ge1=312 ge2=14
+[mentions] batch=795 ge1=310 ge2=11
+batchId= 52 numInputRows= 64944 inputRowsPerSecond= 3247.2 processedRowsPerSecond= 5902.926740592619
+[with_figs] batch=796 total=752 nonnull=752 ge1=281 ge2=18
+[mentions] batch=796 ge1=281 ge2=17
+[with_figs] batch=797 total=666 nonnull=666 ge1=227 ge2=15
+[mentions] batch=797 ge1=225 ge2=10
+[with_figs] batch=798 total=752 nonnull=752 ge1=275 ge2=16
+[mentions] batch=798 ge1=272 ge2=11
+[with_figs] batch=799 total=678 nonnull=678 ge1=213 ge2=9
+[mentions] batch=799 ge1=213 ge2=8
+[with_figs] batch=800 total=697 nonnull=697 ge1=231 ge2=7
+[mentions] batch=800 ge1=229 ge2=4
+[with_figs] batch=801 total=699 nonnull=699 ge1=215 ge2=6
+[mentions] batch=801 ge1=213 ge2=7
+[with_figs] batch=802 total=708 nonnull=708 ge1=223 ge2=8
+[mentions] batch=802 ge1=222 ge2=6
+[with_figs] batch=803 total=699 nonnull=699 ge1=230 ge2=12
+[mentions] batch=803 ge1=226 ge2=6
+[with_figs] batch=804 total=698 nonnull=698 ge1=213 ge2=8
+[mentions] batch=804 ge1=211 ge2=6
+[with_figs] batch=805 total=688 nonnull=688 ge1=220 ge2=6
+[mentions] batch=805 ge1=219 ge2=5
+[with_figs] batch=806 total=681 nonnull=681 ge1=195 ge2=6
+[mentions] batch=806 ge1=194 ge2=4
+[with_figs] batch=807 total=723 nonnull=723 ge1=230 ge2=15
+[mentions] batch=807 ge1=228 ge2=11
+[with_figs] batch=808 total=754 nonnull=754 ge1=270 ge2=12
+[edges] batch=53 rows=5994
+[mentions] batch=808 ge1=269 ge2=7
+[with_figs] batch=809 total=767 nonnull=767 ge1=222 ge2=10
+[mentions] batch=809 ge1=222 ge2=8
+[with_figs] batch=810 total=958 nonnull=958 ge1=298 ge2=15
+[mentions] batch=810 ge1=298 ge2=13
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2360 |
+|neg            |2189 |
+|neu            |1445 |
++---------------+-----+
+
+[with_figs] batch=811 total=773 nonnull=773 ge1=243 ge2=10
+[mentions] batch=811 ge1=239 ge2=6
+[with_figs] batch=812 total=1446 nonnull=1446 ge1=441 ge2=22
+[mentions] batch=812 ge1=436 ge2=18
++--------------+-------+---------------+---------------+--------------------+
+|src           |dst    |sentiment_score|sentiment_label|timestamp           |
++--------------+-------+---------------+---------------+--------------------+
+|oceanUP       |__ANY__|-0.4767        |neg            |2009-06-20T19:52:44Z|
+|chrispenner   |__ANY__|-0.0772        |neg            |2009-06-20T19:52:47Z|
+|thisgoeshere  |__ANY__|-0.25          |neg            |2009-06-20T19:52:51Z|
+|XxEllaheartsxX|__ANY__|0.3612         |pos            |2009-06-20T19:52:55Z|
+|palm          |__ANY__|-0.6808        |neg            |2009-06-20T19:52:57Z|
+|lizzfizz      |__ANY__|0.5597         |pos            |2009-06-20T19:53:05Z|
+|kevintu       |__ANY__|-0.3182        |neg            |2009-06-20T19:53:06Z|
+|MaryLicari    |__ANY__|0.4753         |pos            |2009-06-20T19:53:11Z|
+|Sh33pie       |__ANY__|-0.2244        |neg            |2009-06-20T19:53:16Z|
+|gabrielleejean|__ANY__|-0.2962        |neg            |2009-06-20T19:53:22Z|
++--------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=813 total=882 nonnull=882 ge1=304 ge2=14
+[mentions] batch=813 ge1=302 ge2=14
+[with_figs] batch=814 total=834 nonnull=834 ge1=266 ge2=4
+[mentions] batch=814 ge1=264 ge2=2
+[with_figs] batch=815 total=829 nonnull=829 ge1=293 ge2=15
+[mentions] batch=815 ge1=292 ge2=14
+[with_figs] batch=816 total=737 nonnull=737 ge1=232 ge2=14
+batchId= 53 numInputRows= 64828 inputRowsPerSecond= 3241.4 processedRowsPerSecond= 6281.782945736434
+[mentions] batch=816 ge1=230 ge2=13
+[with_figs] batch=817 total=889 nonnull=889 ge1=331 ge2=20
+[mentions] batch=817 ge1=329 ge2=18
+[with_figs] batch=818 total=639 nonnull=639 ge1=237 ge2=14
+[mentions] batch=818 ge1=234 ge2=11
+[with_figs] batch=819 total=711 nonnull=711 ge1=304 ge2=9
+[mentions] batch=819 ge1=302 ge2=6
+[with_figs] batch=820 total=725 nonnull=725 ge1=318 ge2=11
+[mentions] batch=820 ge1=316 ge2=9
+[with_figs] batch=821 total=693 nonnull=693 ge1=298 ge2=11
+[mentions] batch=821 ge1=297 ge2=9
+[with_figs] batch=822 total=689 nonnull=689 ge1=294 ge2=18
+[mentions] batch=822 ge1=291 ge2=14
+[with_figs] batch=823 total=682 nonnull=682 ge1=272 ge2=14
+[mentions] batch=823 ge1=269 ge2=10
+[with_figs] batch=824 total=745 nonnull=745 ge1=288 ge2=18
+[mentions] batch=824 ge1=286 ge2=11
+[with_figs] batch=825 total=703 nonnull=703 ge1=303 ge2=11
+[mentions] batch=825 ge1=301 ge2=10
+[with_figs] batch=826 total=704 nonnull=704 ge1=288 ge2=18
+[mentions] batch=826 ge1=286 ge2=16
+[with_figs] batch=827 total=678 nonnull=678 ge1=272 ge2=18
+[mentions] batch=827 ge1=268 ge2=15
+[with_figs] batch=828 total=792 nonnull=792 ge1=303 ge2=16
+[mentions] batch=828 ge1=301 ge2=12
+[edges] batch=54 rows=6067
+[with_figs] batch=829 total=817 nonnull=817 ge1=346 ge2=14
+[mentions] batch=829 ge1=345 ge2=11
+[with_figs] batch=830 total=984 nonnull=984 ge1=352 ge2=25
+[mentions] batch=830 ge1=349 ge2=19
+[with_figs] batch=831 total=766 nonnull=766 ge1=305 ge2=12
+[mentions] batch=831 ge1=304 ge2=12
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2276 |
+|neg            |2322 |
+|neu            |1469 |
++---------------+-----+
+
+[with_figs] batch=832 total=1231 nonnull=1231 ge1=475 ge2=22
+[mentions] batch=832 ge1=471 ge2=19
+[with_figs] batch=833 total=1038 nonnull=1038 ge1=388 ge2=22
+[mentions] batch=833 ge1=387 ge2=16
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|yamerias       |__ANY__|0.0073         |neu            |2009-06-21T05:35:57Z|
+|VickyCheng     |__ANY__|0.5244         |pos            |2009-06-21T05:35:59Z|
+|mikachu84      |__ANY__|-0.3578        |neg            |2009-06-21T05:36:08Z|
+|JessMcFlyxxx   |__ANY__|0.7156         |pos            |2009-06-21T05:36:13Z|
+|lovekelsee's   |__ANY__|0.0762         |pos            |2009-06-21T05:36:21Z|
+|therealglambert|__ANY__|0.7712         |pos            |2009-06-21T05:36:29Z|
+|mrjohnmcd      |__ANY__|-0.4019        |neg            |2009-06-21T05:36:41Z|
+|PedroQuintino  |__ANY__|0.7213         |pos            |2009-06-21T05:36:46Z|
+|lautnerx3      |__ANY__|0.0            |neu            |2009-06-21T05:36:46Z|
+|Aguilar425     |Piklman|0.0            |neu            |2009-06-21T05:36:53Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=834 total=759 nonnull=759 ge1=286 ge2=15
+[mentions] batch=834 ge1=284 ge2=13
+[with_figs] batch=835 total=1055 nonnull=1055 ge1=387 ge2=12
+[mentions] batch=835 ge1=383 ge2=8
+[with_figs] batch=836 total=746 nonnull=746 ge1=280 ge2=14
+[mentions] batch=836 ge1=279 ge2=12
+batchId= 54 numInputRows= 64992 inputRowsPerSecond= 3249.6 processedRowsPerSecond= 6407.57172434191
+[with_figs] batch=837 total=863 nonnull=863 ge1=327 ge2=10
+[mentions] batch=837 ge1=324 ge2=10
+[with_figs] batch=838 total=626 nonnull=626 ge1=282 ge2=16
+[mentions] batch=838 ge1=280 ge2=14
+[with_figs] batch=839 total=675 nonnull=675 ge1=244 ge2=15
+[mentions] batch=839 ge1=243 ge2=11
+[with_figs] batch=840 total=678 nonnull=678 ge1=266 ge2=12
+[mentions] batch=840 ge1=264 ge2=8
+[with_figs] batch=841 total=720 nonnull=720 ge1=297 ge2=14
+[mentions] batch=841 ge1=296 ge2=11
+[with_figs] batch=842 total=697 nonnull=697 ge1=288 ge2=13
+[mentions] batch=842 ge1=285 ge2=11
+[with_figs] batch=843 total=692 nonnull=692 ge1=289 ge2=11
+[mentions] batch=843 ge1=286 ge2=9
+[with_figs] batch=844 total=683 nonnull=683 ge1=298 ge2=13
+[mentions] batch=844 ge1=297 ge2=12
+[with_figs] batch=845 total=771 nonnull=771 ge1=351 ge2=10
+[mentions] batch=845 ge1=350 ge2=7
+[with_figs] batch=846 total=805 nonnull=805 ge1=322 ge2=12
+[mentions] batch=846 ge1=317 ge2=9
+[with_figs] batch=847 total=789 nonnull=789 ge1=327 ge2=12
+[mentions] batch=847 ge1=321 ge2=9
+[with_figs] batch=848 total=850 nonnull=850 ge1=337 ge2=23
+[mentions] batch=848 ge1=334 ge2=22
+[edges] batch=55 rows=6557
+[with_figs] batch=849 total=759 nonnull=759 ge1=304 ge2=17
+[mentions] batch=849 ge1=302 ge2=15
+[with_figs] batch=850 total=884 nonnull=884 ge1=358 ge2=19
+[mentions] batch=850 ge1=355 ge2=17
+[with_figs] batch=851 total=759 nonnull=759 ge1=296 ge2=16
+[mentions] batch=851 ge1=294 ge2=15
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2459 |
+|neg            |2547 |
+|neu            |1551 |
++---------------+-----+
+
+[with_figs] batch=852 total=838 nonnull=838 ge1=376 ge2=15
+[mentions] batch=852 ge1=375 ge2=13
+[with_figs] batch=853 total=1376 nonnull=1376 ge1=577 ge2=35
+[mentions] batch=853 ge1=573 ge2=29
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|libertymadison |__ANY__|0.6652         |pos            |2009-06-22T16:44:30Z|
+|LiezlKim       |Nonja47|-0.631         |neg            |2009-06-22T16:44:38Z|
+|kandiappl6     |__ANY__|0.296          |pos            |2009-06-22T16:44:40Z|
+|jentoni84      |__ANY__|0.4588         |pos            |2009-06-22T16:44:44Z|
+|gfalcone601    |__ANY__|0.7574         |pos            |2009-06-22T16:44:44Z|
+|cavsfanatic    |__ANY__|0.0893         |pos            |2009-06-22T16:45:23Z|
+|AllyPow        |__ANY__|0.6409         |pos            |2009-06-22T16:45:24Z|
+|BabyTechie     |__ANY__|0.0            |neu            |2009-06-22T16:45:25Z|
+|BrentCorrigan00|__ANY__|-0.4968        |neg            |2009-06-22T16:45:26Z|
+|tommcfly       |__ANY__|0.9127         |pos            |2009-06-22T16:45:28Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=854 total=870 nonnull=870 ge1=348 ge2=13
+[mentions] batch=854 ge1=344 ge2=13
+[with_figs] batch=855 total=818 nonnull=818 ge1=331 ge2=8
+[mentions] batch=855 ge1=329 ge2=5
+[with_figs] batch=856 total=878 nonnull=878 ge1=372 ge2=17
+[mentions] batch=856 ge1=372 ge2=14
+batchId= 55 numInputRows= 64592 inputRowsPerSecond= 3229.438528073596 processedRowsPerSecond= 5912.852435005493
+[with_figs] batch=857 total=710 nonnull=710 ge1=309 ge2=13
+[mentions] batch=857 ge1=305 ge2=11
+[with_figs] batch=858 total=886 nonnull=886 ge1=363 ge2=27
+[mentions] batch=858 ge1=360 ge2=24
+[with_figs] batch=859 total=652 nonnull=652 ge1=250 ge2=18
+[mentions] batch=859 ge1=248 ge2=13
+[with_figs] batch=860 total=680 nonnull=680 ge1=283 ge2=14
+[mentions] batch=860 ge1=280 ge2=13
+[with_figs] batch=861 total=686 nonnull=686 ge1=243 ge2=12
+[mentions] batch=861 ge1=241 ge2=10
+[with_figs] batch=862 total=725 nonnull=725 ge1=294 ge2=18
+[mentions] batch=862 ge1=293 ge2=16
+[with_figs] batch=863 total=696 nonnull=696 ge1=246 ge2=13
+[mentions] batch=863 ge1=243 ge2=11
+[with_figs] batch=864 total=688 nonnull=688 ge1=241 ge2=10
+[mentions] batch=864 ge1=239 ge2=7
+[with_figs] batch=865 total=688 nonnull=688 ge1=267 ge2=13
+[mentions] batch=865 ge1=266 ge2=11
+[with_figs] batch=866 total=715 nonnull=715 ge1=271 ge2=11
+[mentions] batch=866 ge1=270 ge2=10
+[with_figs] batch=867 total=703 nonnull=703 ge1=239 ge2=15
+[mentions] batch=867 ge1=238 ge2=14
+[with_figs] batch=868 total=770 nonnull=770 ge1=274 ge2=15
+[mentions] batch=868 ge1=272 ge2=12
+[with_figs] batch=869 total=958 nonnull=958 ge1=353 ge2=19
+[edges] batch=56 rows=6635
+[mentions] batch=869 ge1=350 ge2=16
+[with_figs] batch=870 total=797 nonnull=797 ge1=286 ge2=10
+[mentions] batch=870 ge1=284 ge2=8
+[with_figs] batch=871 total=775 nonnull=775 ge1=273 ge2=12
+[mentions] batch=871 ge1=271 ge2=7
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2425 |
+|neg            |2533 |
+|neu            |1677 |
++---------------+-----+
+
+[with_figs] batch=872 total=753 nonnull=753 ge1=247 ge2=13
+[mentions] batch=872 ge1=244 ge2=9
+[with_figs] batch=873 total=1492 nonnull=1492 ge1=544 ge2=26
+[mentions] batch=873 ge1=537 ge2=24
++--------------+---------------+---------------+---------------+--------------------+
+|src           |dst            |sentiment_score|sentiment_label|timestamp           |
++--------------+---------------+---------------+---------------+--------------------+
+|MyCheMicALmuse|__ANY__        |0.4927         |pos            |2009-06-23T15:05:06Z|
+|knmn          |__ANY__        |-0.7046        |neg            |2009-06-23T15:07:11Z|
+|danger_skies  |__ANY__        |-0.6113        |neg            |2009-06-23T15:07:11Z|
+|Joe_Sparks    |__ANY__        |-0.5296        |neg            |2009-06-23T15:07:20Z|
+|rebecca_clark |__ANY__        |0.8832         |pos            |2009-06-23T15:07:24Z|
+|twit_twat_ash |__ANY__        |-0.6166        |neg            |2009-06-23T15:07:29Z|
+|jayporter     |__ANY__        |-0.4746        |neg            |2009-06-23T15:07:29Z|
+|JohnReese     |masscontrolkern|0.0            |neu            |2009-06-23T15:07:35Z|
+|troublebrother|__ANY__        |0.3612         |pos            |2009-06-23T15:07:42Z|
+|livenoutlouder|__ANY__        |0.636          |pos            |2009-06-23T15:07:43Z|
++--------------+---------------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=874 total=925 nonnull=925 ge1=327 ge2=12
+[mentions] batch=874 ge1=324 ge2=6
+[with_figs] batch=875 total=1078 nonnull=1078 ge1=394 ge2=23
+[mentions] batch=875 ge1=391 ge2=18
+[with_figs] batch=876 total=777 nonnull=777 ge1=260 ge2=9
+[mentions] batch=876 ge1=257 ge2=8
+batchId= 56 numInputRows= 64620 inputRowsPerSecond= 3231.161558077904 processedRowsPerSecond= 6160.739822671369
+[with_figs] batch=877 total=790 nonnull=790 ge1=316 ge2=16
+[mentions] batch=877 ge1=312 ge2=16
+[with_figs] batch=878 total=850 nonnull=850 ge1=334 ge2=21
+[mentions] batch=878 ge1=326 ge2=15
+[with_figs] batch=879 total=632 nonnull=632 ge1=231 ge2=12
+[mentions] batch=879 ge1=224 ge2=8
+[with_figs] batch=880 total=675 nonnull=675 ge1=247 ge2=13
+[mentions] batch=880 ge1=247 ge2=10
+[with_figs] batch=881 total=685 nonnull=685 ge1=261 ge2=17
+[mentions] batch=881 ge1=258 ge2=13
+[with_figs] batch=882 total=722 nonnull=722 ge1=280 ge2=19
+[mentions] batch=882 ge1=277 ge2=12
+[with_figs] batch=883 total=707 nonnull=707 ge1=244 ge2=16
+[mentions] batch=883 ge1=242 ge2=9
+[with_figs] batch=884 total=701 nonnull=701 ge1=260 ge2=18
+[mentions] batch=884 ge1=259 ge2=14
+[with_figs] batch=885 total=709 nonnull=709 ge1=230 ge2=8
+[mentions] batch=885 ge1=229 ge2=4
+[with_figs] batch=886 total=685 nonnull=685 ge1=272 ge2=9
+[mentions] batch=886 ge1=272 ge2=7
+[with_figs] batch=887 total=693 nonnull=693 ge1=416 ge2=15
+[mentions] batch=887 ge1=415 ge2=16
+[with_figs] batch=888 total=799 nonnull=799 ge1=470 ge2=20
+[mentions] batch=888 ge1=468 ge2=17
+[edges] batch=57 rows=6258
+[with_figs] batch=889 total=1056 nonnull=1056 ge1=599 ge2=29
+[mentions] batch=889 ge1=597 ge2=20
+[with_figs] batch=890 total=858 nonnull=858 ge1=483 ge2=28
+[mentions] batch=890 ge1=481 ge2=25
+[with_figs] batch=891 total=775 nonnull=775 ge1=458 ge2=31
+[mentions] batch=891 ge1=453 ge2=20
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |2630 |
+|neg            |2144 |
+|neu            |1484 |
++---------------+-----+
+
+[with_figs] batch=892 total=789 nonnull=789 ge1=470 ge2=17
+[mentions] batch=892 ge1=468 ge2=16
+[with_figs] batch=893 total=1446 nonnull=1446 ge1=835 ge2=39
+[mentions] batch=893 ge1=832 ge2=25
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|alexthefob1991 |__ANY__|-0.2244        |neg            |2009-06-25T02:53:28Z|
+|simoncveracity |__ANY__|-0.659         |neg            |2009-06-25T02:53:33Z|
+|K2_is_my_prince|__ANY__|0.7503         |pos            |2009-06-25T02:53:40Z|
+|alexthefob1991 |__ANY__|0.0            |neu            |2009-06-25T02:53:50Z|
+|sakhi_         |__ANY__|0.453          |pos            |2009-06-25T02:53:51Z|
+|Meta           |ianibbo|-0.296         |neg            |2009-06-25T02:53:56Z|
+|eeeepitskathy  |__ANY__|0.0            |neu            |2009-06-25T02:53:58Z|
+|tiffywee       |__ANY__|0.0            |neu            |2009-06-25T02:54:01Z|
+|madistack      |__ANY__|0.0            |neu            |2009-06-25T02:54:02Z|
+|KatherineNajdek|__ANY__|-0.2577        |neg            |2009-06-25T02:54:12Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=894 total=892 nonnull=892 ge1=496 ge2=32
+[mentions] batch=894 ge1=490 ge2=29
+[with_figs] batch=895 total=1242 nonnull=1242 ge1=707 ge2=40
+[mentions] batch=895 ge1=700 ge2=26
+[with_figs] batch=896 total=838 nonnull=838 ge1=494 ge2=30
+batchId= 57 numInputRows= 64572 inputRowsPerSecond= 3228.6 processedRowsPerSecond= 6112.457402499053
+[mentions] batch=896 ge1=491 ge2=20
+[with_figs] batch=897 total=883 nonnull=883 ge1=524 ge2=34
+[mentions] batch=897 ge1=521 ge2=28
+[with_figs] batch=898 total=669 nonnull=669 ge1=388 ge2=19
+[mentions] batch=898 ge1=387 ge2=15
+[with_figs] batch=899 total=682 nonnull=682 ge1=391 ge2=20
+[mentions] batch=899 ge1=388 ge2=16
+[with_figs] batch=900 total=702 nonnull=702 ge1=365 ge2=20
+[mentions] batch=900 ge1=365 ge2=15
+[with_figs] batch=901 total=726 nonnull=726 ge1=407 ge2=31
+[mentions] batch=901 ge1=405 ge2=26
+[with_figs] batch=902 total=704 nonnull=704 ge1=401 ge2=17
+[mentions] batch=902 ge1=400 ge2=15
+[with_figs] batch=903 total=712 nonnull=712 ge1=341 ge2=21
+[mentions] batch=903 ge1=338 ge2=17
+[with_figs] batch=904 total=699 nonnull=699 ge1=353 ge2=18
+[mentions] batch=904 ge1=349 ge2=14
+[with_figs] batch=905 total=703 nonnull=703 ge1=352 ge2=18
+[mentions] batch=905 ge1=351 ge2=16
+[with_figs] batch=906 total=690 nonnull=690 ge1=355 ge2=21
+[mentions] batch=906 ge1=354 ge2=18
+[with_figs] batch=907 total=788 nonnull=788 ge1=391 ge2=18
+[mentions] batch=907 ge1=389 ge2=16
+[with_figs] batch=908 total=842 nonnull=842 ge1=425 ge2=22
+[mentions] batch=908 ge1=425 ge2=20
+[edges] batch=58 rows=9456
+[with_figs] batch=909 total=797 nonnull=797 ge1=460 ge2=18
+[mentions] batch=909 ge1=459 ge2=16
+[with_figs] batch=910 total=900 nonnull=900 ge1=471 ge2=23
+[mentions] batch=910 ge1=469 ge2=15
+[with_figs] batch=911 total=798 nonnull=798 ge1=424 ge2=30
+[mentions] batch=911 ge1=421 ge2=26
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6277 |
+|neg            |905  |
+|neu            |2274 |
++---------------+-----+
+
+[with_figs] batch=912 total=761 nonnull=761 ge1=416 ge2=26
+[mentions] batch=912 ge1=415 ge2=18
+[with_figs] batch=913 total=1477 nonnull=1477 ge1=805 ge2=34
+[mentions] batch=913 ge1=803 ge2=31
+[with_figs] batch=914 total=915 nonnull=915 ge1=498 ge2=28
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|jazz_nash      |__ANY__|0.6249         |pos            |2009-04-06T23:23:26Z|
+|smange         |__ANY__|0.643          |pos            |2009-04-06T23:23:29Z|
+|danthedaddy    |__ANY__|0.8555         |pos            |2009-04-06T23:23:29Z|
+|DanniAsheOnline|__ANY__|0.4199         |pos            |2009-04-06T23:23:29Z|
+|darylsws       |__ANY__|0.0            |neu            |2009-04-06T23:23:29Z|
+|zoecello       |__ANY__|0.9117         |pos            |2009-04-06T23:23:35Z|
+|Vanilla_B      |__ANY__|0.5267         |pos            |2009-04-06T23:23:33Z|
+|MrPeterAndre   |__ANY__|0.6249         |pos            |2009-04-06T23:23:34Z|
+|sarakgee       |__ANY__|0.3612         |pos            |2009-04-06T23:23:34Z|
+|yod9           |__ANY__|0.5826         |pos            |2009-04-06T23:23:38Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=914 ge1=496 ge2=20
+[with_figs] batch=915 total=1270 nonnull=1270 ge1=745 ge2=49
+[mentions] batch=915 ge1=742 ge2=42
+batchId= 57 numInputRows= 64572 inputRowsPerSecond= 3228.6 processedRowsPerSecond= 6112.457402499053
+[with_figs] batch=916 total=889 nonnull=889 ge1=468 ge2=19
+[mentions] batch=916 ge1=467 ge2=14
+[with_figs] batch=917 total=742 nonnull=742 ge1=386 ge2=24
+[mentions] batch=917 ge1=385 ge2=22
+[with_figs] batch=918 total=1148 nonnull=1148 ge1=607 ge2=31
+[mentions] batch=918 ge1=602 ge2=26
+[with_figs] batch=919 total=989 nonnull=989 ge1=546 ge2=21
+[mentions] batch=919 ge1=545 ge2=20
+[with_figs] batch=920 total=712 nonnull=712 ge1=396 ge2=14
+[mentions] batch=920 ge1=396 ge2=11
+[with_figs] batch=921 total=690 nonnull=690 ge1=371 ge2=12
+[mentions] batch=921 ge1=368 ge2=7
+[with_figs] batch=922 total=693 nonnull=693 ge1=375 ge2=26
+[mentions] batch=922 ge1=372 ge2=20
+[with_figs] batch=923 total=717 nonnull=717 ge1=401 ge2=16
+[mentions] batch=923 ge1=397 ge2=13
+[with_figs] batch=924 total=733 nonnull=733 ge1=405 ge2=10
+[mentions] batch=924 ge1=404 ge2=11
+[with_figs] batch=925 total=756 nonnull=756 ge1=403 ge2=17
+[mentions] batch=925 ge1=402 ge2=11
+[with_figs] batch=926 total=826 nonnull=826 ge1=428 ge2=16
+[mentions] batch=926 ge1=427 ge2=11
+[edges] batch=59 rows=8988
+[with_figs] batch=927 total=750 nonnull=750 ge1=397 ge2=22
+[mentions] batch=927 ge1=390 ge2=16
+[with_figs] batch=928 total=784 nonnull=784 ge1=416 ge2=21
+[mentions] batch=928 ge1=413 ge2=15
+[with_figs] batch=929 total=781 nonnull=781 ge1=403 ge2=18
+[mentions] batch=929 ge1=402 ge2=15
+[with_figs] batch=930 total=791 nonnull=791 ge1=396 ge2=16
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6136 |
+|neg            |784  |
+|neu            |2068 |
++---------------+-----+
+
+[mentions] batch=930 ge1=394 ge2=11
+[with_figs] batch=931 total=1538 nonnull=1538 ge1=824 ge2=38
+[mentions] batch=931 ge1=822 ge2=28
+[with_figs] batch=932 total=1093 nonnull=1093 ge1=586 ge2=21
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|mikeylemieux   |__ANY__|0.5044         |pos            |2009-04-18T09:46:52Z|
+|leonkay        |__ANY__|0.7081         |pos            |2009-04-18T09:46:54Z|
+|lesliwillingham|__ANY__|0.4926         |pos            |2009-04-18T09:46:54Z|
+|MildlyAmused   |__ANY__|0.3612         |pos            |2009-04-18T09:46:55Z|
+|mangomangomango|__ANY__|0.5919         |pos            |2009-04-18T09:46:55Z|
+|RyanStar       |__ANY__|0.6086         |pos            |2009-04-18T09:46:56Z|
+|PhillyD        |__ANY__|0.0            |neu            |2009-04-18T09:46:58Z|
+|aristeia       |__ANY__|0.1531         |pos            |2009-04-18T09:46:58Z|
+|chickenofthesea|__ANY__|0.7096         |pos            |2009-04-18T09:46:58Z|
+|JonathanRKnight|__ANY__|0.0            |neu            |2009-04-18T09:47:04Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=932 ge1=584 ge2=16
+[with_figs] batch=933 total=911 nonnull=911 ge1=484 ge2=18
+[mentions] batch=933 ge1=482 ge2=13
+[with_figs] batch=934 total=894 nonnull=894 ge1=500 ge2=26
+batchId= 58 numInputRows= 64220 inputRowsPerSecond= 3211.0 processedRowsPerSecond= 5333.887043189369
+[mentions] batch=934 ge1=500 ge2=19
+[with_figs] batch=935 total=754 nonnull=754 ge1=428 ge2=18
+[mentions] batch=935 ge1=426 ge2=17
+[with_figs] batch=936 total=754 nonnull=754 ge1=421 ge2=15
+[mentions] batch=936 ge1=420 ge2=11
+[with_figs] batch=937 total=905 nonnull=905 ge1=518 ge2=25
+[mentions] batch=937 ge1=515 ge2=21
+[with_figs] batch=938 total=637 nonnull=637 ge1=393 ge2=20
+[mentions] batch=938 ge1=391 ge2=16
+[with_figs] batch=939 total=677 nonnull=677 ge1=385 ge2=17
+[mentions] batch=939 ge1=383 ge2=13
+[with_figs] batch=940 total=678 nonnull=678 ge1=400 ge2=35
+[mentions] batch=940 ge1=399 ge2=26
+[with_figs] batch=941 total=698 nonnull=698 ge1=419 ge2=24
+[mentions] batch=941 ge1=418 ge2=17
+[with_figs] batch=942 total=702 nonnull=702 ge1=398 ge2=24
+[mentions] batch=942 ge1=392 ge2=19
+[with_figs] batch=943 total=792 nonnull=792 ge1=450 ge2=25
+[mentions] batch=943 ge1=446 ge2=18
+[with_figs] batch=944 total=922 nonnull=922 ge1=556 ge2=33
+[mentions] batch=944 ge1=554 ge2=31
+[with_figs] batch=945 total=1063 nonnull=1063 ge1=632 ge2=35
+[mentions] batch=945 ge1=631 ge2=33
+[edges] batch=60 rows=9226
+[with_figs] batch=946 total=1124 nonnull=1124 ge1=681 ge2=33
+[mentions] batch=946 ge1=674 ge2=19
+[with_figs] batch=947 total=1076 nonnull=1076 ge1=633 ge2=31
+[mentions] batch=947 ge1=630 ge2=26
+[with_figs] batch=948 total=1018 nonnull=1018 ge1=598 ge2=26
+[mentions] batch=948 ge1=596 ge2=19
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6212 |
+|neg            |868  |
+|neu            |2146 |
++---------------+-----+
+
+[with_figs] batch=949 total=911 nonnull=911 ge1=559 ge2=30
+[mentions] batch=949 ge1=558 ge2=23
+[with_figs] batch=950 total=1617 nonnull=1617 ge1=975 ge2=52
+[mentions] batch=950 ge1=968 ge2=48
+[with_figs] batch=951 total=1027 nonnull=1027 ge1=590 ge2=37
++---------------+------------+---------------+---------------+--------------------+
+|src            |dst         |sentiment_score|sentiment_label|timestamp           |
++---------------+------------+---------------+---------------+--------------------+
+|LovelyLuLu     |__ANY__     |0.0            |neu            |2009-04-19T05:43:58Z|
+|michlr         |__ANY__     |-0.1027        |neg            |2009-04-19T05:43:57Z|
+|Jay-Z          |scottrmcgrew|0.5859         |pos            |2009-04-19T05:43:59Z|
+|reneeruin      |__ANY__     |0.0            |neu            |2009-04-19T05:44:01Z|
+|amberellis     |__ANY__     |0.0            |neu            |2009-04-19T05:44:03Z|
+|bedofbrownrice |__ANY__     |0.2732         |pos            |2009-04-19T05:44:04Z|
+|heralynne      |__ANY__     |0.8445         |pos            |2009-04-19T05:44:05Z|
+|TomVMorris     |__ANY__     |0.0            |neu            |2009-04-19T05:44:06Z|
+|amrithallan    |__ANY__     |0.296          |pos            |2009-04-19T05:44:07Z|
+|ashsimpsonwentz|__ANY__     |0.7684         |pos            |2009-04-19T05:44:07Z|
++---------------+------------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=951 ge1=588 ge2=27
+batchId= 59 numInputRows= 63828 inputRowsPerSecond= 3191.4 processedRowsPerSecond= 5125.100369359242
+[with_figs] batch=952 total=1180 nonnull=1180 ge1=686 ge2=38
+[mentions] batch=952 ge1=682 ge2=27
+[with_figs] batch=953 total=851 nonnull=851 ge1=457 ge2=19
+[mentions] batch=953 ge1=455 ge2=18
+[with_figs] batch=954 total=686 nonnull=686 ge1=391 ge2=20
+[mentions] batch=954 ge1=388 ge2=18
+[with_figs] batch=955 total=791 nonnull=791 ge1=401 ge2=20
+[mentions] batch=955 ge1=401 ge2=17
+[with_figs] batch=956 total=616 nonnull=616 ge1=340 ge2=20
+[mentions] batch=956 ge1=339 ge2=14
+[with_figs] batch=957 total=687 nonnull=687 ge1=373 ge2=17
+[mentions] batch=957 ge1=371 ge2=17
+[with_figs] batch=958 total=682 nonnull=682 ge1=417 ge2=21
+[mentions] batch=958 ge1=414 ge2=20
+[with_figs] batch=959 total=698 nonnull=698 ge1=364 ge2=19
+[mentions] batch=959 ge1=363 ge2=17
+[with_figs] batch=960 total=741 nonnull=741 ge1=389 ge2=22
+[mentions] batch=960 ge1=384 ge2=18
+[with_figs] batch=961 total=698 nonnull=698 ge1=376 ge2=23
+[mentions] batch=961 ge1=372 ge2=17
+[with_figs] batch=962 total=690 nonnull=690 ge1=369 ge2=16
+[mentions] batch=962 ge1=367 ge2=13
+[with_figs] batch=963 total=768 nonnull=768 ge1=395 ge2=16
+[mentions] batch=963 ge1=391 ge2=15
+[with_figs] batch=964 total=768 nonnull=768 ge1=402 ge2=22
+[edges] batch=61 rows=9780
+[mentions] batch=964 ge1=398 ge2=20
+[with_figs] batch=965 total=715 nonnull=715 ge1=389 ge2=23
+[mentions] batch=965 ge1=385 ge2=19
+[with_figs] batch=966 total=1065 nonnull=1065 ge1=560 ge2=31
+[mentions] batch=966 ge1=556 ge2=23
+[with_figs] batch=967 total=1088 nonnull=1088 ge1=554 ge2=29
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6462 |
+|neg            |934  |
+|neu            |2384 |
++---------------+-----+
+
+[mentions] batch=967 ge1=549 ge2=25
+[with_figs] batch=968 total=1363 nonnull=1363 ge1=701 ge2=37
+[mentions] batch=968 ge1=699 ge2=34
+[with_figs] batch=969 total=945 nonnull=945 ge1=502 ge2=24
+[mentions] batch=969 ge1=498 ge2=18
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|OzaMeilleur    |__ANY__|0.9406         |pos            |2009-04-20T05:49:03Z|
+|Boaa           |__ANY__|0.0            |neu            |2009-04-20T05:49:03Z|
+|backstreetboys |__ANY__|0.0            |neu            |2009-04-20T05:49:03Z|
+|dougiemcfly    |__ANY__|0.6688         |pos            |2009-04-20T05:49:04Z|
+|sanasaleem     |__ANY__|0.5994         |pos            |2009-04-20T05:49:04Z|
+|Irrishgal      |__ANY__|0.4137         |pos            |2009-04-20T05:49:06Z|
+|H20worksDesigns|__ANY__|0.91           |pos            |2009-04-20T05:49:08Z|
+|thegogetter    |__ANY__|-0.3612        |neg            |2009-04-20T05:49:08Z|
+|RealEnglishGuy |__ANY__|-0.4847        |neg            |2009-04-20T05:49:08Z|
+|TheRopolitans  |__ANY__|0.0            |neu            |2009-04-20T05:49:09Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=970 total=762 nonnull=762 ge1=395 ge2=22
+[mentions] batch=970 ge1=393 ge2=17
+batchId= 60 numInputRows= 64356 inputRowsPerSecond= 3217.8 processedRowsPerSecond= 4739.376979158996
+[with_figs] batch=971 total=1209 nonnull=1209 ge1=610 ge2=31
+[mentions] batch=971 ge1=608 ge2=28
+[with_figs] batch=972 total=774 nonnull=774 ge1=404 ge2=23
+[mentions] batch=972 ge1=402 ge2=17
+[with_figs] batch=973 total=708 nonnull=708 ge1=368 ge2=23
+[mentions] batch=973 ge1=368 ge2=18
+[with_figs] batch=974 total=706 nonnull=706 ge1=352 ge2=15
+[mentions] batch=974 ge1=347 ge2=13
+[with_figs] batch=975 total=678 nonnull=678 ge1=369 ge2=14
+[mentions] batch=975 ge1=367 ge2=10
+[with_figs] batch=976 total=683 nonnull=683 ge1=388 ge2=17
+[mentions] batch=976 ge1=385 ge2=10
+[with_figs] batch=977 total=734 nonnull=734 ge1=418 ge2=24
+[mentions] batch=977 ge1=412 ge2=19
+[with_figs] batch=978 total=899 nonnull=899 ge1=491 ge2=28
+[mentions] batch=978 ge1=489 ge2=20
+[with_figs] batch=979 total=747 nonnull=747 ge1=373 ge2=15
+[mentions] batch=979 ge1=371 ge2=11
+[with_figs] batch=980 total=715 nonnull=715 ge1=374 ge2=28
+[mentions] batch=980 ge1=373 ge2=13
+[with_figs] batch=981 total=684 nonnull=684 ge1=345 ge2=17
+[mentions] batch=981 ge1=343 ge2=10
+[with_figs] batch=982 total=774 nonnull=774 ge1=400 ge2=22
+[mentions] batch=982 ge1=398 ge2=22
+[with_figs] batch=983 total=818 nonnull=818 ge1=428 ge2=24
+[mentions] batch=983 ge1=426 ge2=16
+[edges] batch=62 rows=8982
+[with_figs] batch=984 total=668 nonnull=668 ge1=389 ge2=23
+[mentions] batch=984 ge1=386 ge2=18
+[with_figs] batch=985 total=809 nonnull=809 ge1=413 ge2=23
+[mentions] batch=985 ge1=412 ge2=13
+[with_figs] batch=986 total=686 nonnull=686 ge1=361 ge2=20
+[mentions] batch=986 ge1=359 ge2=13
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6178 |
+|neg            |779  |
+|neu            |2025 |
++---------------+-----+
+
+[with_figs] batch=987 total=811 nonnull=811 ge1=448 ge2=21
+[mentions] batch=987 ge1=445 ge2=16
+[with_figs] batch=988 total=1270 nonnull=1270 ge1=656 ge2=49
+[mentions] batch=988 ge1=649 ge2=31
++-------------+-------------+---------------+---------------+--------------------+
+|src          |dst          |sentiment_score|sentiment_label|timestamp           |
++-------------+-------------+---------------+---------------+--------------------+
+|sithiro      |__ANY__      |0.1511         |pos            |2009-05-02T02:10:56Z|
+|22chanel22   |HarmonyLovesU|0.1759         |pos            |2009-05-02T02:10:58Z|
+|22chanel22   |mz_lala8701  |0.1759         |pos            |2009-05-02T02:10:58Z|
+|22chanel22   |omw2thetop   |0.1759         |pos            |2009-05-02T02:10:58Z|
+|22chanel22   |sexired31008 |0.1759         |pos            |2009-05-02T02:10:58Z|
+|HarmonyLovesU|mz_lala8701  |0.1759         |pos            |2009-05-02T02:10:58Z|
+|HarmonyLovesU|omw2thetop   |0.1759         |pos            |2009-05-02T02:10:58Z|
+|HarmonyLovesU|sexired31008 |0.1759         |pos            |2009-05-02T02:10:58Z|
+|mz_lala8701  |omw2thetop   |0.1759         |pos            |2009-05-02T02:10:58Z|
+|mz_lala8701  |sexired31008 |0.1759         |pos            |2009-05-02T02:10:58Z|
++-------------+-------------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=989 total=1000 nonnull=1000 ge1=538 ge2=32
+[mentions] batch=989 ge1=534 ge2=27
+[with_figs] batch=990 total=1225 nonnull=1225 ge1=621 ge2=41
+[mentions] batch=990 ge1=617 ge2=31
+batchId= 61 numInputRows= 64356 inputRowsPerSecond= 3217.8 processedRowsPerSecond= 5146.009915240685
+[with_figs] batch=991 total=833 nonnull=833 ge1=465 ge2=29
+[mentions] batch=991 ge1=461 ge2=21
+[with_figs] batch=992 total=698 nonnull=698 ge1=379 ge2=14
+[mentions] batch=992 ge1=375 ge2=11
+[with_figs] batch=993 total=846 nonnull=846 ge1=466 ge2=34
+[mentions] batch=993 ge1=464 ge2=26
+[with_figs] batch=994 total=651 nonnull=651 ge1=373 ge2=18
+[mentions] batch=994 ge1=373 ge2=13
+[with_figs] batch=995 total=683 nonnull=683 ge1=391 ge2=22
+[mentions] batch=995 ge1=388 ge2=18
+[with_figs] batch=996 total=769 nonnull=769 ge1=446 ge2=21
+[mentions] batch=996 ge1=442 ge2=18
+[with_figs] batch=997 total=708 nonnull=708 ge1=409 ge2=15
+[mentions] batch=997 ge1=405 ge2=12
+[with_figs] batch=998 total=712 nonnull=712 ge1=415 ge2=29
+[mentions] batch=998 ge1=414 ge2=23
+[with_figs] batch=999 total=713 nonnull=713 ge1=388 ge2=19
+[mentions] batch=999 ge1=388 ge2=20
+[with_figs] batch=1000 total=782 nonnull=782 ge1=436 ge2=13
+[mentions] batch=1000 ge1=433 ge2=10
+[with_figs] batch=1001 total=721 nonnull=721 ge1=425 ge2=24
+[mentions] batch=1001 ge1=423 ge2=19
+[with_figs] batch=1002 total=864 nonnull=864 ge1=505 ge2=34
+[mentions] batch=1002 ge1=504 ge2=23
+[with_figs] batch=1003 total=775 nonnull=775 ge1=427 ge2=20
+[edges] batch=63 rows=9201
+[mentions] batch=1003 ge1=427 ge2=17
+[with_figs] batch=1004 total=800 nonnull=800 ge1=470 ge2=26
+[mentions] batch=1004 ge1=469 ge2=22
+[with_figs] batch=1005 total=872 nonnull=872 ge1=499 ge2=22
+[mentions] batch=1005 ge1=495 ge2=20
+[with_figs] batch=1006 total=765 nonnull=765 ge1=441 ge2=21
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6177 |
+|neg            |878  |
+|neu            |2146 |
++---------------+-----+
+
+[mentions] batch=1006 ge1=436 ge2=18
+[with_figs] batch=1007 total=1473 nonnull=1473 ge1=846 ge2=57
+[mentions] batch=1007 ge1=840 ge2=31
+[with_figs] batch=1008 total=1201 nonnull=1201 ge1=652 ge2=29
++-------------+-------+---------------+---------------+--------------------+
+|src          |dst    |sentiment_score|sentiment_label|timestamp           |
++-------------+-------+---------------+---------------+--------------------+
+|ENMagnifico  |__ANY__|0.3802         |pos            |2009-05-03T02:12:03Z|
+|MiChEaL09    |__ANY__|0.4404         |pos            |2009-05-03T02:12:03Z|
+|Echo_of_Irony|__ANY__|0.8571         |pos            |2009-05-03T02:12:04Z|
+|the_zac_efron|__ANY__|0.0            |neu            |2009-05-03T02:12:04Z|
+|Nina_Kate    |__ANY__|0.7717         |pos            |2009-05-03T02:15:43Z|
+|DawnRichard  |__ANY__|0.8832         |pos            |2009-05-03T02:15:44Z|
+|amandawint   |__ANY__|0.6369         |pos            |2009-05-03T02:15:45Z|
+|Hadramie     |__ANY__|0.7063         |pos            |2009-05-03T02:15:47Z|
+|micabebecca  |__ANY__|0.7597         |pos            |2009-05-03T02:15:48Z|
+|winbigspain  |__ANY__|0.6705         |pos            |2009-05-03T02:15:48Z|
++-------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=1008 ge1=650 ge2=24
+[with_figs] batch=1009 total=834 nonnull=834 ge1=447 ge2=21
+[mentions] batch=1009 ge1=444 ge2=15
+batchId= 62 numInputRows= 64288 inputRowsPerSecond= 3214.239288035598 processedRowsPerSecond= 5543.980682994136
+[with_figs] batch=1010 total=1114 nonnull=1114 ge1=592 ge2=28
+[mentions] batch=1010 ge1=587 ge2=20
+[with_figs] batch=1011 total=770 nonnull=770 ge1=449 ge2=21
+[mentions] batch=1011 ge1=447 ge2=15
+[with_figs] batch=1012 total=960 nonnull=960 ge1=535 ge2=28
+[mentions] batch=1012 ge1=530 ge2=19
+[with_figs] batch=1013 total=693 nonnull=693 ge1=363 ge2=21
+[mentions] batch=1013 ge1=360 ge2=15
+[with_figs] batch=1014 total=696 nonnull=696 ge1=363 ge2=22
+[mentions] batch=1014 ge1=362 ge2=18
+[with_figs] batch=1015 total=709 nonnull=709 ge1=373 ge2=17
+[mentions] batch=1015 ge1=371 ge2=15
+[with_figs] batch=1016 total=704 nonnull=704 ge1=350 ge2=32
+[mentions] batch=1016 ge1=349 ge2=21
+[with_figs] batch=1017 total=688 nonnull=688 ge1=342 ge2=17
+[mentions] batch=1017 ge1=337 ge2=14
+[with_figs] batch=1018 total=740 nonnull=740 ge1=391 ge2=23
+[mentions] batch=1018 ge1=388 ge2=18
+[with_figs] batch=1019 total=696 nonnull=696 ge1=371 ge2=11
+[mentions] batch=1019 ge1=367 ge2=7
+[with_figs] batch=1020 total=700 nonnull=700 ge1=335 ge2=22
+[mentions] batch=1020 ge1=332 ge2=19
+[with_figs] batch=1021 total=753 nonnull=753 ge1=380 ge2=23
+[mentions] batch=1021 ge1=378 ge2=20
+[with_figs] batch=1022 total=738 nonnull=738 ge1=373 ge2=16
+[mentions] batch=1022 ge1=371 ge2=11
+[edges] batch=64 rows=9157
+[with_figs] batch=1023 total=764 nonnull=764 ge1=407 ge2=20
+[mentions] batch=1023 ge1=406 ge2=18
+[with_figs] batch=1024 total=885 nonnull=885 ge1=451 ge2=30
+[mentions] batch=1024 ge1=446 ge2=21
+[with_figs] batch=1025 total=947 nonnull=947 ge1=513 ge2=29
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6260 |
+|neg            |853  |
+|neu            |2044 |
++---------------+-----+
+
+[mentions] batch=1025 ge1=507 ge2=21
+[with_figs] batch=1026 total=1417 nonnull=1417 ge1=716 ge2=31
+[mentions] batch=1026 ge1=707 ge2=27
+[with_figs] batch=1027 total=951 nonnull=951 ge1=486 ge2=28
+[mentions] batch=1027 ge1=479 ge2=23
++-------------+-------+---------------+---------------+--------------------+
+|src          |dst    |sentiment_score|sentiment_label|timestamp           |
++-------------+-------+---------------+---------------+--------------------+
+|sajith       |__ANY__|0.1531         |pos            |2009-05-03T22:26:54Z|
+|nikkigotpwned|__ANY__|-0.7739        |neg            |2009-05-03T22:26:55Z|
+|Misssarahnoir|__ANY__|0.5308         |pos            |2009-05-03T22:26:55Z|
+|xdi4ndr4x    |__ANY__|0.7236         |pos            |2009-05-03T22:26:58Z|
+|Chicajones   |__ANY__|0.9395         |pos            |2009-05-03T22:26:58Z|
+|aheartofstars|__ANY__|0.6996         |pos            |2009-05-03T22:26:59Z|
+|JenniSPAZ    |__ANY__|0.8306         |pos            |2009-05-03T22:26:59Z|
+|Willie_Day26 |__ANY__|0.4404         |pos            |2009-05-03T22:27:00Z|
+|ThomasShea   |__ANY__|0.4588         |pos            |2009-05-03T22:27:00Z|
+|cboyle1982   |__ANY__|-0.5727        |neg            |2009-05-03T22:27:02Z|
++-------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=1028 total=757 nonnull=757 ge1=391 ge2=22
+[mentions] batch=1028 ge1=385 ge2=18
+[with_figs] batch=1029 total=1163 nonnull=1163 ge1=591 ge2=30
+[mentions] batch=1029 ge1=587 ge2=18
+batchId= 63 numInputRows= 64688 inputRowsPerSecond= 3234.4 processedRowsPerSecond= 5382.592777500416
+[with_figs] batch=1030 total=820 nonnull=820 ge1=392 ge2=24
+[mentions] batch=1030 ge1=389 ge2=14
+[with_figs] batch=1031 total=909 nonnull=909 ge1=397 ge2=19
+[mentions] batch=1031 ge1=396 ge2=12
+[with_figs] batch=1032 total=670 nonnull=670 ge1=331 ge2=16
+[mentions] batch=1032 ge1=326 ge2=16
+[with_figs] batch=1033 total=685 nonnull=685 ge1=310 ge2=16
+[mentions] batch=1033 ge1=308 ge2=14
+[with_figs] batch=1034 total=678 nonnull=678 ge1=308 ge2=17
+[mentions] batch=1034 ge1=305 ge2=14
+[with_figs] batch=1035 total=685 nonnull=685 ge1=294 ge2=17
+[mentions] batch=1035 ge1=292 ge2=13
+[with_figs] batch=1036 total=778 nonnull=778 ge1=372 ge2=18
+[mentions] batch=1036 ge1=369 ge2=13
+[with_figs] batch=1037 total=710 nonnull=710 ge1=371 ge2=20
+[mentions] batch=1037 ge1=369 ge2=17
+[with_figs] batch=1038 total=701 nonnull=701 ge1=381 ge2=17
+[mentions] batch=1038 ge1=379 ge2=16
+[with_figs] batch=1039 total=688 nonnull=688 ge1=397 ge2=23
+[mentions] batch=1039 ge1=392 ge2=13
+[with_figs] batch=1040 total=739 nonnull=739 ge1=388 ge2=14
+[mentions] batch=1040 ge1=388 ge2=14
+[with_figs] batch=1041 total=835 nonnull=835 ge1=464 ge2=22
+[mentions] batch=1041 ge1=461 ge2=16
+[with_figs] batch=1042 total=700 nonnull=700 ge1=400 ge2=27
+[edges] batch=65 rows=8636
+[mentions] batch=1042 ge1=398 ge2=22
+[with_figs] batch=1043 total=720 nonnull=720 ge1=408 ge2=29
+[mentions] batch=1043 ge1=407 ge2=20
+[with_figs] batch=1044 total=811 nonnull=811 ge1=459 ge2=34
+[mentions] batch=1044 ge1=455 ge2=26
+[with_figs] batch=1045 total=692 nonnull=692 ge1=291 ge2=8
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6025 |
+|neg            |717  |
+|neu            |1894 |
++---------------+-----+
+
+[mentions] batch=1045 ge1=290 ge2=4
+[with_figs] batch=1046 total=1397 nonnull=1397 ge1=819 ge2=55
+[mentions] batch=1046 ge1=813 ge2=40
+[with_figs] batch=1047 total=950 nonnull=950 ge1=547 ge2=40
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|VDog           |taxgirl|0.8478         |pos            |2009-05-09T22:42:01Z|
+|eileenfletcher |__ANY__|0.7269         |pos            |2009-05-09T22:42:03Z|
+|sunmaker       |__ANY__|0.296          |pos            |2009-05-09T22:42:05Z|
+|GlobeInsurance |__ANY__|0.7845         |pos            |2009-05-09T22:42:05Z|
+|DavidArchie    |__ANY__|0.8316         |pos            |2009-05-09T22:46:22Z|
+|cariocastv     |__ANY__|0.7644         |pos            |2009-05-09T22:46:23Z|
+|addthis        |__ANY__|0.3612         |pos            |2009-05-09T22:46:24Z|
+|hnprashanth    |__ANY__|0.0            |neu            |2009-05-09T22:46:24Z|
+|iamjonathancook|__ANY__|0.7717         |pos            |2009-05-09T22:46:25Z|
+|JustCierra     |__ANY__|0.3595         |pos            |2009-05-09T22:46:25Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=1047 ge1=541 ge2=37
+[with_figs] batch=1048 total=774 nonnull=774 ge1=481 ge2=25
+[mentions] batch=1048 ge1=479 ge2=19
+[with_figs] batch=1049 total=1064 nonnull=1064 ge1=625 ge2=47
+[mentions] batch=1049 ge1=622 ge2=34
+batchId= 65 numInputRows= 64832 inputRowsPerSecond= 3241.6 processedRowsPerSecond= 5796.8526466380545
+[with_figs] batch=1050 total=719 nonnull=719 ge1=433 ge2=24
+[mentions] batch=1050 ge1=431 ge2=19
+[with_figs] batch=1051 total=894 nonnull=894 ge1=541 ge2=22
+[mentions] batch=1051 ge1=541 ge2=20
+[with_figs] batch=1052 total=633 nonnull=633 ge1=354 ge2=13
+[mentions] batch=1052 ge1=352 ge2=9
+[with_figs] batch=1053 total=683 nonnull=683 ge1=404 ge2=19
+[mentions] batch=1053 ge1=402 ge2=14
+[with_figs] batch=1054 total=692 nonnull=692 ge1=400 ge2=27
+[mentions] batch=1054 ge1=398 ge2=21
+[with_figs] batch=1055 total=678 nonnull=678 ge1=398 ge2=28
+[mentions] batch=1055 ge1=394 ge2=21
+[with_figs] batch=1056 total=704 nonnull=704 ge1=408 ge2=11
+[mentions] batch=1056 ge1=404 ge2=9
+[with_figs] batch=1057 total=676 nonnull=676 ge1=419 ge2=26
+[mentions] batch=1057 ge1=417 ge2=23
+[with_figs] batch=1058 total=677 nonnull=677 ge1=431 ge2=19
+[mentions] batch=1058 ge1=430 ge2=15
+[with_figs] batch=1059 total=696 nonnull=696 ge1=434 ge2=29
+[mentions] batch=1059 ge1=429 ge2=22
+[with_figs] batch=1060 total=675 nonnull=675 ge1=386 ge2=21
+[mentions] batch=1060 ge1=383 ge2=18
+[with_figs] batch=1061 total=839 nonnull=839 ge1=441 ge2=24
+[mentions] batch=1061 ge1=439 ge2=19
+[with_figs] batch=1062 total=827 nonnull=827 ge1=430 ge2=25
+[mentions] batch=1062 ge1=426 ge2=18
+[edges] batch=66 rows=9734
+[with_figs] batch=1063 total=665 nonnull=665 ge1=360 ge2=17
+[mentions] batch=1063 ge1=360 ge2=12
+[with_figs] batch=1064 total=776 nonnull=776 ge1=438 ge2=19
+[mentions] batch=1064 ge1=435 ge2=17
+[with_figs] batch=1065 total=771 nonnull=771 ge1=428 ge2=31
+[mentions] batch=1065 ge1=427 ge2=24
+[with_figs] batch=1066 total=745 nonnull=745 ge1=378 ge2=24
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6502 |
+|neg            |914  |
+|neu            |2318 |
++---------------+-----+
+
+[mentions] batch=1066 ge1=375 ge2=20
+[with_figs] batch=1067 total=1572 nonnull=1572 ge1=846 ge2=44
+[mentions] batch=1067 ge1=842 ge2=35
+[with_figs] batch=1068 total=978 nonnull=978 ge1=497 ge2=33
+[mentions] batch=1068 ge1=496 ge2=32
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|emalltimelow   |__ANY__|0.0            |neu            |2009-05-10T20:56:35Z|
+|szl            |__ANY__|0.8488         |pos            |2009-05-10T20:56:36Z|
+|sriiniivas     |__ANY__|-0.6493        |neg            |2009-05-10T20:56:36Z|
+|magillamax     |__ANY__|0.5267         |pos            |2009-05-10T20:56:37Z|
+|james_a_michael|__ANY__|0.0            |neu            |2009-05-10T20:56:37Z|
+|Cortnee4Christ |__ANY__|0.9314         |pos            |2009-05-10T20:56:37Z|
+|rocsidiaz      |__ANY__|0.6696         |pos            |2009-05-10T20:56:38Z|
+|BTRontheAIR    |__ANY__|0.8805         |pos            |2009-05-10T20:56:39Z|
+|mswilliamsmusic|__ANY__|0.0            |neu            |2009-05-10T20:56:39Z|
+|justagirl79    |__ANY__|0.7906         |pos            |2009-05-10T20:56:39Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[with_figs] batch=1069 total=701 nonnull=701 ge1=371 ge2=26
+[mentions] batch=1069 ge1=371 ge2=24
+[with_figs] batch=1070 total=885 nonnull=885 ge1=460 ge2=18
+[mentions] batch=1070 ge1=457 ge2=12
+batchId= 65 numInputRows= 64832 inputRowsPerSecond= 3241.6 processedRowsPerSecond= 5796.8526466380545
+[with_figs] batch=1071 total=731 nonnull=731 ge1=393 ge2=23
+[mentions] batch=1071 ge1=390 ge2=18
+[with_figs] batch=1072 total=752 nonnull=752 ge1=413 ge2=20
+[mentions] batch=1072 ge1=413 ge2=17
+[with_figs] batch=1073 total=1043 nonnull=1043 ge1=579 ge2=32
+[mentions] batch=1073 ge1=575 ge2=26
+[with_figs] batch=1074 total=732 nonnull=732 ge1=395 ge2=25
+[mentions] batch=1074 ge1=394 ge2=23
+[with_figs] batch=1075 total=661 nonnull=661 ge1=368 ge2=24
+[mentions] batch=1075 ge1=368 ge2=22
+[with_figs] batch=1076 total=713 nonnull=713 ge1=363 ge2=22
+[mentions] batch=1076 ge1=363 ge2=18
+[with_figs] batch=1077 total=724 nonnull=724 ge1=373 ge2=22
+[mentions] batch=1077 ge1=368 ge2=15
+[with_figs] batch=1078 total=696 nonnull=696 ge1=365 ge2=23
+[mentions] batch=1078 ge1=364 ge2=19
+[with_figs] batch=1079 total=685 nonnull=685 ge1=355 ge2=17
+[mentions] batch=1079 ge1=354 ge2=14
+[with_figs] batch=1080 total=686 nonnull=686 ge1=352 ge2=22
+[mentions] batch=1080 ge1=351 ge2=15
+[with_figs] batch=1081 total=710 nonnull=710 ge1=388 ge2=11
+[mentions] batch=1081 ge1=385 ge2=9
+[with_figs] batch=1082 total=761 nonnull=761 ge1=393 ge2=16
+[mentions] batch=1082 ge1=389 ge2=13
+[edges] batch=67 rows=9162
+[with_figs] batch=1083 total=960 nonnull=960 ge1=515 ge2=28
+[mentions] batch=1083 ge1=509 ge2=26
+[with_figs] batch=1084 total=902 nonnull=902 ge1=488 ge2=32
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |6290 |
+|neg            |805  |
+|neu            |2067 |
++---------------+-----+
+
+[mentions] batch=1084 ge1=485 ge2=26
+[with_figs] batch=1085 total=85 nonnull=85 ge1=50 ge2=4
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|JeffreyMD22    |__ANY__|0.0            |neu            |2009-05-16T19:53:58Z|
+|JonPaul_Lenczuk|__ANY__|0.5803         |pos            |2009-05-16T19:53:59Z|
+|mrskutcher     |__ANY__|0.0            |neu            |2009-05-16T19:54:00Z|
+|casezille108   |__ANY__|0.4404         |pos            |2009-05-16T19:54:02Z|
+|sarahnewcomb   |__ANY__|0.5267         |pos            |2009-05-16T19:54:02Z|
+|NJENSEN08      |__ANY__|0.7964         |pos            |2009-05-16T19:54:03Z|
+|MindStormLabs  |__ANY__|0.5574         |pos            |2009-05-16T19:54:03Z|
+|dannygokey     |__ANY__|0.826          |pos            |2009-05-16T19:54:05Z|
+|BabyHaroldK    |__ANY__|-0.1027        |neg            |2009-05-16T19:54:05Z|
+|brianna_nicole1|__ANY__|0.765          |pos            |2009-05-16T19:54:05Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+[mentions] batch=1085 ge1=50 ge2=3
+batchId= 67 numInputRows= 64700 inputRowsPerSecond= 3235.0 processedRowsPerSecond= 6058.619720947654
+[edges] batch=68 rows=1622
++---------------+-----+
+|sentiment_label|count|
++---------------+-----+
+|pos            |1084 |
+|neg            |133  |
+|neu            |405  |
++---------------+-----+
+
++---------------+-------+---------------+---------------+--------------------+
+|src            |dst    |sentiment_score|sentiment_label|timestamp           |
++---------------+-------+---------------+---------------+--------------------+
+|BOPandTigerBeat|__ANY__|0.4215         |pos            |2009-05-17T10:31:33Z|
+|missladyvaughan|__ANY__|0.5106         |pos            |2009-05-17T10:31:33Z|
+|Sharastrand    |__ANY__|0.6908         |pos            |2009-05-17T10:31:34Z|
+|GrabeelLucas   |__ANY__|0.0            |neu            |2009-05-17T10:31:34Z|
+|thomasgoubin   |__ANY__|0.0            |neu            |2009-05-17T10:31:35Z|
+|paramoreband   |__ANY__|0.7482         |pos            |2009-05-17T10:31:35Z|
+|psam           |__ANY__|0.4404         |pos            |2009-05-17T10:31:36Z|
+|SamBennington  |__ANY__|0.8225         |pos            |2009-05-17T10:31:37Z|
+|InkedFrackGrl  |__ANY__|0.7506         |pos            |2009-05-17T10:31:37Z|
+|Senilius_110   |__ANY__|0.4404         |pos            |2009-05-17T10:31:37Z|
++---------------+-------+---------------+---------------+--------------------+
+only showing top 10 rows
+
+batchId= 68 numInputRows= 11828 inputRowsPerSecond= 591.4 processedRowsPerSecond= 1491.3630059261127
+batchId= 69 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+^CTraceback (most recent call last):
+  File "/project/streaming/stream_job.py", line 265, in <module>
+    main()
+  File "/project/streaming/stream_job.py", line 258, in main
+    time.sleep(20)
+  File "/opt/spark/python/lib/pyspark.zip/pyspark/context.py", line 382, in signal_handler
+KeyboardInterrupt
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc 'tail -n 5 /data/metrics/stream_progress.jsonl'
+{"id": "d78906c7-b2ff-4ace-ba63-35991f0141c0", "runId": "332c8bc3-e952-45f0-9327-296c7b971106", "name": null, "timestamp": "2025-12-30T09:51:40.001Z", "batchId": 63, "numInputRows": 64688, "inputRowsPerSecond": 3234.4, "processedRowsPerSecond": 5382.592777500416, "durationMs": {"addBatch": 11918, "commitOffsets": 40, "getBatch": 0, "latestOffset": 3, "queryPlanning": 21, "triggerExecution": 12018, "walCommit": 36}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 981481}}, "endOffset": {"tweets": {"0": 997653}}, "latestOffset": {"tweets": {"0": 997653}}, "numInputRows": 64688, "inputRowsPerSecond": 3234.4, "processedRowsPerSecond": 5382.592777500416, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T09:52:11.380996Z"}
+{"id": "d78906c7-b2ff-4ace-ba63-35991f0141c0", "runId": "332c8bc3-e952-45f0-9327-296c7b971106", "name": null, "timestamp": "2025-12-30T09:52:20.000Z", "batchId": 65, "numInputRows": 64832, "inputRowsPerSecond": 3241.6, "processedRowsPerSecond": 5796.8526466380545, "durationMs": {"addBatch": 11047, "commitOffsets": 37, "getBatch": 1, "latestOffset": 34, "queryPlanning": 23, "triggerExecution": 11184, "walCommit": 42}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 1013803}}, "endOffset": {"tweets": {"0": 1030011}}, "latestOffset": {"tweets": {"0": 1030011}}, "numInputRows": 64832, "inputRowsPerSecond": 3241.6, "processedRowsPerSecond": 5796.8526466380545, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T09:52:31.390093Z"}
+{"id": "d78906c7-b2ff-4ace-ba63-35991f0141c0", "runId": "332c8bc3-e952-45f0-9327-296c7b971106", "name": null, "timestamp": "2025-12-30T09:53:00.000Z", "batchId": 67, "numInputRows": 64700, "inputRowsPerSecond": 3235.0, "processedRowsPerSecond": 6058.619720947654, "durationMs": {"addBatch": 10580, "commitOffsets": 33, "getBatch": 0, "latestOffset": 3, "queryPlanning": 21, "triggerExecution": 10679, "walCommit": 40}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 1046197}}, "endOffset": {"tweets": {"0": 1062372}}, "latestOffset": {"tweets": {"0": 1062372}}, "numInputRows": 64700, "inputRowsPerSecond": 3235.0, "processedRowsPerSecond": 6058.619720947654, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T09:53:11.432506Z"}
+{"id": "d78906c7-b2ff-4ace-ba63-35991f0141c0", "runId": "332c8bc3-e952-45f0-9327-296c7b971106", "name": null, "timestamp": "2025-12-30T09:53:20.000Z", "batchId": 68, "numInputRows": 11828, "inputRowsPerSecond": 591.4, "processedRowsPerSecond": 1491.3630059261127, "durationMs": {"addBatch": 7735, "commitOffsets": 77, "getBatch": 0, "latestOffset": 4, "queryPlanning": 51, "triggerExecution": 7931, "walCommit": 62}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 1062372}}, "endOffset": {"tweets": {"0": 1065329}}, "latestOffset": {"tweets": {"0": 1065329}}, "numInputRows": 11828, "inputRowsPerSecond": 591.4, "processedRowsPerSecond": 1491.3630059261127, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T09:53:31.455730Z"}
+{"id": "d78906c7-b2ff-4ace-ba63-35991f0141c0", "runId": "332c8bc3-e952-45f0-9327-296c7b971106", "name": null, "timestamp": "2025-12-30T09:53:40.000Z", "batchId": 69, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "durationMs": {"latestOffset": 2, "triggerExecution": 2}, "stateOperators": [], "sources": [{"description": "KafkaV2[Subscribe[tweets]]", "startOffset": {"tweets": {"0": 1065329}}, "endOffset": {"tweets": {"0": 1065329}}, "latestOffset": {"tweets": {"0": 1065329}}, "numInputRows": 0, "inputRowsPerSecond": 0.0, "processedRowsPerSecond": 0.0, "metrics": {"avgOffsetsBehindLatest": "0.0", "maxOffsetsBehindLatest": "0", "minOffsetsBehindLatest": "0"}}], "sink": {"description": "ForeachBatchSink", "numOutputRows": -1}, "_logged_at_utc": "2025-12-30T09:53:51.476404Z"}
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ grep -E "batchId=|processedRowsPerSecond|falling behind" logs/slow_stream.log | tail -n 80
+batchId= 0 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+25/12/30 08:31:26 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 20000 milliseconds, but spent 26067 milliseconds
+batchId= 1 numInputRows= 11488 inputRowsPerSecond= 1119.3608106791387 processedRowsPerSecond= 440.72738433208013
+batchId= 2 numInputRows= 83900 inputRowsPerSecond= 3218.381986267214 processedRowsPerSecond= 4516.094305092044
+batchId= 3 numInputRows= 59072 inputRowsPerSecond= 3178.8193510197493 processedRowsPerSecond= 4131.197985873138
+batchId= 4 numInputRows= 49172 inputRowsPerSecond= 3203.805056033359 processedRowsPerSecond= 4432.305750856319
+batchId= 5 numInputRows= 64844 inputRowsPerSecond= 3238.961038961039 processedRowsPerSecond= 4709.761766414875
+batchId= 6 numInputRows= 63892 inputRowsPerSecond= 3197.7977977977976 processedRowsPerSecond= 4677.9909210719
+batchId= 8 numInputRows= 4000 inputRowsPerSecond= 200.010000500025 processedRowsPerSecond= 907.6469253460403
+batchId= 9 numInputRows= 0 inputRowsPerSecond= 0.0 processedRowsPerSecond= 0.0
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ du -sh /data/raw_parquet
+ls /data/raw_parquet | wc -l
+du: cannot access '/data/raw_parquet': No such file or directory
+ls: cannot access '/data/raw_parquet': No such file or directory
+0
+
+
+
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ timeout 1200 python3 ingestion/producer.py \
+  --source file \
+  --file data/kaggle_tweets/samples/sent140_100k.jsonl \
+  --interval 0.001
+Streaming from data/kaggle_tweets/samples/sent140_100k.jsonl to Kafka topic 'tweets'...
+ Produced record to tweets partition [0] @ offset 0
+ Produced record to tweets partition [0] @ offset 1
+ Produced record to tweets partition [0] @ offset 2
+ Produced record to tweets partition [0] @ offset 3
+ Produced record to tweets partition [0] @ offset 4
+ Produced record to tweets partition [0] @ offset 5
+ Produced record to tweets partition [0] @ offset 6
+ ...
+ Produced record to tweets partition [0] @ offset 1065322
+ Produced record to tweets partition [0] @ offset 1065323
+ Produced record to tweets partition [0] @ offset 1065324
+ Produced record to tweets partition [0] @ offset 1065325
+ Produced record to tweets partition [0] @ offset 1065326
+ Produced record to tweets partition [0] @ offset 1065327
+ Produced record to tweets partition [0] @ offset 1065328
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ 
+
+
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+196
+tweets:0:120887
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   266.40%   1.233GiB / 15.62GiB   7.90%     5.05GB / 423MB    836kB / 4.46GB    210
+cde593a9630d   spark-master   115.04%   1.136GiB / 15.62GiB   7.28%     553MB / 3.06GB    66.1MB / 1.18GB   334
+d2f218d84b3c   kafka          16.55%    1.012GiB / 15.62GiB   6.48%     263MB / 1.61GB    5.41MB / 305MB    82
+e4c3cedc4af8   zookeeper      0.17%     120.6MiB / 15.62GiB   0.75%     2.57MB / 1.57MB   3.62MB / 44.9MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:31 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:33 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+9
+1.8M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+200
+tweets:0:156825
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   259.64%   1.321GiB / 15.62GiB   8.46%     5.23GB / 431MB    836kB / 4.56GB    203
+cde593a9630d   spark-master   85.78%    1.271GiB / 15.62GiB   8.14%     561MB / 3.08GB    66.1MB / 1.18GB   333
+d2f218d84b3c   kafka          11.90%    1.013GiB / 15.62GiB   6.49%     277MB / 1.77GB    5.41MB / 313MB    82
+e4c3cedc4af8   zookeeper      0.11%     120.6MiB / 15.62GiB   0.75%     2.57MB / 1.57MB   3.62MB / 44.9MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:34 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:34 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+11
+2.2M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+206
+tweets:0:201400
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   125.44%   1.36GiB / 15.62GiB    8.71%     5.44GB / 441MB    836kB / 4.61GB    213
+cde593a9630d   spark-master   152.55%   1.293GiB / 15.62GiB   8.28%     571MB / 3.11GB    66.1MB / 1.18GB   333
+d2f218d84b3c   kafka          13.07%    1.016GiB / 15.62GiB   6.51%     293MB / 1.96GB    5.41MB / 328MB    82
+e4c3cedc4af8   zookeeper      0.11%     120.6MiB / 15.62GiB   0.75%     2.57MB / 1.57MB   3.62MB / 44.9MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:35 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:35 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+15
+2.7M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+214
+tweets:0:255356
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   191.20%   1.388GiB / 15.62GiB   8.89%     5.7GB / 454MB     836kB / 4.75GB    223
+cde593a9630d   spark-master   83.33%    1.302GiB / 15.62GiB   8.34%     582MB / 3.14GB    66.1MB / 1.18GB   334
+d2f218d84b3c   kafka          13.22%    1.018GiB / 15.62GiB   6.52%     313MB / 2.18GB    5.41MB / 349MB    82
+e4c3cedc4af8   zookeeper      0.10%     120.6MiB / 15.62GiB   0.75%     2.58MB / 1.57MB   3.62MB / 44.9MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:36 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:36 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+18
+3.2M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+222
+tweets:0:315024
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   90.07%    1.504GiB / 15.62GiB   9.63%     5.99GB / 470MB    836kB / 4.84GB    226
+cde593a9630d   spark-master   124.01%   1.305GiB / 15.62GiB   8.36%     598MB / 3.19GB    66.1MB / 1.18GB   334
+d2f218d84b3c   kafka          13.08%    1.021GiB / 15.62GiB   6.54%     335MB / 2.43GB    5.41MB / 365MB    83
+e4c3cedc4af8   zookeeper      0.14%     120.6MiB / 15.62GiB   0.75%     2.58MB / 1.58MB   3.62MB / 45MB     47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:37 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:37 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+22
+3.9M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+232
+tweets:0:399400
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   195.62%   1.754GiB / 15.62GiB   11.23%    6.4GB / 493MB     836kB / 5.02GB    232
+cde593a9630d   spark-master   53.54%    1.594GiB / 15.62GiB   10.21%    619MB / 3.26GB    66.1MB / 1.18GB   334
+d2f218d84b3c   kafka          13.11%    1.026GiB / 15.62GiB   6.57%     367MB / 2.77GB    5.41MB / 399MB    83
+e4c3cedc4af8   zookeeper      0.25%     120.6MiB / 15.62GiB   0.75%     2.58MB / 1.58MB   3.62MB / 45MB     47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:39 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:39 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+27
+4.7M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+240
+tweets:0:471596
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   253.07%   1.884GiB / 15.62GiB   12.07%    6.76GB / 514MB    852kB / 5.16GB    227
+cde593a9630d   spark-master   36.20%    1.861GiB / 15.62GiB   11.92%    640MB / 3.32GB    66.1MB / 1.19GB   334
+d2f218d84b3c   kafka          14.87%    1.03GiB / 15.62GiB    6.59%     394MB / 3.08GB    5.41MB / 424MB    83
+e4c3cedc4af8   zookeeper      0.23%     120.6MiB / 15.62GiB   0.75%     2.58MB / 1.58MB   3.62MB / 45.1MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:40 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:40 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+32
+5.5M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+250
+tweets:0:539420
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   66.96%    2.011GiB / 15.62GiB   12.88%    7.08GB / 533MB    852kB / 5.26GB    227
+cde593a9630d   spark-master   151.61%   2.002GiB / 15.62GiB   12.82%    658MB / 3.38GB    66.1MB / 1.19GB   335
+d2f218d84b3c   kafka          14.24%    1.034GiB / 15.62GiB   6.62%     419MB / 3.34GB    5.41MB / 440MB    83
+e4c3cedc4af8   zookeeper      0.26%     120.6MiB / 15.62GiB   0.75%     2.58MB / 1.58MB   3.62MB / 45.1MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:42 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:42 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+36
+6.3M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+266
+tweets:0:675178
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   227.62%   2.078GiB / 15.62GiB   13.30%    7.74GB / 572MB    852kB / 5.55GB    238
+cde593a9630d   spark-master   72.22%    2.001GiB / 15.62GiB   12.81%    694MB / 3.5GB     66.1MB / 1.19GB   334
+d2f218d84b3c   kafka          15.21%    1.041GiB / 15.62GiB   6.67%     469MB / 3.89GB    5.41MB / 491MB    83
+e4c3cedc4af8   zookeeper      0.29%     120.6MiB / 15.62GiB   0.75%     2.59MB / 1.58MB   3.62MB / 45.2MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:44 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:45 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+44
+7.7M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+278
+tweets:0:776108
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   260.12%   2.086GiB / 15.62GiB   13.36%    8.24GB / 603MB    852kB / 5.74GB    221
+cde593a9630d   spark-master   42.99%    2.005GiB / 15.62GiB   12.84%    724MB / 3.59GB    66.1MB / 1.19GB   335
+d2f218d84b3c   kafka          15.99%    1.047GiB / 15.62GiB   6.71%     507MB / 4.29GB    5.41MB / 523MB    83
+e4c3cedc4af8   zookeeper      0.13%     120.6MiB / 15.62GiB   0.75%     2.59MB / 1.58MB   3.62MB / 45.2MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:46 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:47 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+50
+8.8M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+290
+tweets:0:869000
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+574556c9d910   spark-worker   181.35%   2.103GiB / 15.62GiB   13.47%    8.68GB / 629MB    852kB / 5.93GB    242
+cde593a9630d   spark-master   58.27%    2.01GiB / 15.62GiB    12.87%    748MB / 3.67GB    66.1MB / 1.2GB    335
+d2f218d84b3c   kafka          13.69%    1.053GiB / 15.62GiB   6.74%     541MB / 4.66GB    5.41MB / 555MB    83
+e4c3cedc4af8   zookeeper      0.19%     120.6MiB / 15.62GiB   0.75%     2.59MB / 1.59MB   3.62MB / 45.3MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:48 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:49 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+56
+9.8M    /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec -it spark-master bash -lc "find /data/raw_parquet -type f | wc -l"
+docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell   --bootstrap-server kafka:9092   --topic tweets   --time -1
+docker stats --no-stream
+
+docker exec spark-master bash -lc '
+ls -lh /data/checkpoints/edges | tail -n 5
+'
+
+docker exec spark-master bash -lc '
+ls -lh /data/raw_parquet | wc -l
+du -sh /data/raw_parquet
+'
+298
+tweets:0:929098
+CONTAINER ID   NAME           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O          BLOCK I/O         PIDS
+574556c9d910   spark-worker   64.92%    2.099GiB / 15.62GiB   13.44%    8.98GB / 647MB   852kB / 6.02GB    226
+cde593a9630d   spark-master   60.11%    2.02GiB / 15.62GiB    12.93%    765MB / 3.72GB   66.1MB / 1.2GB    336
+d2f218d84b3c   kafka          13.85%    1.056GiB / 15.62GiB   6.76%     564MB / 4.91GB   5.41MB / 572MB    83
+e4c3cedc4af8   zookeeper      0.13%     120.6MiB / 15.62GiB   0.75%     2.6MB / 1.59MB   3.62MB / 45.3MB   47
+total 16K
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:50 commits
+-rw-r--r-- 1 spark spark   45 Dec 30 09:29 metadata
+drwxr-xr-x 2 spark spark 4.0K Dec 30 09:50 offsets
+drwxr-xr-x 3 spark spark 4.0K Dec 30 09:29 sources
+60
+11M     /data/raw_parquet
+(venv) angelcoronel15@vm-stream:~/twitter-bigdata-project$ docker exec kafka bash -lc '
+kafka-consumer-groups \
+  --bootstrap-server kafka:29092 \
+  --describe \
+  --group spark-kafka-source
+'
+
+Error: Consumer group 'spark-kafka-source' does not exist.
